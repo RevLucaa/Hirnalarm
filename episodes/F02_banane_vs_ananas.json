@@ -1,0 +1,140 @@
+{
+ "episode": 2,
+ "seed": 11,
+ "fighters": [
+  {
+   "kind": "banana",
+   "name": "Bananen-Bernd",
+   "short": "Bernd",
+   "color": [
+    255,
+    216,
+    40
+   ]
+  },
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    245,
+    160,
+    40
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Bernd ist zurück! Aber heute wartet ein neuer Gegner:"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "text": "Ananas-Anton! Stachelig, sauer und mit Krone auf dem Kopf!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: SPRINT",
+   "color": [
+    60,
+    160,
+    255
+   ],
+   "text": "Runde eins: Sprint!"
+  },
+  {
+   "scene": "action",
+   "type": "race",
+   "actor": 0,
+   "trip": true,
+   "text": "Bernd flitzt los wie ein Blitz... und Anton stolpert über seine eigenen Blätter!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "text": "Punkt für Bernd!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: STACHELN",
+   "color": [
+    255,
+    120,
+    30
+   ],
+   "text": "Runde zwei: Stacheln!"
+  },
+  {
+   "scene": "action",
+   "type": "spin",
+   "actor": 1,
+   "text": "Anton dreht sich wie ein Kreisel... und pikst Bernd mitten in den Bauch! [laugh] AUA!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "show_score": true,
+   "text": "Punkt für Anton! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 3: KOPFNUSS",
+   "color": [
+    170,
+    80,
+    255
+   ],
+   "text": "Runde drei: Kopfnuss!"
+  },
+  {
+   "scene": "action",
+   "type": "headbutt",
+   "actor": 1,
+   "text": "Anton nimmt Anlauf und knallt mit der Krone gegen Bernd... Bernd fliegt in die Seile!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "show_score": true,
+   "text": "Punkt für Anton! Eins zu zwei!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "slam",
+   "actor": 1,
+   "peel": true,
+   "jump0": 0.3,
+   "hit": 0.66,
+   "text": "Bernd wirft seine Schale auf den Boden... aber Anton springt einfach drüber! Und BOOM! Bodyslam von oben!"
+  },
+  {
+   "scene": "win",
+   "side": 1,
+   "text": "ANANAS-ANTON GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "loser_expr": "sad",
+   "text": "Bernd hat zum ersten Mal verloren..."
+  },
+  {
+   "scene": "cta",
+   "line1": "WER STOPPT",
+   "line2": "ANANAS-ANTON?",
+   "text": "Wer soll Anton stoppen? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 3.0
+}

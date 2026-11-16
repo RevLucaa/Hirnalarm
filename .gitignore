@@ -1,0 +1,6 @@
+prev_*.png
+*.tmp.mp4
+*.sfx.wav
+__pycache__/
+*.mp3
+*.mp4

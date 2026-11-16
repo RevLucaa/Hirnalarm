@@ -1,0 +1,129 @@
+{
+ "episode": 3,
+ "seed": 23,
+ "bg_top": [
+  20,
+  60,
+  110
+ ],
+ "mat": [
+  200,
+  80,
+  90
+ ],
+ "fighters": [
+  {
+   "kind": "melon",
+   "name": "Melonen-Manni",
+   "short": "Manni",
+   "color": [
+    110,
+    200,
+    70
+   ]
+  },
+  {
+   "kind": "coconut",
+   "name": "Kokos-Kalle",
+   "short": "Kalle",
+   "color": [
+    190,
+    130,
+    80
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Melonen-Manni will Rache! Doch zuerst muss er an Kokos-Kalle vorbei!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "text": "Hart, haarig und hohl im Kopf! Die zwei haben sich noch nie getroffen... heute wird es ernst!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: KRAFT",
+   "color": [
+    255,
+    120,
+    30
+   ],
+   "text": "Runde eins: Kraft!"
+  },
+  {
+   "scene": "action",
+   "type": "slam",
+   "actor": 0,
+   "bounce": true,
+   "hit": 0.28,
+   "text": "Manni springt hoch in die Luft... und landet auf Kalle! Aber Kalle ist so hart, dass Manni einfach zurückprallt! [laugh] BOING!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "text": "Punkt für Kalle!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: SPEED",
+   "color": [
+    60,
+    160,
+    255
+   ],
+   "text": "Runde zwei: Speed!"
+  },
+  {
+   "scene": "action",
+   "type": "post",
+   "actor": 0,
+   "text": "Kalle rollt los wie eine Bowlingkugel... Manni springt zur Seite... und Kalle kracht voll in den Ringpfosten!",
+   "hit": 0.73
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "show_score": true,
+   "text": "Punkt für Manni! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "clash",
+   "actor": 0,
+   "splash": true,
+   "text": "Beide nehmen Anlauf... Kopf gegen Kopf! KRACH! Kalle bekommt einen Riss... und Kokosmilch spritzt überall hin!"
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "MELONEN-MANNI GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "banana",
+   "text": "Jetzt fehlt nur noch die Revanche gegen Bernd..."
+  },
+  {
+   "scene": "cta",
+   "challenger": "pineapple",
+   "line1": "MANNI ODER ANTON?",
+   "line2": "KOMMENTIER!",
+   "text": "Wer soll gewinnen? Manni oder Anton? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 4.6
+}
