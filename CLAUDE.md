@@ -34,7 +34,11 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
 8. **Upload**: `vidiq_video_upload` mit `url` = Asset-URL → `uploadId`. `vidiq_social_post_draft_create` mit
    YouTube-Ziel `UCmLDHEd4GKLvHuW58FarfCQ`, `privacyStatus: public`, `categoryId: 23`, Titel `X vs. Y 🍌🍉 … #shorts`,
    Beschreibung mit „Folge NN“, Kommentar-Frage und Hashtags, ~10 Tags, `publishAt` = morgen 13:00 bzw. 17:30 `+01:00` (Sommerzeit `+02:00`).
-   Dann `vidiq_social_post_publish`. Mit `vidiq_user_videos` prüfen, dass `scheduledPublishAt` stimmt.
+   **Im selben Draft zusätzlich Instagram** als zweites Ziel: `platform: INSTAGRAM`, `platformAccountId: 29785569181129808` (@hirnalarm),
+   eigener `text` (Titel-Zeile, 1–2 Sätze, Kommentar-Frage, Hashtags `#brainrot #obstkampf … #lustig #comedy #reels #deutsch`, ohne #shorts), gleiche `publishAt`.
+   Dann `vidiq_social_post_publish` (alle Ziele). Mit `vidiq_user_videos` prüfen, dass `scheduledPublishAt` stimmt, und mit `vidiq_social_post_status`, dass Instagram `scheduled` ist.
+   Hirnalarm-TikTok („BrainrotLab“) ist noch nicht mit vidIQ verbunden – sobald es in `vidiq_social_account_list` auftaucht, ebenfalls als Ziel aufnehmen
+   (privacyLevel PUBLIC_TO_EVERYONE, allowComment true, musicUsageConfirmed true, isAiGenerated false).
 9. `liga.json` aktualisieren (Bilanz, `folgen` inkl. YouTube-ID, `naechste` um 2 kürzen und neue Duelle hinten anhängen, gern Kommentarwünsche aus `vidiq_video_comments` der letzten Videos aufgreifen).
    Episoden-Dateien committen und pushen (`git -c push.negotiate=true push`).
 10. Kurze Zusammenfassung an Luca: Titel, Uhrzeiten, YouTube-Links, verbrauchte ElevenLabs-Credits.
