@@ -134,5 +134,32 @@
     "strawberry"
    ]
   }
- ]
+ ],
+ "themen_pool": {
+  "gilt_ab_folge": 11,
+  "sport": [
+   "Fußball-Elfmeterschießen (Kokosnuss als Ball, Melone als Torwart)",
+   "Basketball (Dunk mit Orange)",
+   "Tennis (Erdbeer-Emma vs. Zitronen-Zora, Kerne als Bälle)",
+   "Sumo im Obstsalat-Schüssel-Ring",
+   "Skispringen von der Kühlschrank-Schanze",
+   "Formel 1 im Einkaufswagen",
+   "Boxen mit Bananenschalen-Handschuhen",
+   "Schwimmen im Smoothie-Becken",
+   "Dart mit Zahnstochern",
+   "Tauziehen mit Spaghetti"
+  ],
+  "lustige_themen": [
+   "Kochshow: Wer landet NICHT im Mixer?",
+   "Obst-Quiz-Show mit Buzzer",
+   "Talentshow / Obst sucht den Superstar",
+   "Tanz-Battle",
+   "Escape aus dem Kühlschrank",
+   "Wer kann am längsten nicht lachen",
+   "Hot-Sauce-Challenge",
+   "Supermarkt-Wettrennen zur Kasse",
+   "Weihnachts-Special (Dezember)",
+   "Zuschauer-Wunschthema aus den Kommentaren"
+  ]
+ }
 }

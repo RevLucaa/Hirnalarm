@@ -43,6 +43,12 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
    Episoden-Dateien committen und pushen (`git -c push.negotiate=true push`).
 10. Kurze Zusammenfassung an Luca: Titel, Uhrzeiten, YouTube-Links, verbrauchte ElevenLabs-Credits.
 
+## Abwechslung ab Folge 11 (Wunsch von Luca, 17.11.2026)
+Ab Folge 11 nicht mehr nur Wrestling-Ring: regelmäßig andere Sportarten und lustige Themen einbauen, damit es nicht einseitig wird.
+Faustregel: höchstens 1 von 2 Folgen pro Tag klassisch im Ring, die andere mit neuem Thema. Kein Thema zweimal hintereinander.
+Figuren, Bilanz und Storyline der Obst-Liga laufen weiter (Bilanz gilt für alle Disziplinen).
+Für jedes neue Thema in `engine.py` passende Kulisse (z. B. `arena`-Feld in der Episode) und Aktionen ergänzen; Ideen-Pool steht in `liga.json` → `themen_pool`.
+
 ## Grenzen
 - ElevenLabs: Starter-Plan 40.000 Credits/Monat. Vor dem Erzeugen `account_get_usage` prüfen; wenn < 2.000 übrig, abbrechen und Luca Bescheid geben.
 - Nie öffentlich posten, wenn das Rendern/Prüfen fehlschlägt – lieber Lauf abbrechen und melden.
