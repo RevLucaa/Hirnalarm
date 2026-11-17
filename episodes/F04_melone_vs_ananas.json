@@ -1,0 +1,142 @@
+{
+ "episode": 4,
+ "seed": 41,
+ "bg_top": [
+  30,
+  90,
+  60
+ ],
+ "mat": [
+  90,
+  140,
+  220
+ ],
+ "guest": {
+  "kind": "birch",
+  "name": "Birken-Baum Rudi",
+  "thanks": "Idee von @danielmooser3757|DANKE, DANIEL!"
+ },
+ "fighters": [
+  {
+   "kind": "melon",
+   "name": "Melonen-Manni",
+   "short": "Manni",
+   "color": [
+    110,
+    200,
+    70
+   ]
+  },
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    245,
+    175,
+    40
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Melone gegen Ananas!"
+  },
+  {
+   "scene": "guest",
+   "text": "Und heute mit Gast-Schiedsrichter, Birken-Baum Rudi! Danke an Daniel für die Idee! Rudi hat keine Pfeife... nur Blätter!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "text": "Melonen-Manni will Ananas-Anton die Krone klauen!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: SPUCKEN",
+   "color": [
+    255,
+    120,
+    30
+   ],
+   "text": "Runde eins: Spucken!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 0,
+   "proj": "seed",
+   "word": "RATATA!",
+   "text": "Manni ballert Melonenkerne wie ein Maschinengewehr! Anton sieht aus wie ein Nudelsieb! [laugh]"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "text": "Punkt für Manni!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: WIRBELWIND",
+   "color": [
+    60,
+    160,
+    255
+   ],
+   "text": "Runde zwei: Wirbelwind!"
+  },
+  {
+   "scene": "action",
+   "type": "spin",
+   "actor": 1,
+   "word": "WUSCH!",
+   "leaves": true,
+   "text": "Anton dreht sich wie ein Ventilator... Manni fliegt hoch... und Rudi verliert alle seine Blätter!",
+   "leaves_u": 0.58
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "show_score": true,
+   "text": "Punkt für Anton! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "miss",
+   "actor": 0,
+   "hit": 0.62,
+   "word": "PLOPP!",
+   "text": "Anton springt hoch für den Bodyslam... aber Manni rollt einfach unten durch! Anton landet kopfüber im Ring und steckt fest!",
+   "j0": 0.15
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "MELONEN-MANNI GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "birch",
+   "text": "Doch Rudi hat jetzt selbst Lust auf Kämpfen..."
+  },
+  {
+   "scene": "cta",
+   "challenger": "birch",
+   "line1": "SOLL RUDI IN DEN RING?",
+   "line2": "KOMMENTIER!",
+   "text": "Soll Rudi in den Ring? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 3.95
+}

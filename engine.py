@@ -263,9 +263,36 @@ def spr_cucumber(expr, look, crack=False):
     face(d, cx, 240, expr, 0.95, look)
     return im, 0
 
+def spr_birch(expr, look, crack=False):
+    # Birken-Baum (Gast). crack=True -> kahl (Blaetter weg)
+    w, h = 560, 900
+    im = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(im); cx = w // 2
+    # branches/arms
+    d.line([(cx - 70, 520), (cx - 210, 430), (cx - 250, 360)], fill=(235, 235, 225), width=34, joint="curve")
+    d.line([(cx + 70, 500), (cx + 200, 420), (cx + 235, 340)], fill=(235, 235, 225), width=34, joint="curve")
+    d.line([(cx - 70, 520), (cx - 210, 430), (cx - 250, 360)], fill=OC, width=6)
+    d.line([(cx + 70, 500), (cx + 200, 420), (cx + 235, 340)], fill=OC, width=6)
+    if crack:
+        for a_ in (-50, -20, 15, 45):
+            r = math.radians(a_ - 90)
+            d.line([(cx, 330), (cx + 150 * math.cos(r), 330 + 170 * math.sin(r))], fill=(110, 80, 50), width=14)
+        d.ellipse([cx + 90, 170, cx + 130, 215], fill=(150, 210, 70), outline=OC, width=4)
+    else:
+        rnd = random.Random(11)
+        for _ in range(26):
+            x, y = cx + rnd.uniform(-190, 190), rnd.uniform(60, 330); r = rnd.uniform(60, 95)
+            d.ellipse([x - r, y - r, x + r, y + r], fill=rnd.choice([(120, 200, 70), (150, 215, 80), (95, 175, 60)]), outline=(50, 110, 40), width=5)
+    d.rounded_rectangle([cx - 95, 300, cx + 95, h - 10], 50, fill=(245, 245, 238), outline=OC, width=10)
+    rnd = random.Random(4)
+    for _ in range(14):
+        y = rnd.uniform(560, h - 50); x = cx + rnd.uniform(-80, 40)
+        d.rounded_rectangle([x, y, x + rnd.uniform(25, 60), y + 12], 6, fill=(40, 35, 35))
+    face(d, cx, 420, expr, 0.9, look)
+    return im, 0
+
 KINDS = {"banana": spr_banana, "melon": spr_melon, "pineapple": spr_pineapple, "coconut": spr_coconut,
-         "strawberry": spr_strawberry, "lemon": spr_lemon, "cucumber": spr_cucumber}
-BASE_SC = {"banana": 1.0, "melon": 1.02, "pineapple": 0.92, "coconut": 1.0, "strawberry": 0.95, "lemon": 0.95, "cucumber": 0.9}
+         "strawberry": spr_strawberry, "lemon": spr_lemon, "cucumber": spr_cucumber, "birch": spr_birch}
+BASE_SC = {"banana": 1.0, "melon": 1.02, "pineapple": 0.92, "coconut": 1.0, "strawberry": 0.95, "lemon": 0.95, "cucumber": 0.9, "birch": 0.7}
 _sc = {}
 def sprite(kind, expr, look, crack=False):
     k = (kind, expr, look, crack)
@@ -493,6 +520,9 @@ def act_post(u, t, A, V, ai, p, ex):
         if u < h + 0.08: ex.append(("shake", 16))
         ex.append(("burst", postx - dr * 120, 820, 150, "BONK!", clamp((u - h) / 0.35)))
     ex.append(("post", postx))
+    if p.get("peel"):
+        pk = lerp(hV, postx, 0.45)
+        if p.get("peel_u", 0) <= u < h: ex.append(("peel", pk, FLOOR, 0))
     return [(0.1, "whoosh"), (h, "boom_s")]
 
 def act_spin(u, t, A, V, ai, p, ex):
@@ -503,7 +533,8 @@ def act_spin(u, t, A, V, ai, p, ex):
         A["x"] = hV - dr * 230; A["rot"] = 0; A["expr"] = "grin"
         q = clamp((u - 0.45) / 0.45)
         V["y"] = FLOOR - math.sin(q * math.pi) * 450; V["x"] = lerp(hV, hV + dr * 120, q); V["expr"] = "shock"; V["rot"] = dr * -20 * math.sin(q * math.pi)
-        ex.append(("burst", hV, 760, 170, "AUA!", clamp((u - 0.45) / 0.5)))
+        ex.append(("burst", hV, 760, 170, p.get("word", "AUA!"), clamp((u - 0.45) / 0.5)))
+        if p.get("leaves"): lu = p.get("leaves_u", 0.4); ex.append(("leaves", clamp((u - lu) / (1 - lu))))
         if u < 0.55: ex.append(("shake", 12))
     return [(0.05, "whoosh"), (0.45, "pop"), (0.47, "boom_s")]
 
@@ -545,7 +576,47 @@ def act_clash(u, t, A, V, ai, p, ex):
         if p.get("splash"): ex.append(("splash", V["x"], FLOOR - 380, clamp((u - 0.5) / 0.5)))
     return [(0.2, "whoosh"), (0.36, "boom"), (0.5, "pop")]
 
-ACTIONS = {"race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash}
+def act_throw(u, t, A, V, ai, p, ex):
+    # A spuckt/spritzt Projektile auf V (proj: seed | juice)
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    kind = p.get("proj", "seed"); n = 12; evs = []
+    A["expr"] = "grin"; A["x"] = hA + dr * 40
+    if kind == "juice": A["sx"] = 1 - 0.12 * abs(math.sin(u * 40)) * (0.1 < u < 0.6); A["sy"] = 1 + 0.08 * abs(math.sin(u * 40)) * (0.1 < u < 0.6)
+    rnd = random.Random(42)
+    first = 0.12 + 0.12
+    for k in range(n):
+        u0 = 0.12 + k * 0.035; q = (u - u0) / 0.12
+        oy = rnd.uniform(-120, 120)
+        if 0 <= q <= 1:
+            x = lerp(hA + dr * 150, hV - dr * 40, q); y = lerp(FLOOR - 320, FLOOR - 280 + oy, q) - math.sin(q * math.pi) * 80
+            ex.append(("proj", x, y, kind))
+        if k % 3 == 0: evs.append((u0 + 0.12, "pop"))
+    if u > first:
+        jit = 14 * math.sin(t * 60) * (u < 0.6)
+        V["x"] = hV + jit; V["expr"] = "shock" if u < 0.6 else ("sad" if kind == "juice" else "dizzy")
+        V["rot"] = dr * 8 * math.sin(t * 25) * (u < 0.6)
+        ex.append(("burst", 540, 760, 200, p.get("word", "RATATA!"), clamp((u - first) / 0.5)))
+    return [(0.1, "whoosh")] + evs
+
+def act_miss(u, t, A, V, ai, p, ex):
+    # V springt auf A, A rollt weg, V steckt kopfueber im Ring. A = Gewinner
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    land = p.get("hit", 0.5); j0 = p.get("j0", 0.12)
+    if u < j0:
+        V["sy"] = 1 - 0.12 * ease_out(u / j0); V["expr"] = "angry"; A["expr"] = "shock"
+    elif u < land:
+        q = (u - j0) / (land - j0)
+        V["x"] = lerp(hV, hA, q); V["y"] = FLOOR - 820 * math.sin(q * math.pi) + (220 * q * q if q > 0.7 else 0); V["rot"] = dr * 180 * ease_in(q); V["expr"] = "angry"
+        r = clamp((u - j0 - 0.12) / (land - j0 - 0.17))
+        A["x"] = lerp(hA, hV, ease_out(r)); A["rot"] = dr * 360 * r * 1.5; A["expr"] = "grin" if r > 0.3 else "shock"
+    else:
+        A["x"] = hV; A["expr"] = "grin"
+        V["x"] = hA; V["y"] = FLOOR + 230; V["rot"] = dr * 180 + 7 * math.sin(t * 22); V["expr"] = "dizzy"
+        if u < land + 0.08: ex.append(("shake", 24))
+        ex.append(("burst", 540, 760, 230, p.get("word", "PLOPP!"), clamp((u - land) / 0.45)))
+    return [(0.12, "whoosh"), (0.3, "whoosh"), (land, "boom")]
+
+ACTIONS = {"race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss}
 
 # precompute scores & sfx
 order = [s for s, _, _ in SEG]
@@ -560,6 +631,18 @@ def score_at(t):
     return sc
 WIN_T = next((a for s, a, b in SEG if s["scene"] == "win"), TOTAL)
 WINNER = next((s["side"] for s, a, b in SEG if s["scene"] == "win"), 0)
+GUEST = EP.get("guest")  # {kind, name, thanks}
+GUEST_T = next((b for s, a, b in SEG if s["scene"] == "guest"), TOTAL)
+TEASE_T = next((a for s, a, b in SEG if s["scene"] in ("win", "tease")), TOTAL)
+BALD_T = next((a + (s.get("leaves_u", 0.4) + 0.1) * (b - a) for s, a, b in SEG if s.get("leaves")), TOTAL)
+LEAVES = [(random.uniform(-200, 200), random.uniform(-80, 60), random.uniform(0.5, 1.4), random.uniform(0, 6)) for _ in range(40)]
+
+def draw_guest(img, x, ybot, sc, bald, expr="happy", rot=0):
+    spr, _ = sprite(GUEST["kind"], expr, (0, 0), bald)
+    nw, nh = int(spr.size[0] * sc), int(spr.size[1] * sc)
+    s = spr.resize((nw, nh), Image.BICUBIC)
+    if rot: s = s.rotate(rot, expand=True, resample=Image.BICUBIC)
+    img.alpha_composite(s, (int(x - s.size[0] / 2), int(ybot - s.size[1])))
 
 def frame(t, collect_sfx=False):
     s, u, a, b = seg_at(t)
@@ -577,6 +660,10 @@ def frame(t, collect_sfx=False):
         F[i]["sc"] *= 1 + 0.2 * ease_out(u / 0.2); F[i]["x"] = lerp(HOME[i], 450 if i == 0 else 610, ease_out(u / 0.2)); F[i]["expr"] = "grin"; F[i]["look"] = (0, 0)
         F[o]["x"] = lerp(HOME[o], 970 if o == 1 else 110, ease_out(u / 0.2)); F[o]["sc"] *= 0.7
         ex.append(("tag", FIGHTERS[i]["name"].upper(), FIGHTERS[i]["color"], u))
+    elif sc_ == "guest":
+        for i_, xx in ((0, 120), (1, 960)):
+            F[i_]["x"] = lerp(HOME[i_], xx, ease_out(u / 0.2)); F[i_]["sc"] *= 0.7; F[i_]["expr"] = "shock"; F[i_]["look"] = (0, -1)
+        ex.append(("guest_front", u))
     elif sc_ == "banner":
         ex.append(("banner", s["label"], s.get("color", [255, 80, 80]), u))
         F[0]["expr"] = F[1]["expr"] = "angry"
@@ -629,9 +716,38 @@ def frame(t, collect_sfx=False):
     for e in ex:
         if e[0] == "peel":
             p_ = PEEL.rotate(e[3], expand=True); img.alpha_composite(p_, (int(e[1] - p_.size[0] / 2), int(e[2] - p_.size[1] + 40)))
+    if GUEST and GUEST_T <= t < TEASE_T:
+        bob = abs(math.sin(t * 9)) * 25 if sc_ == "point" else 0
+        gex = "grin" if sc_ == "point" else ("shock" if sc_ == "action" else "happy")
+        draw_guest(img, 540, FLOOR - 170 - bob, 0.55, t >= BALD_T, gex, 4 * math.sin(t * 2))
     # draw lower (airborne) last
     for ch in sorted(F, key=lambda c: -c["y"]): paste_char(img, ch)
     d = ImageDraw.Draw(img)
+    for e in ex:
+        if e[0] == "proj":
+            x, y = e[1], e[2]
+            if e[3] == "juice":
+                d.ellipse([x - 16, y - 16, x + 16, y + 16], fill=(255, 240, 80), outline=(200, 170, 20), width=4)
+            else:
+                d.ellipse([x - 11, y - 17, x + 11, y + 17], fill=(35, 25, 20), outline=(255, 255, 255), width=3)
+        elif e[0] == "leaves":
+            for lx, ly, v, ph in LEAVES:
+                q = e[1]; yy = FLOOR - 170 - 0.55 * 700 + ly + v * 900 * q; xx = 540 + lx * (1 + q) + 40 * math.sin(t * 6 + ph)
+                if q > 0 and yy < FLOOR + 300:
+                    d.ellipse([xx - 18, yy - 10, xx + 18, yy + 10], fill=(140, 210, 70), outline=(50, 110, 40), width=3)
+        elif e[0] == "guest_front":
+            uu = e[1]
+            draw_guest(img, 540, lerp(H + 200, FLOOR + 160, back_out(uu / 0.3)), 0.95, False, "grin", 5 * math.sin(t * 5))
+            dd = ImageDraw.Draw(img)
+            text_c(dd, (540, 420), GUEST["name"].upper(), font(min(100, 1700 / max(8, len(GUEST["name"]))) * back_out(uu / 0.25)), fill=(150, 230, 90), stroke=12)
+            if GUEST.get("thanks") and uu > 0.3:
+                k = back_out((uu - 0.3) / 0.2)
+                l1, l2 = (GUEST["thanks"].split("|") + [""])[:2]
+                dd.rounded_rectangle([90, 490, 990, 680], 34, fill=(255, 255, 255), outline=(0, 0, 0), width=8)
+                fs = 70
+                while dd.textlength(l1, font=font(fs)) > 840: fs -= 2
+                text_c(dd, (540, 545), l1, font(fs * k), fill=(30, 30, 40), stroke=0)
+                text_c(dd, (540, 625), l2, font(64 * k), fill=(230, 30, 50), stroke=0)
     for e in ex:
         if e[0] == "post":
             px = e[1]

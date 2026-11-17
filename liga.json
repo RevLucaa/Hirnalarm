@@ -1,0 +1,117 @@
+{
+ "hinweis": "Erstmals am 17.11.2026 aus den Episoden F01-F05 rekonstruiert (vorher nicht im Repo).",
+ "charaktere": {
+  "Bananen-Bernd": {
+   "kind": "banana",
+   "short": "Bernd",
+   "siege": 2,
+   "niederlagen": 1
+  },
+  "Melonen-Manni": {
+   "kind": "melon",
+   "short": "Manni",
+   "siege": 2,
+   "niederlagen": 1
+  },
+  "Ananas-Anton": {
+   "kind": "pineapple",
+   "short": "Anton",
+   "siege": 1,
+   "niederlagen": 1
+  },
+  "Kokos-Kalle": {
+   "kind": "coconut",
+   "short": "Kalle",
+   "siege": 0,
+   "niederlagen": 1
+  },
+  "Zitronen-Zora": {
+   "kind": "lemon",
+   "short": "Zora",
+   "siege": 0,
+   "niederlagen": 1
+  },
+  "Gurken-Gustav": {
+   "kind": "cucumber",
+   "short": "Gustav",
+   "siege": 0,
+   "niederlagen": 0,
+   "notiz": "in F05 angeteasert"
+  },
+  "Birken-Baum Rudi": {
+   "kind": "birch",
+   "short": "Rudi",
+   "siege": 0,
+   "niederlagen": 0,
+   "notiz": "Zuschauer-Idee von @danielmooser3757; Gast-Schiri in F04, will selbst kämpfen"
+  }
+ },
+ "folgen": [
+  {
+   "nr": 1,
+   "duell": "Bernd vs. Manni",
+   "sieger": "Bernd",
+   "youtube": "hDePYXkQSw8",
+   "datum": "2026-11-16"
+  },
+  {
+   "nr": 2,
+   "duell": "Bernd vs. Anton",
+   "sieger": "Anton",
+   "youtube": "SVXKhVC30kM",
+   "datum": "2026-11-17 13:00"
+  },
+  {
+   "nr": 3,
+   "duell": "Manni vs. Kalle",
+   "sieger": "Manni",
+   "youtube": "eqziTaVKVYo",
+   "datum": "2026-11-17 17:30"
+  },
+  {
+   "nr": 4,
+   "duell": "Manni vs. Anton (Schiri: Birken-Baum Rudi)",
+   "sieger": "Manni",
+   "youtube": "CkiUsjmi2Yo",
+   "datum": "2026-11-18 13:00"
+  },
+  {
+   "nr": 5,
+   "duell": "Bernd vs. Zora",
+   "sieger": "Bernd",
+   "youtube": "FJU3NryGwRs",
+   "datum": "2026-11-18 17:30"
+  }
+ ],
+ "naechste": [
+  {
+   "duell": "Rudi vs. Gustav",
+   "kinds": [
+    "birch",
+    "cucumber"
+   ],
+   "notiz": "Beide aus F04/F05 angeteasert; Kommentare zu 'Soll Rudi in den Ring?' prüfen"
+  },
+  {
+   "duell": "Bernd vs. Manni (Revanche, beide 2-1)",
+   "kinds": [
+    "banana",
+    "melon"
+   ]
+  },
+  {
+   "duell": "Anton vs. Kalle",
+   "kinds": [
+    "pineapple",
+    "coconut"
+   ]
+  },
+  {
+   "duell": "Zora vs. Erdbeere (neu)",
+   "kinds": [
+    "lemon",
+    "strawberry"
+   ]
+  }
+ ]
+}

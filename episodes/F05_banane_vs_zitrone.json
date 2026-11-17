@@ -1,0 +1,131 @@
+{
+ "episode": 5,
+ "seed": 57,
+ "bg_top": [
+  110,
+  70,
+  20
+ ],
+ "mat": [
+  70,
+  170,
+  120
+ ],
+ "fighters": [
+  {
+   "kind": "banana",
+   "name": "Bananen-Bernd",
+   "short": "Bernd",
+   "color": [
+    255,
+    216,
+    40
+   ]
+  },
+  {
+   "kind": "lemon",
+   "name": "Zitronen-Zora",
+   "short": "Zora",
+   "color": [
+    255,
+    240,
+    90
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Bananen-Bernd ist zurück! Nach der Pleite gegen Anton hat er trainiert... mit Bananenbrot!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "text": "Sein Gegner: Zitronen-Zora! Sauer, spritzig und sehr nachtragend!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: SÄURE",
+   "color": [
+    200,
+    200,
+    30
+   ],
+   "text": "Runde eins: Säure!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 1,
+   "proj": "juice",
+   "word": "SPRITZ!",
+   "text": "Zora quetscht sich selbst und spritzt Saft direkt in Bernds Augen! [laugh] Es brennt!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "loser_expr": "sad",
+   "text": "Punkt für Zora!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: WETTRENNEN",
+   "color": [
+    60,
+    160,
+    255
+   ],
+   "text": "Runde zwei: Wettrennen!"
+  },
+  {
+   "scene": "action",
+   "type": "race",
+   "actor": 0,
+   "text": "Bernd rast los... Zora will hinterher, aber sie ist oval und eiert nur im Kreis!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "show_score": true,
+   "text": "Punkt für Bernd! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "post",
+   "actor": 0,
+   "peel": true,
+   "hit": 0.8,
+   "text": "Zora rollt mit Vollgas auf Bernd zu... Bernd legt blitzschnell seine Schale hin... Zora rutscht aus, dreht sich dreimal und kracht gegen den Pfosten! BONK!",
+   "peel_u": 0.27
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "BANANEN-BERND GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "cucumber",
+   "text": "Doch hinter dem Ring lauert schon Gurken-Gustav..."
+  },
+  {
+   "scene": "cta",
+   "challenger": "cucumber",
+   "line1": "WER GEGEN GUSTAV?",
+   "line2": "KOMMENTIER!",
+   "text": "Wer soll gegen Gustav kämpfen? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 3.5
+}
