@@ -1,0 +1,212 @@
+{
+ "episode": 7,
+ "seed": 71,
+ "bg_top": [
+  120,
+  20,
+  40
+ ],
+ "mat": [
+  200,
+  60,
+  70
+ ],
+ "belt": true,
+ "guest": {
+  "kind": "coconut",
+  "name": "Ringrichter Kokos-Kalle",
+  "thanks": "RINGRICHTER|mit Riss im Kopf",
+  "crack": true
+ },
+ "fighters": [
+  {
+   "kind": "banana",
+   "name": "Bananen-Bernd",
+   "short": "Bernd",
+   "color": [
+    255,
+    216,
+    40
+   ]
+  },
+  {
+   "kind": "melon",
+   "name": "Melonen-Manni",
+   "short": "Manni",
+   "color": [
+    110,
+    200,
+    80
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Titelkampf! Bernd gegen Manni, beide zwei Siege und eine Niederlage!"
+  },
+  {
+   "scene": "table",
+   "title": "OBST-LIGA TABELLE",
+   "rows": [
+    [
+     "Bernd",
+     2,
+     1
+    ],
+    [
+     "Manni",
+     2,
+     1
+    ],
+    [
+     "Rudi",
+     1,
+     0
+    ],
+    [
+     "Anton",
+     1,
+     1
+    ],
+    [
+     "Kalle",
+     0,
+     1
+    ],
+    [
+     "Zora",
+     0,
+     1
+    ],
+    [
+     "Gustav",
+     0,
+     1
+    ]
+   ],
+   "text": "Es geht um den allerersten Gürtel der Obst-Liga!"
+  },
+  {
+   "scene": "guest",
+   "text": "Ringrichter ist Kokos-Kalle, immer noch mit Riss im Kopf!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: SCHALEN-TRICK",
+   "color": [
+    230,
+    170,
+    20
+   ],
+   "text": "Runde eins: Schalen-Trick!"
+  },
+  {
+   "scene": "action",
+   "type": "kickback",
+   "actor": 1,
+   "kick": 0.5,
+   "hit": 0.76,
+   "text": "Bernd wirft seine Schale... aber Manni hat aus Folge eins gelernt und kickt sie zurück! [laugh] Bernd rutscht selbst aus!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "loser_expr": "sad",
+   "text": "Punkt für Manni!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: PROPELLER",
+   "color": [
+    60,
+    160,
+    255
+   ],
+   "text": "Runde zwei: Propeller!"
+  },
+  {
+   "scene": "action",
+   "type": "spin",
+   "actor": 0,
+   "word": "WUSCH!",
+   "text": "Bernd dreht sich wie ein Ventilator und schleudert Manni in die Luft!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "show_score": true,
+   "text": "Punkt für Bernd! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "slam",
+   "actor": 1,
+   "hit": 0.84,
+   "text": "Manni springt bis unter die Hallendecke... und landet mit voller Wucht auf Bernd! BOOM!"
+  },
+  {
+   "scene": "action",
+   "type": "slam",
+   "actor": 1,
+   "replay": true,
+   "hit": 0.6,
+   "text": "Nochmal in Zeitlupe! Bernd wird flach wie ein Pfannkuchen!"
+  },
+  {
+   "scene": "win",
+   "side": 1,
+   "text": "MELONEN-MANNI GEWINNT DEN GÜRTEL!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "pineapple",
+   "text": "Doch Ananas-Anton schaut schon gierig auf den Gürtel..."
+  },
+  {
+   "scene": "cta",
+   "challenger": "pineapple",
+   "line1": "WER HOLT DEN GÜRTEL?",
+   "line2": "KOMMENTIER!",
+   "text": "Wer holt sich den Gürtel als Nächstes? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 3.5,
+ "bounds": [
+  1.01,
+  5.35,
+  8.41,
+  12.11,
+  13.28,
+  14.54,
+  16.46,
+  20.01,
+  23.49,
+  24.76,
+  25.8,
+  26.79,
+  30.12,
+  31.32,
+  32.62,
+  34.02,
+  36.87,
+  39.59,
+  40.62,
+  42.53,
+  44.96,
+  47.77,
+  51.63,
+  53.98
+ ]
+}

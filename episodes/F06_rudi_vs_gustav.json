@@ -1,0 +1,166 @@
+{
+ "episode": 6,
+ "seed": 61,
+ "bg_top": [
+  30,
+  90,
+  50
+ ],
+ "mat": [
+  150,
+  110,
+  70
+ ],
+ "fighters": [
+  {
+   "kind": "birch",
+   "name": "Birken-Baum Rudi",
+   "short": "Rudi",
+   "color": [
+    150,
+    230,
+    90
+   ],
+   "crack": "half"
+  },
+  {
+   "kind": "cucumber",
+   "name": "Gurken-Gustav",
+   "short": "Gustav",
+   "color": [
+    90,
+    200,
+    110
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Seit wann ist das hier die Gemüse-Liga?! Birken-Baum Rudi, euer Zuschauer-Liebling, kämpft zum ersten Mal! Seine Blätter sind immer noch nur halb nachgewachsen!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "text": "Sein Gegner: Gurken-Gustav! Eiskalt, direkt aus dem Kühlschrank!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: GURKEN-SHURIKEN",
+   "color": [
+    60,
+    160,
+    70
+   ],
+   "text": "Runde eins: Gurken-Shuriken!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 1,
+   "proj": "slice",
+   "word": "ZACK ZACK!",
+   "text": "Gustav schneidet sich selbst in Scheiben und wirft sie wie Ninja-Sterne! [laugh] Rudi steckt voller Gurken!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "loser_expr": "sad",
+   "text": "Punkt für Gustav!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: WURZEL-GRIFF",
+   "color": [
+    140,
+    90,
+    40
+   ],
+   "text": "Runde zwei: Wurzel-Griff!"
+  },
+  {
+   "scene": "action",
+   "type": "roots",
+   "actor": 0,
+   "word": "PACK!",
+   "text": "Rudis Wurzeln schießen aus dem Ringboden und halten Gustav fest!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "show_score": true,
+   "text": "Punkt für Rudi! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "drop",
+   "actor": 0,
+   "hit": 0.85,
+   "word": "KLONK!",
+   "text": "Gustav nimmt Anlauf... Rudi schüttelt sich und lässt seinen letzten Ast auf Gustavs Kopf fallen! KLONK!"
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "BIRKEN-BAUM RUDI GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "kiwi",
+   "card": [
+    "KOMMENTAR DES TAGES",
+    "@nice-b5c6: KIWI-KEVIN!",
+    "@MareikeNoe-g6q: KATZE BELEN",
+    "ALS SCHIRI-PRINZESSIN"
+   ],
+   "text": "Kommentar des Tages: Kiwi-Kevin, gewünscht von nice! Und Katze Belen als Schiri-Prinzessin? Notiert!"
+  },
+  {
+   "scene": "cta",
+   "challenger": "kiwi",
+   "line1": "WER GEGEN KIWI-KEVIN?",
+   "line2": "KOMMENTIER!",
+   "text": "Wer soll gegen Kiwi-Kevin kämpfen? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 3.35,
+ "bounds": [
+  2.71,
+  7.04,
+  9.99,
+  11.17,
+  12.38,
+  14.96,
+  16.03,
+  17.48,
+  21.52,
+  23.92,
+  25.41,
+  26.63,
+  27.81,
+  31.71,
+  32.87,
+  34.08,
+  35.27,
+  36.82,
+  41.07,
+  42.02,
+  44.28,
+  45.95,
+  48.44,
+  51.28,
+  52.18,
+  54.25
+ ]
+}

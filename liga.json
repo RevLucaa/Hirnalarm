@@ -5,13 +5,14 @@
    "kind": "banana",
    "short": "Bernd",
    "siege": 2,
-   "niederlagen": 1
+   "niederlagen": 2
   },
   "Melonen-Manni": {
    "kind": "melon",
    "short": "Manni",
-   "siege": 2,
-   "niederlagen": 1
+   "siege": 3,
+   "niederlagen": 1,
+   "notiz": "Erster Gürtel-Champion der Obst-Liga (F07)"
   },
   "Ananas-Anton": {
    "kind": "pineapple",
@@ -35,15 +36,22 @@
    "kind": "cucumber",
    "short": "Gustav",
    "siege": 0,
-   "niederlagen": 0,
-   "notiz": "in F05 angeteasert"
+   "niederlagen": 1,
+   "notiz": "F06 gegen Rudi verloren; Aktion Gurken-Shuriken"
   },
   "Birken-Baum Rudi": {
    "kind": "birch",
    "short": "Rudi",
+   "siege": 1,
+   "niederlagen": 0,
+   "notiz": "Zuschauer-Idee von @danielmooser3757; Gast-Schiri in F04, erster Sieg in F06 (Blätter nur halb nachgewachsen)"
+  },
+  "Kiwi-Kevin": {
+   "kind": "kiwi",
+   "short": "Kevin",
    "siege": 0,
    "niederlagen": 0,
-   "notiz": "Zuschauer-Idee von @danielmooser3757; Gast-Schiri in F04, will selbst kämpfen"
+   "notiz": "Zuschauer-Idee von @nice-b5c6 (Kommentar unter F04), in F06 angeteasert"
   }
  },
  "folgen": [
@@ -81,50 +89,34 @@
    "sieger": "Bernd",
    "youtube": "FJU3NryGwRs",
    "datum": "2026-11-18 17:30"
+  },
+  {
+   "nr": 6,
+   "duell": "Rudi vs. Gustav",
+   "sieger": "Rudi",
+   "youtube": "WVj57CgQMWg",
+   "datum": "2026-11-19 13:00"
+  },
+  {
+   "nr": 7,
+   "duell": "Bernd vs. Manni – Titelkampf (Schiri: Kalle)",
+   "sieger": "Manni",
+   "youtube": "8jZAaWmzTqE",
+   "datum": "2026-11-19 17:30"
   }
  ],
  "naechste": [
-  {
-   "slot": "Do 19.11. 13:00",
-   "folge": 6,
-   "duell": "Rudi vs. Gustav",
-   "kinds": [
-    "birch",
-    "cucumber"
-   ],
-   "titel_idee": "Baum vs. Gurke 🌳🥒 Rudis erster Kampf!",
-   "neu": [
-    "Erster Kampf ohne Obst: Ansager lästert 'Seit wann ist das hier die Gemüse-Liga?!'",
-    "Rudi-Aktion 'Wurzel-Griff': Wurzeln kommen aus dem Ringboden und halten Gustav fest",
-    "Gustav-Aktion 'Gurken-Shuriken': wirft Gurkenscheiben wie Wurfsterne",
-    "Running Gag: Rudi wachsen die Blätter nur halb nach (Glatze aus F04)",
-    "Segment 'Kommentar des Tages': bester Kommentar aus F04/F05 wird eingeblendet und vorgelesen"
-   ],
-   "ausgang": "offen – nach Kommentaren zu 'Soll Rudi in den Ring?' entscheiden; Teaser auf Erdbeer-Emma"
-  },
-  {
-   "slot": "Do 19.11. 17:30",
-   "folge": 7,
-   "duell": "Bernd vs. Manni – Titelkampf (beide 2-1)",
-   "kinds": [
-    "banana",
-    "melon"
-   ],
-   "titel_idee": "Banane vs. Melone REVANCHE 🍌🍉 Kampf um den Gürtel!",
-   "neu": [
-    "Erster Meister-Gürtel der Obst-Liga (neues Requisit, Sieger trägt ihn statt Krone)",
-    "Liga-Tabelle wird am Anfang kurz eingeblendet (neue Szene)",
-    "Manni hat aus F01 gelernt: rutscht NICHT auf Bernds Schale aus, sondern kickt sie zurück",
-    "Zeitlupen-Wiederholung des Final-Treffers ('Nochmal in Zeitlupe!')",
-    "Kokos-Kalle als Ringrichter mit Riss im Kopf (Anschluss an F03)"
-   ],
-   "ausgang": "Manni gewinnt den Gürtel (Revanche für F01); Cliffhanger: Ananas-Anton will den Gürtel"
-  },
   {
    "duell": "Anton vs. Kalle",
    "kinds": [
     "pineapple",
     "coconut"
+   ],
+   "slot": "Fr 20.11. 13:00",
+   "folge": 8,
+   "neu": [
+    "Anton fordert Manni um den Gürtel? Oder Kalle will Revanche – Anton vs. Kalle als Herausforderer-Duell",
+    "Kokos-Kalle endlich mit Pflaster auf dem Riss"
    ]
   },
   {
@@ -132,6 +124,25 @@
    "kinds": [
     "lemon",
     "strawberry"
+   ],
+   "slot": "Fr 20.11. 17:30",
+   "folge": 9
+  },
+  {
+   "duell": "Kiwi-Kevin (neu, Zuschauer-Idee) vs. Gurken-Gustav",
+   "kinds": [
+    "kiwi",
+    "cucumber"
+   ],
+   "neu": [
+    "Katze Belen als Schiri-Prinzessin (Zuschauer-Wunsch)"
+   ]
+  },
+  {
+   "duell": "Anton vs. Manni – Gürtel-Verteidigung",
+   "kinds": [
+    "pineapple",
+    "melon"
    ]
   }
  ],
@@ -161,5 +172,8 @@
    "Weihnachts-Special (Dezember)",
    "Zuschauer-Wunschthema aus den Kommentaren"
   ]
- }
+ },
+ "zuschauer_wuensche": [
+  "Katze Belen als Schiri-Prinzessin (@MareikeNoe-g6q, Kommentar unter F04) – in F06 als 'notiert' erwähnt, noch einbauen (neue Figur cat nötig)"
+ ]
 }
