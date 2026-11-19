@@ -140,7 +140,8 @@
    "folge": 10,
    "neu": [
     "Kevin wetzt seine Härchen (Teaser F09)",
-    "Katze Belen als Schiri-Prinzessin (Zuschauer-Wunsch) – neue Figur cat nötig"
+    "Katze Belen als Schiri-Prinzessin (Zuschauer-Wunsch) – neue Figur cat nötig",
+    "Teaser: Andeutung des ersten Obst-Rennens (zweite Sportart)"
    ]
   },
   {
@@ -152,30 +153,50 @@
    "slot": "Sa 21.11. 17:30",
    "folge": 11,
    "neu": [
-    "In F08 angeteasert"
+    "In F08 angeteasert",
+    "Teaser: Anton will Bernd auf der Rennbahn schlagen – Ankündigung F12"
    ]
   },
   {
-   "duell": "Emma vs. Zora – Tennis-Revanche (neues Thema, Kerne als Bälle)",
+   "duell": "Bernd vs. Anton – erstes Obst-Rennen, Grudge-Match (Revanche für F02)",
+   "kinds": [
+    "banana",
+    "pineapple"
+   ],
+   "folge": 12,
+   "arena": "bahn",
+   "neu": [
+    "Neue Kulisse Rennbahn in engine.py nötig"
+   ]
+  },
+  {
+   "duell": "Emma vs. Zora – Revanche (Ring)",
    "kinds": [
     "strawberry",
     "lemon"
    ],
-   "folge": 12,
-   "arena": "tennis"
+   "folge": 13
   },
   {
-   "duell": "Bernd vs. Kalle – Fußball-Elfmeterschießen (Kokosnuss als Ball?!)",
+   "duell": "Rennen: Verlierer aus F12 vs. Kiwi-Kevin (Ausgang bestimmt nächsten Ring-Gegner)",
+   "kinds": [
+    "?",
+    "kiwi"
+   ],
+   "folge": 14,
+   "arena": "bahn"
+  },
+  {
+   "duell": "Bernd vs. Kalle (Ring) – Gegner je nach Rennergebnis anpassen",
    "kinds": [
     "banana",
     "coconut"
    ],
-   "folge": 13,
-   "arena": "fussball"
+   "folge": 15
   }
  ],
  "themen_pool": {
-  "gilt_ab_folge": 11,
+  "gilt_ab_folge": "pausiert – erst nach Auswertung Rennen vs. Ring (ca. F20), siehe CLAUDE.md",
   "sport": [
    "Fußball-Elfmeterschießen (Kokosnuss als Ball, Melone als Torwart)",
    "Basketball (Dunk mit Orange)",
@@ -203,5 +224,11 @@
  },
  "zuschauer_wuensche": [
   "Katze Belen als Schiri-Prinzessin (@MareikeNoe-g6q, Kommentar unter F04) – in F06 als 'notiert' erwähnt, noch einbauen (neue Figur cat nötig)"
- ]
+ ],
+ "zweite_sportart": {
+  "sportart": "Rennen (arena: bahn)",
+  "seit": "F12",
+  "regel": "Ring und Rennen im Wechsel, Rennergebnis bestimmt nächsten Ring-Gegner",
+  "auswertung_nach_folge": 20
+ }
 }

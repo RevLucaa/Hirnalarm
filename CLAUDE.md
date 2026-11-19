@@ -43,11 +43,23 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
    Episoden-Dateien committen und pushen (`git -c push.negotiate=true push`).
 10. Kurze Zusammenfassung an Luca: Titel, Uhrzeiten, YouTube-Links, verbrauchte ElevenLabs-Credits.
 
-## Abwechslung ab Folge 11 (Wunsch von Luca, 17.11.2026)
-Ab Folge 11 nicht mehr nur Wrestling-Ring: regelmäßig andere Sportarten und lustige Themen einbauen, damit es nicht einseitig wird.
-Faustregel: höchstens 1 von 2 Folgen pro Tag klassisch im Ring, die andere mit neuem Thema. Kein Thema zweimal hintereinander.
-Figuren, Bilanz und Storyline der Obst-Liga laufen weiter (Bilanz gilt für alle Disziplinen).
-Für jedes neue Thema in `engine.py` passende Kulisse (z. B. `arena`-Feld in der Episode) und Aktionen ergänzen; Ideen-Pool steht in `liga.json` → `themen_pool`.
+## Zweite Sportart: Obst-Rennen (Wunsch von Luca, 19.11.2026 – ersetzt die Regel vom 17.11.)
+Langsam vorgehen: Kämpfen im Ring bleibt der Kern, dazu kommt **genau eine** zweite Sportart, das **Wettrennen** (Rennbahn).
+Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Phase 4) es erlaubt.
+1. **F10–F11: nur Ring, aber andeuten.** Im Story-Teaser fällt ein Satz zum Rennen (z. B. „Anton will es nicht mehr mit Fäusten klären – sondern auf der Bahn!“); gern kurz eine Rennbahn im Hintergrund.
+2. **F12: erstes Rennen als Grudge-Match** – Bernd vs. Anton (Revanche für F02). Die Rivalität aus dem Ring läuft weiter, nur der Ort ist neu.
+3. **Ab F13: im Wechsel Ring und Rennen** (pro Tag eine Folge Ring, eine Rennen; nie zweimal Rennen hintereinander).
+   Die Ergebnisse hängen zusammen: Wer das Rennen verliert, muss im nächsten Ring-Kampf gegen den Stärksten (Champion) antreten, usw.
+   Jede Folge endet mit einem Cliffhanger, der in die jeweils andere Sportart führt.
+4. **Auswertung nach ca. F20:** mit `vidiq_channel_analytics` (dimensions video; averageViewPercentage, engagedViews/views) Rennen vs. Ring vergleichen.
+   Rennen gleich gut oder besser → Wechsel beibehalten. Deutlich schlechter → Rennen nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
+Bilanz und Storyline gelten über beide Disziplinen. Für das Rennen in `engine.py` eine Kulisse (`"arena": "bahn"` in der Episode: Laufbahn, Start/Ziel, Zuschauer) und passende Aktionen ergänzen (Start, Überholen, Ausrutschen, Zielfoto); die bestehende Aktion `race` kann als Basis dienen.
+Rennen-Skript: Hook → Gegner/Grund für das Rennen → 2–3 Abschnitte (`Start!`, `Halbzeit!`, `Zielgerade!`) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.
+
+## Hook und Drama (gilt für jede Folge, ab F10)
+- **Erster Satz = Konflikt, mitten drin**, keine Vorstellung: „Kalle hat Mannis Gürtel geklaut. Heute holt er ihn zurück!“ statt „Neu in der Obst-Liga: …“. Grund des Duells kommt aus der Storyline (Revanche, Verrat, Schummelei).
+- Folgenübergreifendes Drama: jede Folge greift ein offenes Ereignis der Vorfolgen auf und legt ein neues an (in `liga.json` → Charakter-`notiz` festhalten).
+- Schluss: statt allgemein „Wer soll als Nächstes …?“ eine **konkrete Streitfrage**, die man nur im Kommentar beantworten kann (z. B. „Hat Anton geschummelt – ja oder nein?“). Die Frage im Video sprechen und als Text einblenden.
 
 ## Grenzen
 - ElevenLabs: Starter-Plan 40.000 Credits/Monat. Vor dem Erzeugen `account_get_usage` prüfen; wenn < 2.000 übrig, abbrechen und Luca Bescheid geben.
