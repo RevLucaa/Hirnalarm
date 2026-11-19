@@ -11,7 +11,7 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
 
 ## Ablauf pro Lauf (bereitet die 2 Videos für MORGEN vor)
 1. `liga.json` lesen. Die nächsten zwei Einträge aus `naechste` nehmen (Slot 13:00 und 17:30).
-   Vorher mit `vidiq_user_videos` (Channel oben) prüfen, ob für morgen schon Videos eingeplant sind (`scheduledPublishAt`) – dann nichts doppelt machen.
+   Vorher mit `vidiq_social_post_list` (kostenlos; `statuses: ["scheduled"]`, `platforms: ["YOUTUBE"]`) prüfen, ob für morgen schon Videos eingeplant sind – dann nichts doppelt machen.
 2. **Skript** je Folge auf Deutsch schreiben: 740–830 Zeichen (≈ 120 Wörter, ≤ 850 ElevenLabs-Credits).
    Aufbau: Hook → Vorstellung Gegner → 2–3 Runden (`Runde eins: X!`) mit „Punkt für …!“ und Zwischenstand → `Finale!` → `NAME GEWINNT!` → Story-Teaser → „Schreib's in die Kommentare!“.
    Jede Folge braucht eine eigene Story und andere Aktionen/Gags (YouTube „inauthentic content“ – keine Kopien!). Bilanz/Storyline aus `liga.json` weiterführen.
@@ -36,10 +36,10 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
    Beschreibung mit „Folge NN“, Kommentar-Frage und Hashtags, ~10 Tags, `publishAt` = morgen 13:00 bzw. 17:30 `+01:00` (Sommerzeit `+02:00`).
    **Im selben Draft zusätzlich Instagram** als zweites Ziel: `platform: INSTAGRAM`, `platformAccountId: 29785569181129808` (@hirnalarm),
    eigener `text` (Titel-Zeile, 1–2 Sätze, Kommentar-Frage, Hashtags `#brainrot #obstkampf … #lustig #comedy #reels #deutsch`, ohne #shorts), gleiche `publishAt`.
-   Dann `vidiq_social_post_publish` (alle Ziele). Mit `vidiq_user_videos` prüfen, dass `scheduledPublishAt` stimmt, und mit `vidiq_social_post_status`, dass Instagram `scheduled` ist.
+   Dann `vidiq_social_post_publish` (alle Ziele). Mit `vidiq_social_post_status` (kostenlos) prüfen, dass YouTube und Instagram `scheduled` sind und die Uhrzeit stimmt.
    Hirnalarm-TikTok („BrainrotLab“) ist noch nicht mit vidIQ verbunden – sobald es in `vidiq_social_account_list` auftaucht, ebenfalls als Ziel aufnehmen
    (privacyLevel PUBLIC_TO_EVERYONE, allowComment true, musicUsageConfirmed true, isAiGenerated false).
-9. `liga.json` aktualisieren (Bilanz, `folgen` inkl. YouTube-ID, `naechste` um 2 kürzen und neue Duelle hinten anhängen, gern Kommentarwünsche aus `vidiq_video_comments` der letzten Videos aufgreifen).
+9. `liga.json` aktualisieren (Bilanz, `folgen` inkl. YouTube-ID, `naechste` um 2 kürzen und neue Duelle hinten anhängen, gern Kommentarwünsche aus `daten/kommentare.json` aufgreifen – vorher `git pull`).
    Episoden-Dateien committen und pushen (`git -c push.negotiate=true push`).
 10. Kurze Zusammenfassung an Luca: Titel, Uhrzeiten, YouTube-Links, verbrauchte ElevenLabs-Credits.
 
@@ -51,7 +51,7 @@ Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Phase 4)
 3. **Ab F13: im Wechsel Ring und Rennen** (pro Tag eine Folge Ring, eine Rennen; nie zweimal Rennen hintereinander).
    Die Ergebnisse hängen zusammen: Wer das Rennen verliert, muss im nächsten Ring-Kampf gegen den Stärksten (Champion) antreten, usw.
    Jede Folge endet mit einem Cliffhanger, der in die jeweils andere Sportart führt.
-4. **Auswertung nach ca. F20:** mit `vidiq_channel_analytics` (dimensions video; averageViewPercentage, engagedViews/views) Rennen vs. Ring vergleichen.
+4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `daten/statistik.json` (kostenlos) Rennen vs. Ring vergleichen; Zuschauerdauer (`vidiq_channel_analytics`, 5 Credits) nur, wenn genug vidIQ-Credits da sind.
    Rennen gleich gut oder besser → Wechsel beibehalten. Deutlich schlechter → Rennen nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
 Bilanz und Storyline gelten über beide Disziplinen. Für das Rennen in `engine.py` eine Kulisse (`"arena": "bahn"` in der Episode: Laufbahn, Start/Ziel, Zuschauer) und passende Aktionen ergänzen (Start, Überholen, Ausrutschen, Zielfoto); die bestehende Aktion `race` kann als Basis dienen.
 Rennen-Skript: Hook → Gegner/Grund für das Rennen → 2–3 Abschnitte (`Start!`, `Halbzeit!`, `Zielgerade!`) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.
@@ -60,6 +60,12 @@ Rennen-Skript: Hook → Gegner/Grund für das Rennen → 2–3 Abschnitte (`Star
 - **Erster Satz = Konflikt, mitten drin**, keine Vorstellung: „Kalle hat Mannis Gürtel geklaut. Heute holt er ihn zurück!“ statt „Neu in der Obst-Liga: …“. Grund des Duells kommt aus der Storyline (Revanche, Verrat, Schummelei).
 - Folgenübergreifendes Drama: jede Folge greift ein offenes Ereignis der Vorfolgen auf und legt ein neues an (in `liga.json` → Charakter-`notiz` festhalten).
 - Schluss: statt allgemein „Wer soll als Nächstes …?“ eine **konkrete Streitfrage**, die man nur im Kommentar beantworten kann (z. B. „Hat Anton geschummelt – ja oder nein?“). Die Frage im Video sprechen und als Text einblenden.
+
+## Kostenlose Daten statt vidIQ-Credits
+vidIQ-Credits sind knapp (150/Monat). Hochladen, Entwurf, Einplanen, `social_post_list` und `social_post_status` kosten 0 Credits und bleiben erlaubt.
+**Nicht verwenden** (kosten Credits): `vidiq_user_videos`, `vidiq_video_comments`, `vidiq_get_videos_by_ids`, `vidiq_channel_analytics` (Ausnahme: Auswertung oben).
+Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.yml` alle 6 Stunden über die YouTube Data API (Secret `YT_API_KEY`) nach
+`daten/kommentare.json` und `daten/statistik.json`. Fehlen die Dateien oder sind sie älter als 2 Tage, Luca kurz Bescheid geben und ohne Kommentarwünsche weitermachen.
 
 ## Grenzen
 - ElevenLabs: Starter-Plan 40.000 Credits/Monat. Vor dem Erzeugen `account_get_usage` prüfen; wenn < 2.000 übrig, abbrechen und Luca Bescheid geben.

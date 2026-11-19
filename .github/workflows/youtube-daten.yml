@@ -1,0 +1,32 @@
+name: YouTube-Daten holen
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # alle 6 Stunden
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: youtube-daten
+  cancel-in-progress: false
+
+jobs:
+  holen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kommentare und Aufrufe abrufen
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: python3 tools/youtube_daten.py
+      - name: Speichern
+        run: |
+          git config user.name "hirnalarm-bot"
+          git config user.email "hirnalarm-bot@users.noreply.github.com"
+          git add daten/
+          git diff --cached --quiet && exit 0
+          git commit -m "YouTube-Daten aktualisiert"
+          git pull --rebase
+          git push
