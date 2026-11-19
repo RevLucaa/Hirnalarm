@@ -197,8 +197,17 @@ def spr_coconut(expr, look, crack=False):
     if crack:
         pts = [(c - 30, c - rr + 5), (c - 5, c - 120), (c - 40, c - 70), (c + 10, c - 20)]
         d.line(pts, fill=(255, 255, 255), width=16); d.line(pts, fill=OC, width=8)
+        if crack == "plaster":
+            pl = spr_plaster(); im.alpha_composite(pl, (c - 15 - pl.size[0] // 2, c - 110 - pl.size[1] // 2))
     face(d, c, c - 20, expr, 1.05, look)
     return im, 0
+
+def spr_plaster():
+    pl = Image.new("RGBA", (200, 90), (0, 0, 0, 0)); pd = ImageDraw.Draw(pl)
+    pd.rounded_rectangle([4, 14, 196, 76], 26, fill=(240, 195, 150), outline=OC, width=6)
+    pd.rectangle([70, 20, 130, 70], fill=(250, 225, 195))
+    for xx in (25, 45, 155, 175): pd.ellipse([xx - 4, 40, xx + 4, 48], fill=(200, 150, 110))
+    return pl.rotate(-30, expand=True, resample=Image.BICUBIC)
 
 def spr_peel():
     im = Image.new("RGBA", (300, 140), (0, 0, 0, 0))
@@ -497,7 +506,7 @@ SFX = []  # (time, kind)
 def base_state(i, t):
     f = FIGHTERS[i]
     return dict(kind=f["kind"], x=HOME[i], y=FLOOR, sc=BASE_SC[f["kind"]], sx=1, sy=1 + 0.03 * math.sin(t * 7 + i),
-                rot=0, expr="happy" if i == 0 else "angry", look=(1, 0) if i == 0 else (-1, 0), show=True, crack=f.get("crack", False))
+                rot=0, expr="happy" if i == 0 else "angry", look=(1, 0) if i == 0 else (-1, 0), show=True, crack=(True if (f.get("crack") == "plaster" and t >= PLASTER_T) else f.get("crack", False)))
 
 def act_race(u, t, A, V, ai, p, ex):
     dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
@@ -544,6 +553,7 @@ def act_slam(u, t, A, V, ai, p, ex):
             if u > 0.75: A["x"] = lerp(hV, hA, ease_out((u - 0.75) / 0.25))
             ex.append(("burst", 540, 760, 260, "BOOM!", clamp((u - hit) / 0.45)))
         if u < hit + 0.12: ex.append(("shake", 26))
+        if p.get("plaster_off"): ex.append(("plaster_fly", hV, FLOOR - 700, clamp((u - hit) / 0.5)))
     return [(hit, "boing" if p.get("bounce") else "boom")] + ([(0.03, "whoosh")] if p.get("peel") else [])
 
 def act_post(u, t, A, V, ai, p, ex):
@@ -599,7 +609,7 @@ def act_headbutt(u, t, A, V, ai, p, ex):
             r2 = clamp((u - 0.6) / 0.3)
             V["x"] = lerp(edge, hV + dr * 60, ease_out(r2)); V["rot"] = 0; V["expr"] = "dizzy"; V["sx"] = 1
         if u < 0.45: ex.append(("shake", 18))
-        ex.append(("burst", (hV + edge) / 2, 780, 170, "KNALL!", clamp((u - 0.38) / 0.45)))
+        ex.append(("burst", (hV + edge) / 2, 780, 170, p.get("word", "KNALL!"), clamp((u - 0.38) / 0.45)))
         ex.append(("sag", 60 * math.sin(clamp((u - 0.45) / 0.25) * math.pi)))
     return [(0.25, "whoosh"), (0.38, "boom_s"), (0.6, "boing")]
 
@@ -641,7 +651,9 @@ def act_throw(u, t, A, V, ai, p, ex):
         V["x"] = hV + jit; V["expr"] = "shock" if u < 0.6 else ("sad" if kind == "juice" else "dizzy")
         V["rot"] = dr * 8 * math.sin(t * 25) * (u < 0.6)
         ex.append(("burst", 540, 760, 200, p.get("word", "RATATA!"), clamp((u - first) / 0.5)))
-        if kind == "slice": ex.append(("stuck", V["x"], int(clamp((u - first) / 0.4) * 9)))
+        if kind in ("slice", "cream"): ex.append(("stuck", V["x"], int(clamp((u - first) / 0.4) * 9), kind))
+        ck = p.get("cherry", 0.62)
+        if kind == "cream" and u > ck: ex.append(("cherry", V["x"], lerp(-100, FLOOR - 470, ease_out((u - ck) / 0.1))))
     return [(0.1, "whoosh")] + evs
 
 def act_miss(u, t, A, V, ai, p, ex):
@@ -717,7 +729,46 @@ def act_kickback(u, t, A, V, ai, p, ex):
         ex.append(("burst", 540, 760, 220, p.get("word", "RUTSCH!"), clamp((u - slip) / 0.4)))
     return [(0.03, "whoosh"), (k, "pop"), (slip, "thud")]
 
-ACTIONS = {"roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss}
+def act_bowl(u, t, A, V, ai, p, ex):
+    # A rollt wie eine Bowlingkugel und raeumt V ab (Strike). A = Punktgewinner
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    hit = p.get("hit", 0.45)
+    if u < 0.12:
+        A["x"] = lerp(hA, hA - dr * 100, ease_out(u / 0.12)); A["expr"] = "angry"; A["sy"] = 0.9
+    elif u < hit:
+        q = (u - 0.12) / (hit - 0.12); A["x"] = lerp(hA - dr * 100, hV - dr * 60, ease_in(q)); A["rot"] = -dr * 1080 * q; A["expr"] = "grin"
+        ex.append(("speed",))
+    else:
+        q = clamp((u - hit) / 0.3); A["x"] = lerp(hV - dr * 60, hV - dr * 160, ease_out(q)); A["rot"] = -dr * (1080 + 200 * q); A["expr"] = "grin"
+        if u > hit + 0.3: A["rot"] = 0
+        f = clamp((u - hit) / 0.4)
+        V["x"] = lerp(hV, hV + dr * 140, f); V["y"] = FLOOR - math.sin(f * math.pi) * 650; V["rot"] = dr * 450 * ease_out(f) if f < 1 else dr * 90
+        V["expr"] = "shock" if f < 1 else "dizzy"
+        if f >= 1: V["y"] = FLOOR + 60
+        if u < hit + 0.08: ex.append(("shake", 22))
+        ex.append(("burst", 540, 760, 240, p.get("word", "STRIKE!"), clamp((u - hit) / 0.45)))
+    return [(0.1, "whoosh"), (hit, "boom"), (hit + 0.4, "thud")]
+
+def act_catapult(u, t, A, V, ai, p, ex):
+    # V rennt auf A zu, A duckt sich, V fliegt in die Seile und wird aus der Halle geschleudert. A = Gewinner
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    edge = 70 if ai == 0 else 1010; duck = p.get("duck", 0.3); rope = p.get("hit", 0.55)
+    if u < rope - 0.1:
+        q = u / (rope - 0.1); V["x"] = lerp(hV, edge, ease_in(q)); V["expr"] = "angry"; V["rot"] = dr * 15
+        if q > 0.6: ex.append(("speed",))
+    elif u < rope:
+        q = (u - rope + 0.1) / 0.1; V["x"] = edge - dr * 40 * math.sin(q * math.pi); V["sx"] = 1 - 0.3 * math.sin(q * math.pi); V["expr"] = "shock"
+        ex.append(("sag", 90 * math.sin(q * math.pi)))
+    else:
+        q = clamp((u - rope) / 0.3); V["x"] = lerp(edge, 540 - dr * 300, q); V["y"] = lerp(FLOOR, -700, ease_in(q)) - 400 * math.sin(q * math.pi)
+        V["rot"] = -dr * 1000 * q; V["sc"] *= 1 - 0.5 * q; V["expr"] = "dizzy"
+        if q >= 1: V["show"] = False
+        ex.append(("burst", 540, 760, 230, p.get("word", "TSCHÜSS!"), clamp((u - rope - 0.1) / 0.45)))
+    near = duck - 0.12 < u < rope
+    A["sy"] = 0.55 if near else 1; A["expr"] = "grin" if (u > rope or near) else "shock"; A["y"] = FLOOR
+    return [(0.05, "whoosh"), (rope - 0.08, "boing"), (rope + 0.05, "whoosh")]
+
+ACTIONS = {"bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss}
 
 # precompute scores & sfx
 order = [s for s, _, _ in SEG]
@@ -735,6 +786,7 @@ WINNER = next((s["side"] for s, a, b in SEG if s["scene"] == "win"), 0)
 GUEST = EP.get("guest")  # {kind, name, thanks}
 GUEST_T = next((b for s, a, b in SEG if s["scene"] == "guest"), TOTAL)
 TEASE_T = next((a for s, a, b in SEG if s["scene"] in ("win", "tease")), TOTAL)
+PLASTER_T = next((a + (s.get("hit", 0.42) + 0.02) * (b - a) for s, a, b in SEG if s.get("plaster_off")), TOTAL)
 BALD_T = next((a + (s.get("leaves_u", 0.4) + 0.1) * (b - a) for s, a, b in SEG if s.get("leaves")), TOTAL)
 LEAVES = [(random.uniform(-200, 200), random.uniform(-80, 60), random.uniform(0.5, 1.4), random.uniform(0, 6)) for _ in range(40)]
 
@@ -838,6 +890,9 @@ def frame(t, collect_sfx=False):
                 d.ellipse([x - 22, y - 22, x + 22, y + 22], fill=(190, 230, 150))
                 for kk in range(5):
                     b_ = a_ + kk * 2 * math.pi / 5; d.ellipse([x + 11 * math.cos(b_) - 3, y + 11 * math.sin(b_) - 4, x + 11 * math.cos(b_) + 3, y + 11 * math.sin(b_) + 4], fill=(240, 250, 210), outline=(90, 140, 60))
+            elif e[3] == "cream":
+                d.ellipse([x - 30, y - 22, x + 30, y + 22], fill=(255, 255, 255), outline=(200, 200, 210), width=4)
+                d.ellipse([x - 12, y - 34, x + 14, y - 8], fill=(255, 255, 255), outline=(200, 200, 210), width=3)
             elif e[3] == "juice":
                 d.ellipse([x - 16, y - 16, x + 16, y + 16], fill=(255, 240, 80), outline=(200, 170, 20), width=4)
             else:
@@ -863,8 +918,22 @@ def frame(t, collect_sfx=False):
             rnd = random.Random(77)
             for _ in range(e[2]):
                 x, y = e[1] + rnd.uniform(-140, 140), rnd.uniform(FLOOR - 560, FLOOR - 120)
+                if len(e) > 3 and e[3] == "cream":
+                    d.ellipse([x - 48, y - 36, x + 48, y + 36], fill=(255, 255, 255), outline=(190, 190, 200), width=4)
+                    d.ellipse([x - 22, y - 58, x + 26, y - 14], fill=(255, 255, 255), outline=(190, 190, 200), width=3)
+                    continue
                 d.ellipse([x - 26, y - 26, x + 26, y + 26], fill=(70, 150, 60), outline=OC, width=4)
                 d.ellipse([x - 18, y - 18, x + 18, y + 18], fill=(190, 230, 150))
+        elif e[0] == "cherry":
+            x, y = e[1], e[2]
+            d.line([(x, y - 40), (x + 30, y - 95)], fill=(60, 120, 40), width=8)
+            d.ellipse([x - 38, y - 40, x + 38, y + 36], fill=(220, 20, 40), outline=OC, width=6)
+            d.ellipse([x - 20, y - 26, x - 4, y - 10], fill=(255, 160, 170))
+        elif e[0] == "plaster_fly":
+            q = e[3]
+            if 0 < q < 1:
+                pl = spr_plaster().rotate(q * 900, expand=True)
+                img.alpha_composite(pl, (int(e[1] + 500 * q - pl.size[0] / 2), int(e[2] - 500 * math.sin(q * math.pi) + 600 * q * q - pl.size[1] / 2))); d = ImageDraw.Draw(img)
         elif e[0] == "leaves":
             for lx, ly, v, ph in LEAVES:
                 q = e[1]; yy = FLOOR - 170 - 0.55 * 700 + ly + v * 900 * q; xx = 540 + lx * (1 + q) + 40 * math.sin(t * 6 + ph)

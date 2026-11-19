@@ -1,0 +1,137 @@
+{
+ "episode": 9,
+ "seed": 91,
+ "bg_top": [
+  140,
+  30,
+  90
+ ],
+ "mat": [
+  240,
+  170,
+  60
+ ],
+ "fighters": [
+  {
+   "kind": "lemon",
+   "name": "Zitronen-Zora",
+   "short": "Zora",
+   "color": [
+    255,
+    235,
+    60
+   ]
+  },
+  {
+   "kind": "strawberry",
+   "name": "Erdbeer-Emma",
+   "short": "Emma",
+   "color": [
+    255,
+    90,
+    110
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Neu in der Obst-Liga: Erdbeer-Emma!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "text": "Süß, rot und richtig gefährlich!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "text": "Ihre Gegnerin: Zitronen-Zora, die immer noch auf ihren ersten Sieg wartet!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: SAHNE-ATTACKE",
+   "color": [
+    240,
+    120,
+    170
+   ],
+   "text": "Runde eins: Sahne-Attacke!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 1,
+   "proj": "cream",
+   "word": "SPRÜH!",
+   "text": "Emma schießt Sahne aus der Sprühdose, bis Zora aussieht wie ein riesiger Eisbecher mit Kirsche!",
+   "cherry": 0.85
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "loser_expr": "sad",
+   "text": "[laugh] Punkt für Emma!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: SPITZE NASE",
+   "color": [
+    230,
+    200,
+    30
+   ],
+   "text": "Runde zwei: Spitze Nase!"
+  },
+  {
+   "scene": "action",
+   "type": "headbutt",
+   "actor": 0,
+   "word": "PIEKS!",
+   "text": "Zora nimmt Anlauf und piekst Emma mit ihrer spitzen Nase in die Seile!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "show_score": true,
+   "text": "Punkt für Zora! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "miss",
+   "actor": 0,
+   "word": "PLOPP!",
+   "hit": 0.4,
+   "text": "Emma springt hoch für den Erdbeer-Plumps... aber Zora rollt einfach weg! Endlich nützt es ihr, dass sie eiert! Emma steckt kopfüber im Ringboden!"
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "ZITRONEN-ZORA GEWINNT! Ihr allererster Sieg!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "kiwi",
+   "text": "Aber Kiwi-Kevin wetzt schon seine Härchen..."
+  },
+  {
+   "scene": "cta",
+   "challenger": "kiwi",
+   "line1": "WER GEGEN KEVIN?",
+   "line2": "KOMMENTIER!",
+   "text": "Wer soll gegen Kevin kämpfen? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 4.6
+}

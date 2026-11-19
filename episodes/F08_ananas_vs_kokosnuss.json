@@ -1,0 +1,165 @@
+{
+ "episode": 8,
+ "seed": 81,
+ "bg_top": [
+  30,
+  70,
+  130
+ ],
+ "mat": [
+  70,
+  120,
+  200
+ ],
+ "fighters": [
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    255,
+    200,
+    40
+   ]
+  },
+  {
+   "kind": "coconut",
+   "name": "Kokos-Kalle",
+   "short": "Kalle",
+   "color": [
+    200,
+    140,
+    90
+   ],
+   "crack": "plaster"
+  }
+ ],
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Herausforderer-Duell! Wer gewinnt, darf gegen Champion Manni um den Gürtel kämpfen!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "text": "Ananas-Anton gegen Kokos-Kalle!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "text": "Und Kalle hat endlich ein Pflaster auf seinem Riss!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: KOKOS-BOWLING",
+   "color": [
+    150,
+    90,
+    50
+   ],
+   "text": "Runde eins: Kokos-Bowling!"
+  },
+  {
+   "scene": "action",
+   "type": "bowl",
+   "actor": 1,
+   "hit": 0.5,
+   "text": "Kalle rollt los wie eine Bowlingkugel und räumt Anton ab wie einen Kegel! [laugh] Strike!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "loser_expr": "dizzy",
+   "text": "Punkt für Kalle!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: STACHEL-FRISUR",
+   "color": [
+    60,
+    170,
+    70
+   ],
+   "text": "Runde zwei: Stachel-Frisur!"
+  },
+  {
+   "scene": "action",
+   "type": "slam",
+   "actor": 1,
+   "bounce": true,
+   "plaster_off": true,
+   "hit": 0.35,
+   "text": "Kalle springt auf Anton... und landet mitten in seinen spitzen Blättern! Autsch! Das Pflaster fliegt weg!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "show_score": true,
+   "text": "Punkt für Anton! Eins zu eins!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "catapult",
+   "actor": 0,
+   "duck": 0.31,
+   "hit": 0.54,
+   "text": "Kalle rennt mit Anlauf auf Anton zu... Anton duckt sich einfach! Kalle fliegt in die Seile und wird bis hinter die Zuschauer geschleudert! Tschüss, Kalle!"
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "ANANAS-ANTON GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "melon",
+   "text": "Jetzt kommt der Titelkampf gegen Manni!"
+  },
+  {
+   "scene": "cta",
+   "challenger": "melon",
+   "line1": "WER HOLT DEN GÜRTEL?",
+   "line2": "KOMMENTIER!",
+   "text": "Wer holt sich den Gürtel? Schreib's in die Kommentare!"
+  }
+ ],
+ "tail": 4.8,
+ "bounds": [
+  1.75,
+  5.47,
+  8.04,
+  11.35,
+  12.81,
+  14.2,
+  19.18,
+  20.7,
+  21.98,
+  23.35,
+  24.74,
+  26.79,
+  29.59,
+  30.4,
+  32.13,
+  33.37,
+  34.66,
+  36.02,
+  38.79,
+  40.67,
+  44.95,
+  46.24,
+  48.36,
+  50.88,
+  52.38
+ ]
+}

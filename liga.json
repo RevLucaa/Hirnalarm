@@ -17,20 +17,23 @@
   "Ananas-Anton": {
    "kind": "pineapple",
    "short": "Anton",
-   "siege": 1,
-   "niederlagen": 1
+   "siege": 2,
+   "niederlagen": 1,
+   "notiz": "F08 Herausforderer-Duell gegen Kalle gewonnen -> Titelkampf gegen Manni"
   },
   "Kokos-Kalle": {
    "kind": "coconut",
    "short": "Kalle",
    "siege": 0,
-   "niederlagen": 1
+   "niederlagen": 2,
+   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert"
   },
   "Zitronen-Zora": {
    "kind": "lemon",
    "short": "Zora",
-   "siege": 0,
-   "niederlagen": 1
+   "siege": 1,
+   "niederlagen": 1,
+   "notiz": "Erster Sieg in F09 (rollt weg, weil sie eiert)"
   },
   "Gurken-Gustav": {
    "kind": "cucumber",
@@ -52,6 +55,13 @@
    "siege": 0,
    "niederlagen": 0,
    "notiz": "Zuschauer-Idee von @nice-b5c6 (Kommentar unter F04), in F06 angeteasert"
+  },
+  "Erdbeer-Emma": {
+   "kind": "strawberry",
+   "short": "Emma",
+   "siege": 0,
+   "niederlagen": 1,
+   "notiz": "Debüt F09; Aktion Sahne-Attacke (Sprühsahne + Kirsche), steckte kopfüber im Ringboden"
   }
  },
  "folgen": [
@@ -103,47 +113,65 @@
    "sieger": "Manni",
    "youtube": "8jZAaWmzTqE",
    "datum": "2026-11-19 17:30"
+  },
+  {
+   "nr": 8,
+   "duell": "Anton vs. Kalle – Herausforderer-Duell",
+   "sieger": "Anton",
+   "youtube": "-33CfEmPM70",
+   "datum": "2026-11-20 13:00"
+  },
+  {
+   "nr": 9,
+   "duell": "Zora vs. Emma",
+   "sieger": "Zora",
+   "youtube": "3kFPmEkKlLU",
+   "datum": "2026-11-20 17:30"
   }
  ],
  "naechste": [
-  {
-   "duell": "Anton vs. Kalle",
-   "kinds": [
-    "pineapple",
-    "coconut"
-   ],
-   "slot": "Fr 20.11. 13:00",
-   "folge": 8,
-   "neu": [
-    "Anton fordert Manni um den Gürtel? Oder Kalle will Revanche – Anton vs. Kalle als Herausforderer-Duell",
-    "Kokos-Kalle endlich mit Pflaster auf dem Riss"
-   ]
-  },
-  {
-   "duell": "Zora vs. Erdbeer-Emma (neu)",
-   "kinds": [
-    "lemon",
-    "strawberry"
-   ],
-   "slot": "Fr 20.11. 17:30",
-   "folge": 9
-  },
   {
    "duell": "Kiwi-Kevin (neu, Zuschauer-Idee) vs. Gurken-Gustav",
    "kinds": [
     "kiwi",
     "cucumber"
    ],
+   "slot": "Sa 21.11. 13:00",
+   "folge": 10,
    "neu": [
-    "Katze Belen als Schiri-Prinzessin (Zuschauer-Wunsch)"
+    "Kevin wetzt seine Härchen (Teaser F09)",
+    "Katze Belen als Schiri-Prinzessin (Zuschauer-Wunsch) – neue Figur cat nötig"
    ]
   },
   {
-   "duell": "Anton vs. Manni – Gürtel-Verteidigung",
+   "duell": "Anton vs. Manni – Titelkampf/Gürtel-Verteidigung (Ring)",
    "kinds": [
     "pineapple",
     "melon"
+   ],
+   "slot": "Sa 21.11. 17:30",
+   "folge": 11,
+   "neu": [
+    "In F08 angeteasert"
    ]
+  },
+  {
+   "duell": "Emma vs. Zora – Tennis-Revanche (neues Thema, Kerne als Bälle)",
+   "kinds": [
+    "strawberry",
+    "lemon"
+   ],
+   "folge": 12,
+   "arena": "tennis"
+  },
+  {
+   "duell": "Bernd vs. Kalle – Fußball-Elfmeterschießen (Kokosnuss als Ball?!)",
+   "kinds": [
+    "banana",
+    "coconut"
+   ],
+   "folge": 13,
+   "arena": "fussball"
   }
  ],
  "themen_pool": {
