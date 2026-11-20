@@ -1,0 +1,16 @@
+name: Zuschauerwunsch
+description: Wunsch aus den Kommentaren, der in eine Folge soll
+labels: [zuschauerwunsch]
+body:
+  - type: input
+    id: wer
+    attributes:
+      label: Von wem? (Kanalname)
+      placeholder: "@nice-b5c6"
+  - type: textarea
+    id: wunsch
+    attributes:
+      label: Wunsch
+      placeholder: z. B. Katze Belen als Schiri-Prinzessin
+    validations:
+      required: true

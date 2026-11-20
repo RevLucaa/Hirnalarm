@@ -1,0 +1,21 @@
+name: Repo einrichten
+
+# Einmalig/manuell: legt die Labels für Ideen, Wünsche, Berichte und Wartung an (bestehende bleiben unverändert).
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          anlegen() { gh api "repos/${GITHUB_REPOSITORY}/labels" -f name="$1" -f color="$2" -f description="$3" > /dev/null 2>&1 && echo "angelegt: $1" || echo "vorhanden: $1"; }
+          anlegen idee 1d76db "Idee für Folge, Figur, Gag oder Sportart"
+          anlegen zuschauerwunsch fbca04 "Wunsch aus den Kommentaren"
+          anlegen bericht 0e8a16 "Automatischer Wochenbericht"
+          anlegen wartung c5def5 "Technische Wartung (Dependabot)"

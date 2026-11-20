@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
 
@@ -46,6 +46,11 @@ jobs:
           echo "Folgen: $liste"
           echo "liste=$liste" >> "$GITHUB_OUTPUT"
 
+      - uses: actions/setup-python@v5
+        if: steps.welche.outputs.liste != ''
+        with:
+          python-version: "3.13"
+          cache: pip
       - name: Werkzeuge installieren
         if: steps.welche.outputs.liste != ''
         run: |
@@ -82,7 +87,7 @@ jobs:
               gh release upload "$tag" "$tag.mp4" "${tag}_vorschau.jpg" --clobber
             else
               gh release create "$tag" "$tag.mp4" "${tag}_vorschau.jpg" --title "$titel" \
-                --notes "Episode $ordner · Länge ${dauer%.*} s · Commit ${GITHUB_SHA::7}"
+                --notes "Episode $ordner · Länge ${dauer%.*} s · Renderer v$(python3 -c 'import render;print(render.VERSION)') · Commit ${GITHUB_SHA::7}"
             fi
             echo "Fertig: https://github.com/${GITHUB_REPOSITORY}/releases/download/$tag/$tag.mp4 (${dauer} s)"
           done

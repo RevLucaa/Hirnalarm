@@ -8,7 +8,7 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
 Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese Liste. Kann eine Regel nicht eingehalten werden: Lauf abbrechen und Luca Bescheid geben.
 1. **Keine vidIQ-Credits.** Nur Werkzeuge mit „Cost: 0 credit(s)“ verwenden (Upload, Entwurf, Einplanen, `social_post_list`, `social_post_status`, `social_account_list`).
    Alles, was Credits kostet (`user_videos`, `video_comments`, `channel_analytics`, `get_videos_by_ids`, `watch_*`, Suchen, `compose` …), ist verboten – auch für Auswertungen.
-   Kommentare und Zahlen kommen aus `daten/` (YouTube Data API, kostenlos).
+   Kommentare und Zahlen kommen vom Branch `daten` (YouTube Data API, kostenlos) – siehe „Kostenlose Daten“ unten.
 2. **ElevenLabs: höchstens 2.000 Credits pro Folge – weniger ist besser.** Ziel ≈ 800–1.000. Vor dem Erzeugen mit `tools/stimme_bauen.py bloecke` rechnen;
    jeder Block wird genau einmal erzeugt, Neuversuche zählen mit. Lieber Skript kürzen als die Grenze ausreizen.
 3. **ElevenLabs nur für Stimmen.** Keine Bilder, Videos, Musik, Soundeffekte oder Flows zum Rendern über ElevenLabs.
@@ -26,8 +26,10 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
 - `liga.json` – Charaktere, Bilanz, bisherige Folgen, Warteschlange `naechste`
 - `stimmen.json` – feste Stimmen-Besetzung (Erzähler + jede Figur, voice_id, Credit-Faktor); `tools/stimme_bauen.py` – Sprecher-Blöcke + Zusammenfügen
 - `episodes/FNN_slug/` – je Folge ein Ordner: `skript.txt` (mit Stimmen-Tags), `episode.json`, `stimme.mp3` (Specials: `SNN_slug/`)
-- `tools/wochenbericht.py` + Action „Wochenbericht“ – jeden Sonntag 19:00 Bericht als Issue (E-Mail an Luca), kostenlos aus `daten/`
+- `tools/wochenbericht.py` + Action „Wochenbericht“ – jeden Sonntag 19:00 Bericht als Issue (E-Mail an Luca), kostenlos aus dem Branch `daten`
 - `tests/demo_stimmen/` – Demo-Folge zum Testen von Renderer-Änderungen (Cloud-Test: `rendern.yml` mit `test=true` → Vorab-Release `test`, wird überschrieben, nie posten)
+- `render/aktionen.py` – Aktionen (Schlag, Wurf, Rennen …), `render/kulissen.py` – Hintergründe/Arenen (neue Arenen hier), `render/__init__.py` – `VERSION`
+- `tools/bildtest.py` + `tests/referenz/` – Bild-Test gegen Referenzbilder (läuft in „Prüfen“)
 - `tools/pruefen.py` – prüft Episoden + Liga; **vor jedem Push ausführen**, muss „0 Fehler“ melden
 - Übersicht für Menschen: `README.md`
 
@@ -50,7 +52,7 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
 5. **Episode-JSON** schreiben als `episodes/FNN_slug/episode.json` (Muster: `episodes/F09_zitrone_vs_erdbeere/episode.json`); Skript als `skript.txt`, getempte Stimme als `stimme.mp3` in denselben Ordner. Die `text`-Felder müssen das Skript **ohne** Tags exakt wiedergeben (an Satzzeichen . ! ? : getrennt).
    Segmente, die eine Figur spricht, bekommen `"speaker": "<Kurzname>"` (zeigt ein Namensschild in Figurenfarbe über dem Untertitel); Erzähler-Segmente ohne `speaker`.
    Segmentgrenzen müssen an Sprecherwechseln liegen (ein Segment = ein Sprecher). `[laugh]` im Text markiert ein Lachen. Szenen: `intro`, `tag` (side), `banner` (label, color), `action` (type, actor, Parameter), `point` (side, show_score), `win` (side), `tease` (teaser kind | loser_expr), `cta` (line1, line2, challenger kind).
-   Aktionen (siehe `ACTIONS` in `engine.py`): u. a. `race` (trip), `slam` (bounce, peel, jump0, hit), `post` (hit), `spin`, `headbutt`, `clash` (splash), `throw`, `bowl`, `catapult`. Neue Aktionen in `engine.py`, neue Figuren in `render/figuren.py` ergänzen.
+   Aktionen (siehe `ACTIONS` in `render/aktionen.py`): u. a. `race` (trip), `slam` (bounce, peel, jump0, hit), `post` (hit), `spin`, `headbutt`, `clash` (splash), `throw`, `bowl`, `catapult`. Neue Aktionen in `render/aktionen.py`, neue Figuren in `render/figuren.py` ergänzen.
    Charakter-Arten (siehe `KINDS` in `render/figuren.py`): banana, melon, pineapple, coconut, strawberry, lemon, cucumber, birch, kiwi. Fighter 0 = links, 1 = rechts. `episode` = Folgennummer.
 6. **Vorschau** lokal (`preview` mit ~12 Zeitpunkten), Bilder als Kontaktbogen ansehen, Timing der `hit`-Werte an die Phrasen-Zeiten (stderr) anpassen.
    Dann `python3 tools/pruefen.py FNN_slug` → muss 0 Fehler melden.
@@ -68,7 +70,7 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
    Dann `vidiq_social_post_publish` (alle Ziele). Mit `vidiq_social_post_status` (kostenlos) prüfen, dass YouTube und Instagram `scheduled` sind und die Uhrzeit stimmt.
    Hirnalarm-TikTok („BrainrotLab“) ist noch nicht mit vidIQ verbunden – sobald es in `vidiq_social_account_list` auftaucht, ebenfalls als Ziel aufnehmen
    (privacyLevel PUBLIC_TO_EVERYONE, allowComment true, musicUsageConfirmed true, isAiGenerated false).
-9. `liga.json` aktualisieren (Bilanz, `folgen` inkl. YouTube-ID, `naechste` um 2 kürzen und neue Duelle hinten anhängen, gern Kommentarwünsche aus `daten/kommentare.json` aufgreifen – vorher `git pull`).
+9. `liga.json` aktualisieren (Bilanz, `folgen` inkl. YouTube-ID, `naechste` um 2 kürzen und neue Duelle hinten anhängen, gern Kommentarwünsche aus `kommentare.json` (Branch `daten`) und offene Issues mit Label `idee`/`zuschauerwunsch` aufgreifen – vorher `git pull`).
    `liga.json` committen und pushen (`git -c push.negotiate=true push`); die Action „Prüfen“ muss grün sein.
 10. Kurze Zusammenfassung an Luca: Titel, Uhrzeiten, YouTube-Links, verbrauchte ElevenLabs-Credits.
 
@@ -81,9 +83,9 @@ Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Punkt 4)
 3. **Ab F13: pro Tag eine Ring-Folge und eine Sport-Folge; die Sport-Folgen wechseln sich ab (Rennen, Fußball, Rennen, …).** Nie zweimal dieselbe Sportart hintereinander.
    Die Ergebnisse hängen zusammen (Verlierer eines Rennens/Spiels muss im Ring gegen den Champion ran, Revanchen in der anderen Disziplin usw.).
    Jede Folge endet mit einem Cliffhanger, der in eine andere Disziplin führt.
-4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `daten/statistik.json` (kostenlos) Ring vs. Rennen vs. Fußball vergleichen. Keine vidIQ-Analytics (Grundregel 1).
+4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `statistik.json` bzw. dem Wochenbericht (Branch `daten`, kostenlos) Ring vs. Rennen vs. Fußball vergleichen. Keine vidIQ-Analytics (Grundregel 1).
    Läuft eine Sportart deutlich schlechter als der Ring → nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
-Bilanz und Storyline gelten über alle Disziplinen. In `engine.py` fehlen beide Kulissen noch – beim ersten Bedarf ergänzen:
+Bilanz und Storyline gelten über alle Disziplinen. In `render/kulissen.py` fehlen beide Kulissen noch – beim ersten Bedarf ergänzen (Aktionen in `render/aktionen.py`):
 `bahn` (Laufbahn, Start/Ziel, Zuschauer; Aktionen Start, Überholen, Ausrutschen, Zielfoto; `race` als Basis) und
 `fussball` (Tor, Rasen, Ball; Aktionen Schuss, Parade, Pfosten, Tor-Jubel; Look an Special S1 `7P963hZzTs0` anlehnen).
 Sport-Skript: Hook → Grund für das Duell → 2–3 Abschnitte (Rennen: `Start!`, `Halbzeit!`, `Zielgerade!`; Fußball: `Schuss eins!` …) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.
@@ -100,8 +102,20 @@ Jede Episode, die außerhalb dieses Ablaufs entsteht, ebenfalls in `liga.json` �
 ## Kostenlose Daten statt vidIQ-Credits
 vidIQ-Credits sind knapp (150/Monat). Hochladen, Entwurf, Einplanen, `social_post_list` und `social_post_status` kosten 0 Credits und bleiben erlaubt.
 **Nicht verwenden** (kosten Credits, siehe Grundregel 1): `vidiq_user_videos`, `vidiq_video_comments`, `vidiq_get_videos_by_ids`, `vidiq_channel_analytics` – ohne Ausnahme.
-Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.yml` alle 6 Stunden über die YouTube Data API (Secret `YT_API_KEY`) nach
-`daten/kommentare.json` und `daten/statistik.json`. Fehlen die Dateien oder sind sie älter als 2 Tage, Luca kurz Bescheid geben und ohne Kommentarwünsche weitermachen.
+Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.yml` alle 6 Stunden über die YouTube Data API (Secret `YT_API_KEY`)
+und legt sie auf dem **Branch `daten`** ab (nicht auf `main`). Lesen im Lauf:
+`git fetch -q origin daten && git show origin/daten:kommentare.json` (ebenso `statistik.json`, `verlauf.csv`, `berichte/<Jahr>-KW<NN>.md`).
+Fehlen die Dateien oder sind sie älter als 2 Tage, Luca kurz Bescheid geben und ohne Kommentarwünsche weitermachen.
+
+## Ideen und Wünsche (Issues)
+Luca kann Ideen als GitHub-Issue anlegen (Vorlagen „Idee“ und „Zuschauerwunsch“, Labels `idee` / `zuschauerwunsch`).
+Im Lauf lesen: `gh api "repos/RevLucaa/Hirnalarm/issues?state=open&labels=idee" --jq '.[]|[.number,.title,.body]|@tsv'` (ebenso `zuschauerwunsch`).
+Passendes in `naechste` einplanen; Issues nicht selbst schließen (Luca entscheidet).
+
+## Renderer ändern
+Jede Änderung an Aussehen oder Ton: `render.VERSION` erhöhen, Eintrag in `CHANGELOG.md`, `python3 tools/bildtest.py` ausführen.
+Ist die Änderung gewollt, Referenzbilder mit `python3 tools/bildtest.py --neu` erneuern und mitcommitten. Vor dem Mergen nach `main`
+einen Cloud-Test (`rendern.yml`, `test=true`, Pfad `tests/demo_stimmen`) machen und das Video ansehen.
 
 ## Grenzen
 - ElevenLabs: **höchstens 2.000 Credits pro Video** (Wunsch von Luca; ≈ 1 Credit pro Zeichen, auch bei mehreren Stimmen – Summe aller Texte zählt, Neuversuche mitgerechnet).

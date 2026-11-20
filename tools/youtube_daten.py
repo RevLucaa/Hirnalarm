@@ -14,7 +14,8 @@ from datetime import datetime, timezone
 
 CHANNEL_ID = "UCmLDHEd4GKLvHuW58FarfCQ"
 API = "https://www.googleapis.com/youtube/v3/"
-OUT = os.path.join(os.path.dirname(__file__), "..", "daten")
+# Zielordner: in GitHub Actions der ausgecheckte Branch „daten“ (DATEN_DIR), lokal ./daten
+OUT = os.environ.get("DATEN_DIR") or os.path.join(os.path.dirname(__file__), "..", "daten")
 
 
 def get(endpoint, **params):

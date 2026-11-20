@@ -9,3 +9,4 @@ __pycache__/
 episodes/*/teile/
 tests/*/teile/
 !tests/*/stimme.mp3
+daten/

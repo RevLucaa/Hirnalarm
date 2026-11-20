@@ -1,7 +1,7 @@
 name: Wochenbericht
 
-# Jeden Sonntag 19:00 (Berlin): Bericht aus den kostenlosen YouTube-Daten erstellen, im Repo ablegen
-# und als Issue anlegen – GitHub schickt Luca dazu eine E-Mail.
+# Jeden Sonntag 19:00 (Berlin): Bericht aus den kostenlosen YouTube-Daten erstellen, auf dem Branch „daten“
+# unter berichte/ ablegen und als Issue anlegen – GitHub schickt Luca dazu eine E-Mail.
 on:
   schedule:
     - cron: "0 18 * * 0"
@@ -11,22 +11,34 @@ permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: daten-branch
+  cancel-in-progress: false
+
 jobs:
   bericht:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          ref: daten
+          path: daten-zweig
       - name: Bericht erstellen
         id: b
+        env:
+          DATEN_DIR: daten-zweig
         run: echo "datei=$(python3 tools/wochenbericht.py)" >> "$GITHUB_OUTPUT"
-      - name: Im Repo speichern
+      - name: Auf Branch „daten“ speichern
+        working-directory: daten-zweig
         run: |
           git config user.name "hirnalarm-bot"
           git config user.email "hirnalarm-bot@users.noreply.github.com"
-          git add berichte/
+          git add -A
           git diff --cached --quiet && exit 0
           git commit -qm "Wochenbericht"
-          for i in 1 2 3; do git pull -q --rebase && git push && break; sleep 5; done
+          for i in 1 2 3; do git pull -q --rebase -X theirs origin daten && git push origin HEAD:daten && exit 0; sleep 5; done
+          exit 1
       - name: Als Issue anlegen
         env:
           GH_TOKEN: ${{ github.token }}

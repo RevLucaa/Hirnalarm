@@ -2,7 +2,8 @@
 """Wochenbericht aus den kostenlosen YouTube-Daten: beste Folgen, Disziplinen-Vergleich, Zuwachs, Kommentarwünsche.
 
 Aufruf: python3 tools/wochenbericht.py            → schreibt berichte/<Jahr>-KW<NN>.md und gibt den Pfad aus
-Quellen: daten/statistik.json, daten/verlauf.csv, daten/kommentare.json, liga.json (alles im Repo, 0 Credits).
+Quellen: statistik.json, verlauf.csv, kommentare.json (Branch „daten“ bzw. ./daten) und liga.json – alles kostenlos.
+Der Bericht landet unter berichte/ im Daten-Ordner.
 """
 import csv
 import json
@@ -11,10 +12,11 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DATEN = os.environ.get("DATEN_DIR") or os.path.join(ROOT, "daten")  # Branch „daten“ (Actions) bzw. ./daten lokal
 
 
 def lade(pfad, standard):
-    p = os.path.join(ROOT, pfad)
+    p = os.path.join(DATEN, pfad) if not pfad.endswith("liga.json") else os.path.join(ROOT, pfad)
     if not os.path.exists(p):
         return standard
     with open(p, encoding="utf-8") as f:
@@ -24,8 +26,8 @@ def lade(pfad, standard):
 def main():
     jetzt = datetime.now(timezone.utc)
     vor7 = jetzt - timedelta(days=7)
-    stat = lade("daten/statistik.json", {"videos": [], "kanal": {}})
-    komm = lade("daten/kommentare.json", {"kommentare": []})
+    stat = lade("statistik.json", {"videos": [], "kanal": {}})
+    komm = lade("kommentare.json", {"kommentare": []})
     liga = lade("liga.json", {"folgen": []})
     videos = stat["videos"]
     arena = {f.get("youtube"): f.get("arena", "ring") for f in liga.get("folgen", [])}
@@ -33,7 +35,7 @@ def main():
 
     # Zuwachs der letzten 7 Tage aus dem Verlauf (ältester Stand ≥ 7 Tage zurück, sonst ältester vorhandener)
     alt = {}
-    verlauf = os.path.join(ROOT, "daten/verlauf.csv")
+    verlauf = os.path.join(DATEN, "verlauf.csv")
     if os.path.exists(verlauf):
         zeilen = list(csv.DictReader(open(verlauf, encoding="utf-8")))
         for z in sorted(zeilen, key=lambda z: z["stand"]):
@@ -71,8 +73,8 @@ def main():
         L.append("- keine")
 
     L += ["", "_Automatisch erstellt aus der YouTube Data API – kostet keine vidIQ-Credits._", ""]
-    os.makedirs(os.path.join(ROOT, "berichte"), exist_ok=True)
-    ziel = os.path.join(ROOT, "berichte", f"{kw[0]}-KW{kw[1]:02d}.md")
+    os.makedirs(os.path.join(DATEN, "berichte"), exist_ok=True)
+    ziel = os.path.join(DATEN, "berichte", f"{kw[0]}-KW{kw[1]:02d}.md")
     with open(ziel, "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     print(ziel)

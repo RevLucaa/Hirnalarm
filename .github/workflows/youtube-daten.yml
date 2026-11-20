@@ -1,38 +1,40 @@
 name: YouTube-Daten holen
 
+# Holt alle 6 Stunden Kommentare und Aufrufzahlen (YouTube Data API, kostenlos) und speichert sie
+# auf dem Branch „daten“ – so bleibt der Verlauf von main frei von Bot-Commits.
 on:
   schedule:
-    - cron: "0 */6 * * *"   # alle 6 Stunden
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: youtube-daten
+  group: daten-branch
   cancel-in-progress: false
 
 jobs:
   holen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          ref: daten
+          path: daten-zweig
       - name: Kommentare und Aufrufe abrufen
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          DATEN_DIR: daten-zweig
         run: python3 tools/youtube_daten.py
-      - name: Speichern
+      - name: Auf Branch „daten“ speichern
+        working-directory: daten-zweig
         run: |
           git config user.name "hirnalarm-bot"
           git config user.email "hirnalarm-bot@users.noreply.github.com"
-          # Neueste Daten gewinnen immer: auf den aktuellen Stand von main setzen, nur daten/ ersetzen
-          for i in 1 2 3; do
-            git fetch -q origin main
-            git reset -q --soft origin/main
-            git add daten/
-            git diff --cached --quiet && exit 0
-            git commit -qm "YouTube-Daten aktualisiert"
-            git push origin HEAD:main && exit 0
-            sleep 5
-          done
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -qm "YouTube-Daten aktualisiert"
+          for i in 1 2 3; do git pull -q --rebase -X theirs origin daten && git push origin HEAD:daten && exit 0; sleep 5; done
           exit 1

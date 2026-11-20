@@ -1,0 +1,8 @@
+# Hält die verwendeten GitHub-Actions aktuell (monatlich, als Pull Request – nichts wird automatisch übernommen).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels: [wartung]

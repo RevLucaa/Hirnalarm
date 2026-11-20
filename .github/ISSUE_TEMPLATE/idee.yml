@@ -1,0 +1,16 @@
+name: Idee
+description: Neue Idee für eine Folge, Figur, Gag oder Sportart
+labels: [idee]
+body:
+  - type: textarea
+    id: idee
+    attributes:
+      label: Was ist die Idee?
+      placeholder: z. B. Kalle schummelt beim Rennen mit einem Skateboard
+    validations:
+      required: true
+  - type: dropdown
+    id: art
+    attributes:
+      label: Art
+      options: [Folge / Story, Neue Figur, Gag / Aktion, Sportart, Sonstiges]
