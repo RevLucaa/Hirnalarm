@@ -10,3 +10,4 @@ episodes/*/teile/
 tests/*/teile/
 !tests/*/stimme.mp3
 daten/
+!tests/referenz/*.png
