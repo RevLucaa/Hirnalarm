@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Erzeugt eine künstliche 56-s-„Stimme“ (Töne mit Pausen) für Tests ohne ElevenLabs.
-Aufruf: python3 tools/testton.py ziel.mp3
+"""Erzeugt eine künstliche „Stimme“ (Töne mit Pausen) für Tests ohne ElevenLabs.
+Aufruf: python3 tools/testton.py ziel.mp3 [sekunden, Standard 54]
 """
 import subprocess
 import sys
@@ -15,7 +15,8 @@ for _ in range(60):
     n = int(sr * rng.uniform(0.6, 1.4))
     teile.append(0.3 * np.sin(2 * np.pi * 220 * np.arange(n) / sr))
     teile.append(np.zeros(int(sr * rng.uniform(0.15, 0.35))))
-ton = np.concatenate(teile)[: sr * 56]
+sekunden = float(sys.argv[2]) if len(sys.argv) > 2 else 54
+ton = np.concatenate(teile)[: int(sr * sekunden)]
 ziel = sys.argv[1]
 with wave.open(ziel + ".wav", "wb") as w:
     w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
