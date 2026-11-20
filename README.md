@@ -26,6 +26,8 @@ Der genaue Ablauf für Claude steht in [`CLAUDE.md`](CLAUDE.md).
 | `render/figuren.py` | alle Obst-Figuren, Gesichter, Requisiten, Easing |
 | `render/ton.py` | Soundeffekte und Beat |
 | `episodes/FNN_slug/` | eine Folge: `skript.txt`, `episode.json`, `stimme.mp3` |
+| `stimmen.json` | feste Stimmen-Besetzung (Erzähler + jede Figur, ElevenLabs) |
+| `tools/stimme_bauen.py` | Skript in Sprecher-Blöcke zerlegen, Teile zu `stimme.mp3` zusammenfügen |
 | `liga.json` | Figuren mit Bilanz, bisherige Folgen, Warteschlange `naechste`, Themen-Pool |
 | `daten/` | Kommentare und Aufrufzahlen (automatisch alle 6 h, YouTube Data API) |
 | `tools/pruefen.py` | prüft Episoden und Liga auf Fehler |

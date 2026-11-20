@@ -82,7 +82,7 @@ for (si, p), (a_, b_) in zip(PHR, PH_T):
     L = sum(syl(w_) + 0.6 for w_ in ws); t = a_ + 0.03; span = max(0.3, b_ - a_ - 0.12)
     for wi, w_ in enumerate(ws):
         dd = span * (syl(w_) + 0.6) / L
-        WORDS.append((w_, t, t + dd, NCH)); t += dd
+        WORDS.append((w_, t, t + dd, NCH, si)); t += dd
         if wi % 2 == 1 or wi == len(ws) - 1: NCH += 1
 if "preview" in sys.argv:
     for (si, p), (a_, b_) in zip(PHR, PH_T):
@@ -236,6 +236,13 @@ def captions(img, t):
         ws = [d.textlength(w_, font=font(sz)) for w_ in words]
         if sum(ws) + gap * (len(ws) - 1) <= 1000 or sz <= 60: break
         sz -= 6
+    sp = SEGS[WORDS[i][4]].get("speaker")  # Figurenstimme: Namensschild über dem Untertitel
+    f_sp = next((f for f in EP["fighters"] if f.get("short") == sp), None) if sp else None
+    if f_sp:
+        lab = f_sp["short"].upper() + ":"
+        lw = d.textlength(lab, font=font(58))
+        d.rounded_rectangle([W / 2 - lw / 2 - 26, 1655, W / 2 + lw / 2 + 26, 1725], 22, fill=tuple(f_sp.get("color", [255, 255, 255])), outline=(0, 0, 0), width=6)
+        d.text((W / 2, 1690), lab, font=font(58), fill=(20, 20, 20), anchor="mm")
     x = W / 2 - (sum(ws) + gap * (len(ws) - 1)) / 2
     for (k, wd), w_, wl in zip(group, words, ws):
         cur = k == cur_i

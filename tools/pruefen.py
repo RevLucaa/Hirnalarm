@@ -30,7 +30,12 @@ def aktionen():
     return set()
 
 
+SPRECHER = set(json.load(open(os.path.join(ROOT, "stimmen.json"), encoding="utf-8"))["stimmen"])
+PREFIX = re.compile(r"^\s*(" + "|".join(map(re.escape, SPRECHER)) + r")\s*:\s*", re.M)
+
+
 def norm(text):
+    text = PREFIX.sub("", text)
     text = TAGS.sub("", text).replace("[laugh]", "")
     return re.sub(r"\s+", " ", re.sub(r"[^\wäöüÄÖÜß]+", " ", text.lower())).strip()
 
@@ -79,6 +84,9 @@ def episode(ordner, ACTIONS):
             fehler.append(f"{name}: Segment {i}: unbekannte Aktion '{s.get('type')}'")
         if sc in ("point", "win") and s.get("side") not in (0, 1):
             fehler.append(f"{name}: Segment {i}: side muss 0 oder 1 sein")
+        sp = s.get("speaker")
+        if sp is not None and sp not in SPRECHER:
+            fehler.append(f"{name}: Segment {i}: Sprecher '{sp}' fehlt in stimmen.json")
         if not s.get("text", "").strip():
             fehler.append(f"{name}: Segment {i}: text fehlt")
         if "[" in s.get("text", "").replace("[laugh]", ""):

@@ -8,6 +8,7 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
 - `engine.py` – Renderer: `python3 engine.py episode.json stimme.mp3 out.mp4` (Vorschau: `... out.mp4 preview 5,20,40`)
 - `render/figuren.py` – alle Figuren/Requisiten (neue Figur: `spr_<art>` + Eintrag in `KINDS`/`BASE_SC`); `render/ton.py` – Soundeffekte
 - `liga.json` – Charaktere, Bilanz, bisherige Folgen, Warteschlange `naechste`
+- `stimmen.json` – feste Stimmen-Besetzung (Erzähler + jede Figur, voice_id, Credit-Faktor); `tools/stimme_bauen.py` – Sprecher-Blöcke + Zusammenfügen
 - `episodes/FNN_slug/` – je Folge ein Ordner: `skript.txt` (mit Stimmen-Tags), `episode.json`, `stimme.mp3` (Specials: `SNN_slug/`)
 - `tools/pruefen.py` – prüft Episoden + Liga; **vor jedem Push ausführen**, muss „0 Fehler“ melden
 - Übersicht für Menschen: `README.md`
@@ -15,15 +16,22 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
 ## Ablauf pro Lauf (bereitet die 2 Videos für MORGEN vor)
 1. `liga.json` lesen. Die nächsten zwei Einträge aus `naechste` nehmen (Slot 13:00 und 17:30).
    Vorher mit `vidiq_social_post_list` (kostenlos; `statuses: ["scheduled"]`, `platforms: ["YOUTUBE"]`) prüfen, ob für morgen schon Videos eingeplant sind – dann nichts doppelt machen.
-2. **Skript** je Folge auf Deutsch schreiben: 740–830 Zeichen (≈ 120 Wörter, ≤ 850 ElevenLabs-Credits).
+2. **Skript** je Folge auf Deutsch schreiben: 740–830 Zeichen (≈ 120 Wörter). **Mit Figurenstimmen** (ab F10): eine Zeile pro Wortbeitrag im Format
+   `Sprecher: Text` (Sprecher = Kurzname aus `stimmen.json` oder `Erzähler`). Der Erzähler trägt die Folge (Runden, Punkte, Sieger),
+   die zwei Kämpfer haben je 2–4 kurze Sätze (Sprüche, Drohungen, Reaktionen – max. ~12 Wörter pro Satz), Gäste/Schiri gelegentlich einen.
    Aufbau: Hook → Vorstellung Gegner → 2–3 Runden (`Runde eins: X!`) mit „Punkt für …!“ und Zwischenstand → `Finale!` → `NAME GEWINNT!` → Story-Teaser → „Schreib's in die Kommentare!“.
    Jede Folge braucht eine eigene Story und andere Aktionen/Gags (YouTube „inauthentic content“ – keine Kopien!). Bilanz/Storyline aus `liga.json` weiterführen.
    Tags erlaubt: `[excited]` am Anfang, `[laughs]`, `[dramatic]` vor Finale, `[shouting]` beim Sieger.
-3. **Stimme** (ElevenLabs): `creative_generate_speech`, `model_id=eleven_v4`, `voice_id=VaRABgCVZ3ugJKxSuaMR` (WasMachtHarald),
-   `generations_count=1`, `flow_id=hMLY5a8Lk2A1cOWhQmuf`. Danach `creative_get_generations` → `full_res_url` mit `curl` laden.
-4. **Tempo**: Dauer messen; mit `ffmpeg -af atempo=X` auf ≈ 55–57 s bringen (X zwischen 0.88 und 1.0). In der Episode `tail` so setzen, dass Gesamtlänge ≈ 58–59,5 s (< 60 s!).
+3. **Stimmen** (ElevenLabs): `python3 tools/stimme_bauen.py bloecke episodes/FNN_slug` → Liste der Sprecher-Blöcke mit voice_id und Credits
+   (Exit 1 über 2.000 → Skript kürzen). Pro Block **genau einmal** `creative_generate_speech` (`model_id=eleven_v4`, voice_id aus der Liste,
+   `generations_count=1`, `flow_id=hMLY5a8Lk2A1cOWhQmuf`; alle Blöcke einer Folge parallel starten). Dann `creative_get_generations` → `full_res_url`
+   mit `curl` als `episodes/FNN_slug/teile/01.mp3`, `02.mp3` … (Reihenfolge = Block-Nr.) laden. Klingt ein Block falsch (Aussprache, Betonung),
+   nur diesen einen Block neu erzeugen – Credits mitzählen, Summe ≤ 2.000.
+4. **Zusammenfügen + Tempo**: `python3 tools/stimme_bauen.py zusammenfuegen episodes/FNN_slug` – gleicht die Lautstärke aller Stimmen an,
+   setzt kurze Pausen zwischen Sprechern und bringt das Ganze auf ≈ 55–57 s → `stimme.mp3`. In der Episode `tail` so setzen, dass Gesamtlänge ≈ 58–59,5 s (< 60 s!).
 5. **Episode-JSON** schreiben als `episodes/FNN_slug/episode.json` (Muster: `episodes/F09_zitrone_vs_erdbeere/episode.json`); Skript als `skript.txt`, getempte Stimme als `stimme.mp3` in denselben Ordner. Die `text`-Felder müssen das Skript **ohne** Tags exakt wiedergeben (an Satzzeichen . ! ? : getrennt).
-   `[laugh]` im Text markiert ein Lachen. Szenen: `intro`, `tag` (side), `banner` (label, color), `action` (type, actor, Parameter), `point` (side, show_score), `win` (side), `tease` (teaser kind | loser_expr), `cta` (line1, line2, challenger kind).
+   Segmente, die eine Figur spricht, bekommen `"speaker": "<Kurzname>"` (zeigt ein Namensschild in Figurenfarbe über dem Untertitel); Erzähler-Segmente ohne `speaker`.
+   Segmentgrenzen müssen an Sprecherwechseln liegen (ein Segment = ein Sprecher). `[laugh]` im Text markiert ein Lachen. Szenen: `intro`, `tag` (side), `banner` (label, color), `action` (type, actor, Parameter), `point` (side, show_score), `win` (side), `tease` (teaser kind | loser_expr), `cta` (line1, line2, challenger kind).
    Aktionen (siehe `ACTIONS` in `engine.py`): u. a. `race` (trip), `slam` (bounce, peel, jump0, hit), `post` (hit), `spin`, `headbutt`, `clash` (splash), `throw`, `bowl`, `catapult`. Neue Aktionen in `engine.py`, neue Figuren in `render/figuren.py` ergänzen.
    Charakter-Arten (siehe `KINDS` in `render/figuren.py`): banana, melon, pineapple, coconut, strawberry, lemon, cucumber, birch, kiwi. Fighter 0 = links, 1 = rechts. `episode` = Folgennummer.
 6. **Vorschau** lokal (`preview` mit ~12 Zeitpunkten), Bilder als Kontaktbogen ansehen, Timing der `hit`-Werte an die Phrasen-Zeiten (stderr) anpassen.
@@ -82,5 +90,5 @@ Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.ym
 
 ## Grenzen
 - ElevenLabs: **höchstens 2.000 Credits pro Video** (Wunsch von Luca; ≈ 1 Credit pro Zeichen, auch bei mehreren Stimmen – Summe aller Texte zählt, Neuversuche mitgerechnet).
-- ElevenLabs: Starter-Plan 40.000 Credits/Monat. Vor dem Erzeugen `account_get_usage` prüfen; wenn < 2.000 übrig, abbrechen und Luca Bescheid geben.
+- ElevenLabs: Creator-Plan (ca. 128.000 Credits/Monat, Stand 20.11.2026; auch für die Gruselgeschichten). Vor dem Erzeugen `account_get_usage` prüfen; wenn < 2.000 übrig, abbrechen und Luca Bescheid geben.
 - Nie öffentlich posten, wenn das Rendern/Prüfen fehlschlägt – lieber Lauf abbrechen und melden.

@@ -1,0 +1,67 @@
+{
+ "hinweis": "Feste Besetzung der Obst-Liga (ElevenLabs, alle deutsch, professionelle Library-Stimmen). Modell eleven_v4. Nur hier ändern – nie pro Folge wechseln. 'faktor' = gemessener Credit-Faktor pro Zeichen (Kalles Stimme ist eine teurere Library-Stimme).",
+ "modell": "eleven_v4",
+ "max_credits_pro_video": 2000,
+ "stimmen": {
+  "Erzähler": {
+   "voice_id": "VaRABgCVZ3ugJKxSuaMR",
+   "name": "WasMachtHarald – Hyper Energetic German",
+   "rolle": "Kommentator/Ringsprecher, trägt die Folge",
+   "faktor": 1.0
+  },
+  "Bernd": {
+   "voice_id": "DsJNFaZXbVnwO9Nycgo3",
+   "name": "Barnaby – witzig, frech, jung",
+   "rolle": "Bananen-Bernd: Underdog mit großer Klappe, will immer ein Comeback",
+   "faktor": 1.0
+  },
+  "Manni": {
+   "voice_id": "pfvZahoGcT3NdpxRuNkg",
+   "name": "Bruno, der Bär – groß, stark, gemütlich",
+   "rolle": "Melonen-Manni: Champion, ruhig und selbstsicher",
+   "faktor": 1.0
+  },
+  "Anton": {
+   "voice_id": "eWmswbut7I70CIuRsFwP",
+   "name": "Frankie Slim – lässig und großspurig",
+   "rolle": "Ananas-Anton: eitler Herausforderer, schummelt gern",
+   "faktor": 1.0
+  },
+  "Kalle": {
+   "voice_id": "f2yUVfK5jdm78zlpcZ8C",
+   "name": "Albert – witzig und stur",
+   "rolle": "Kokos-Kalle: harte Nuss, grantig, Elfmeter-Spezialist",
+   "faktor": 2.4
+  },
+  "Zora": {
+   "voice_id": "iwP1PxYYSTdHA1qXlwFe",
+   "name": "Sandra Squirrel – schwankt zwischen Frust und Optimismus",
+   "rolle": "Zitronen-Zora: sauer, eiert, gibt nie auf",
+   "faktor": 1.0
+  },
+  "Emma": {
+   "voice_id": "3t6439mGAsHvQFPpoPdf",
+   "name": "Raya Reckless – süß und gefährlich",
+   "rolle": "Erdbeer-Emma: süß, aber brandgefährlich",
+   "faktor": 1.0
+  },
+  "Gustav": {
+   "voice_id": "89gcX1AeMGgcsN8ypHLu",
+   "name": "Rupert – vornehmer Gentleman",
+   "rolle": "Gurken-Gustav: cool wie eine Gurke, steif und vornehm",
+   "faktor": 1.0
+  },
+  "Rudi": {
+   "voice_id": "LRpNiUBlcqgIsKUzcrlN",
+   "name": "Uropa Georg – uralt, knarzig, komisch",
+   "rolle": "Birken-Baum Rudi: alter Baum, Schiri und Zuschauerliebling",
+   "faktor": 1.0
+  },
+  "Kevin": {
+   "voice_id": "2HDQZbLZn0MJCgru92h7",
+   "name": "Knurps – frech, schnell, Cartoon",
+   "rolle": "Kiwi-Kevin: haariger, hibbeliger Neuling",
+   "faktor": 1.0
+  }
+ }
+}
