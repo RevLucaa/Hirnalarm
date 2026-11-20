@@ -1,0 +1,190 @@
+{
+ "episode": 10,
+ "seed": 101,
+ "bg_top": [
+  20,
+  90,
+  80
+ ],
+ "mat": [
+  90,
+  160,
+  220
+ ],
+ "guest": {
+  "kind": "cat",
+  "name": "Prinzessin Belen",
+  "thanks": "SCHIRI-PRINZESSIN|Idee: @MareikeNoe-g6q"
+ },
+ "fighters": [
+  {
+   "kind": "kiwi",
+   "name": "Kiwi-Kevin",
+   "short": "Kevin",
+   "color": [
+    150,
+    215,
+    70
+   ]
+  },
+  {
+   "kind": "cucumber",
+   "name": "Gurken-Gustav",
+   "short": "Gustav",
+   "color": [
+    90,
+    200,
+    150
+   ]
+  }
+ ],
+ "tail": 1.6,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Haarige Kartoffel! Das hat Gurken-Gustav zu Kiwi-Kevin gesagt. Heute gibt's die Quittung!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Kevin",
+   "text": "Ich bin keine Kartoffel! Ich bin eine Kiwi mit Stil!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Gustav",
+   "text": "Mit Haaren. Wie unappetitlich."
+  },
+  {
+   "scene": "guest",
+   "text": "Schiri ist eure Wunsch-Prinzessin aus den Kommentaren: Katze Belen!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: GURKEN-SHURIKEN",
+   "color": [
+    60,
+    170,
+    80
+   ],
+   "text": "Runde eins: Gurken-Shuriken!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 1,
+   "proj": "slice",
+   "word": "ZACK!",
+   "text": "Gustav wirft Gurkenscheiben, bis Kevin aussieht wie ein Salat! Punkt für Gustav!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Kevin",
+   "loser_expr": "sad",
+   "text": "Meine Frisur! Die war frisch geföhnt!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: KIWI-RAKETE",
+   "color": [
+    140,
+    100,
+    55
+   ],
+   "text": "Runde zwei: Kiwi-Rakete!"
+  },
+  {
+   "scene": "action",
+   "type": "headbutt",
+   "actor": 0,
+   "word": "KITZEL!",
+   "text": "Kevin rammt Gustav mit dem Kopf in die Seile! Punkt für Kevin!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Gustav",
+   "loser_expr": "grin",
+   "show_score": true,
+   "text": "[laugh] Aufhören! Deine Haare kitzeln!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Eins zu eins! Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "post",
+   "actor": 0,
+   "hit": 0.75,
+   "text": "Gustav rollt mit Vollgas auf Kevin zu... Kevin hüpft zur Seite, und Gustav knallt gegen den Ringpfosten!"
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "KIWI-KEVIN GEWINNT! Sein allererster Sieg!"
+  },
+  {
+   "scene": "tease",
+   "teaser": "pineapple",
+   "text": "Und Ananas-Anton? Der wurde heimlich auf einer Rennbahn gesehen..."
+  },
+  {
+   "scene": "cta",
+   "line1": "VERDIENT GEWONNEN?",
+   "line2": "JA ODER NEIN?",
+   "text": "Hat Kevin verdient gewonnen? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Gustav",
+   "line1": "VERDIENT GEWONNEN?",
+   "line2": "JA ODER NEIN?",
+   "text": "Verdient? Das war Glück, du haarige Kartoffel!"
+  }
+ ],
+ "bounds": [
+  1.45,
+  3.78,
+  5.24,
+  6.93,
+  9.28,
+  10.4,
+  12.01,
+  14.76,
+  16.03,
+  17.12,
+  18.34,
+  21.6,
+  22.78,
+  24.01,
+  25.75,
+  26.88,
+  27.95,
+  30.52,
+  31.66,
+  33.39,
+  34.81,
+  36.08,
+  37.07,
+  39.54,
+  43.17,
+  45.06,
+  46.31,
+  47.69,
+  50.09,
+  51.63,
+  52.64,
+  53.93,
+  54.9
+ ]
+}
