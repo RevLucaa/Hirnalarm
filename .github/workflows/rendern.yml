@@ -73,7 +73,10 @@ jobs:
             dauer=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$tag.mp4")
             titel="$tag – $(python3 -c "import json;f=json.load(open('$d/episode.json'))['fighters'];print(f[0]['short'],'vs.',f[1]['short'])")"
             if [ "${{ github.event.inputs.test }}" = "true" ]; then
-              mkdir -p testergebnis && mv "$tag.mp4" "${tag}_vorschau.jpg" testergebnis/; continue
+              # Tests landen immer im selben Vorab-Release "test" (wird überschrieben, nie veröffentlicht)
+              gh release view test > /dev/null 2>&1 || gh release create test --prerelease --title "Test-Renders (nicht veröffentlichen)" --notes "Wird bei jedem Test überschrieben."
+              gh release upload test "$tag.mp4" "${tag}_vorschau.jpg" --clobber
+              echo "Test: https://github.com/${GITHUB_REPOSITORY}/releases/download/test/$tag.mp4"; continue
             fi
             if gh release view "$tag" > /dev/null 2>&1; then
               gh release upload "$tag" "$tag.mp4" "${tag}_vorschau.jpg" --clobber
@@ -84,10 +87,3 @@ jobs:
             echo "Fertig: https://github.com/${GITHUB_REPOSITORY}/releases/download/$tag/$tag.mp4 (${dauer} s)"
           done
 
-      - name: Testergebnis hochladen
-        if: github.event.inputs.test == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: testergebnis
-          path: testergebnis/
-          retention-days: 7

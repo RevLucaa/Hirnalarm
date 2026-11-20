@@ -27,7 +27,7 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
 - `stimmen.json` – feste Stimmen-Besetzung (Erzähler + jede Figur, voice_id, Credit-Faktor); `tools/stimme_bauen.py` – Sprecher-Blöcke + Zusammenfügen
 - `episodes/FNN_slug/` – je Folge ein Ordner: `skript.txt` (mit Stimmen-Tags), `episode.json`, `stimme.mp3` (Specials: `SNN_slug/`)
 - `tools/wochenbericht.py` + Action „Wochenbericht“ – jeden Sonntag 19:00 Bericht als Issue (E-Mail an Luca), kostenlos aus `daten/`
-- `tests/demo_stimmen/` – Demo-Folge zum Testen von Renderer-Änderungen (Cloud-Test: `rendern.yml` mit `test=true`, Ergebnis als Artefakt)
+- `tests/demo_stimmen/` – Demo-Folge zum Testen von Renderer-Änderungen (Cloud-Test: `rendern.yml` mit `test=true` → Vorab-Release `test`, wird überschrieben, nie posten)
 - `tools/pruefen.py` – prüft Episoden + Liga; **vor jedem Push ausführen**, muss „0 Fehler“ melden
 - Übersicht für Menschen: `README.md`
 
