@@ -5,7 +5,6 @@ Aufruf:  python3 tools/pruefen.py            (alles)
          python3 tools/pruefen.py F10_...    (nur diese Episoden-Ordner)
 Exit-Code 1 bei Fehlern; Warnungen brechen nicht ab.
 """
-import ast
 import json
 import os
 import re
@@ -22,12 +21,9 @@ fehler, warnungen = [], []
 
 
 def aktionen():
-    """Namen aus ACTIONS = {...} in engine.py lesen, ohne die Engine auszuführen."""
-    baum = ast.parse(open(os.path.join(ROOT, "engine.py"), encoding="utf-8").read())
-    for knoten in baum.body:
-        if isinstance(knoten, ast.Assign) and any(getattr(t, "id", "") == "ACTIONS" for t in knoten.targets):
-            return {k.value for k in knoten.value.keys}
-    return set()
+    """Namen der Aktionen aus render/aktionen.py (Modul ist frei von Seiteneffekten)."""
+    from render.aktionen import ACTIONS
+    return set(ACTIONS)
 
 
 SPRECHER = set(json.load(open(os.path.join(ROOT, "stimmen.json"), encoding="utf-8"))["stimmen"])
