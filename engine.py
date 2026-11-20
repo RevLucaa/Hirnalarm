@@ -385,6 +385,8 @@ def frame(t, collect_sfx=False):
                 L_["y"] = lerp(FLOOR + 380, FLOOR, ease_out(u / 0.3)); L_["expr"] = "angry"
             ex.append(("cta", u, s.get("line1", "WER KÄMPFT ALS"), s.get("line2", "NÄCHSTES?")))
 
+    if s.get("belt_on") is not None:  # Figur traegt (z. B. geklaut) den Guertel schon vor dem Sieg
+        F[s["belt_on"]]["crown"] = 1
     shake = (0, 0)
     for e in ex:
         if e[0] == "shake": shake = (random.randint(-e[1], e[1]), random.randint(-e[1], e[1]))

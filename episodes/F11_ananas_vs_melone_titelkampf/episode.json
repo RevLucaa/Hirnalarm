@@ -1,0 +1,193 @@
+{
+ "episode": 11,
+ "seed": 113,
+ "bg_top": [
+  90,
+  20,
+  110
+ ],
+ "mat": [
+  230,
+  190,
+  60
+ ],
+ "belt": true,
+ "guest": {
+  "kind": "apple",
+  "name": "Schiri Ron der Apfel",
+  "thanks": "SCHIRI|Idee: @Webby_3000"
+ },
+ "fighters": [
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    245,
+    175,
+    40
+   ]
+  },
+  {
+   "kind": "melon",
+   "name": "Melonen-Manni",
+   "short": "Manni",
+   "color": [
+    110,
+    200,
+    80
+   ]
+  }
+ ],
+ "tail": 1.0,
+ "segments": [
+  {
+   "scene": "intro",
+   "belt_on": 0,
+   "text": "Ananas-Anton trägt Mannis Gürtel! Dabei hat der Titelkampf noch gar nicht angefangen!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Anton",
+   "belt_on": 0,
+   "text": "Ich probier nur, wie er mir steht."
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Manni",
+   "text": "Leg ihn hin. Sofort."
+  },
+  {
+   "scene": "guest",
+   "text": "Zum Glück pfeift heute euer Wunsch-Schiri: Ron, der Apfel! Und Ron sieht alles."
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: ANANAS-BOHRER",
+   "color": [
+    240,
+    160,
+    30
+   ],
+   "text": "Runde eins: Ananas-Bohrer!"
+  },
+  {
+   "scene": "action",
+   "type": "spin",
+   "actor": 0,
+   "word": "BOHR!",
+   "text": "Anton dreht sich wie ein Bohrer und schießt Manni in die Luft! Punkt für Anton!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Anton",
+   "text": "Der Gürtel gehört praktisch schon mir!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: MELONEN-WALZE",
+   "color": [
+    60,
+    170,
+    80
+   ],
+   "text": "Runde zwei: Melonen-Walze!"
+  },
+  {
+   "scene": "action",
+   "type": "slam",
+   "actor": 1,
+   "hit": 0.45,
+   "word": "PLATT!",
+   "text": "Manni springt auf Anton, bis er platt ist wie eine Ananasscheibe aus der Dose! Punkt für Manni!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Anton",
+   "loser_expr": "angry",
+   "show_score": true,
+   "text": "Foul! Ron, das war ein Foul!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Eins zu eins! Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "kickback",
+   "actor": 1,
+   "kick": 0.4,
+   "hit": 0.65,
+   "text": "Anton zieht heimlich eine Bananenschale hervor und wirft... aber Manni kickt sie zurück! Anton rutscht aus, direkt vor Rons Füße!"
+  },
+  {
+   "scene": "win",
+   "side": 1,
+   "text": "MELONEN-MANNI BLEIBT CHAMPION!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Anton",
+   "loser_expr": "angry",
+   "text": "Im Ring ist alles gezinkt! Auf der Rennbahn schlag ich jeden. Sogar Bernd!"
+  },
+  {
+   "scene": "cta",
+   "line1": "ANTON DISQUALIFIZIEREN?",
+   "line2": "JA ODER NEIN?",
+   "text": "Hätte Ron Anton disqualifizieren müssen? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Anton",
+   "line1": "ANTON DISQUALIFIZIEREN?",
+   "line2": "JA ODER NEIN?",
+   "text": "Und den Gürtel? Den hol ich mir trotzdem..."
+  }
+ ],
+ "bounds": [
+  1.66,
+  4.13,
+  6.47,
+  7.5,
+  8.47,
+  10.77,
+  12.18,
+  14.0,
+  15.17,
+  16.36,
+  19.31,
+  20.51,
+  22.87,
+  23.93,
+  25.36,
+  29.53,
+  30.7,
+  31.59,
+  33.45,
+  34.72,
+  35.75,
+  38.96,
+  40.91,
+  43.49,
+  45.88,
+  47.91,
+  49.77,
+  51.03,
+  53.46,
+  54.64,
+  56.17,
+  57.26
+ ]
+}

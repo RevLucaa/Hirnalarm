@@ -11,16 +11,16 @@
   "Melonen-Manni": {
    "kind": "melon",
    "short": "Manni",
-   "siege": 3,
+   "siege": 4,
    "niederlagen": 1,
-   "notiz": "Erster Gürtel-Champion der Obst-Liga (F07)"
+   "notiz": "Gürtel-Champion seit F07, F11 gegen Anton verteidigt (Schummel-Bananenschale zurückgekickt)"
   },
   "Ananas-Anton": {
    "kind": "pineapple",
    "short": "Anton",
    "siege": 2,
-   "niederlagen": 1,
-   "notiz": "F08 Herausforderer-Duell gegen Kalle gewonnen -> Titelkampf gegen Manni"
+   "niederlagen": 2,
+   "notiz": "F11 Titelkampf verloren: trug Mannis Gürtel vorab, schummelte mit Bananenschale (Schiri Ron sah es). Sagt: 'Im Ring ist alles gezinkt' – fordert Bernd auf der Rennbahn heraus (F12); will den Gürtel trotzdem"
   },
   "Kokos-Kalle": {
    "kind": "coconut",
@@ -40,8 +40,8 @@
    "kind": "cucumber",
    "short": "Gustav",
    "siege": 0,
-   "niederlagen": 1,
-   "notiz": "F06 gegen Rudi verloren; Aktion Gurken-Shuriken"
+   "niederlagen": 2,
+   "notiz": "F06 gegen Rudi, F10 gegen Kevin verloren; Gurken-Shuriken; kitzlig; hält Kevins Sieg für Glück -> will Revanche"
   },
   "Birken-Baum Rudi": {
    "kind": "birch",
@@ -53,9 +53,9 @@
   "Kiwi-Kevin": {
    "kind": "kiwi",
    "short": "Kevin",
-   "siege": 0,
+   "siege": 1,
    "niederlagen": 0,
-   "notiz": "Zuschauer-Idee von @nice-b5c6 (Kommentar unter F04), in F06 angeteasert"
+   "notiz": "Zuschauer-Idee von @nice-b5c6; Debüt F10: erster Sieg gegen Gustav (Kiwi-Rakete, Gustav knallt gegen Ringpfosten). Gustav nennt ihn 'haarige Kartoffel' – Fehde offen"
   },
   "Erdbeer-Emma": {
    "kind": "strawberry",
@@ -63,6 +63,20 @@
    "siege": 0,
    "niederlagen": 1,
    "notiz": "Debüt F09; Aktion Sahne-Attacke (Sprühsahne + Kirsche), steckte kopfüber im Ringboden"
+  },
+  "Prinzessin Belen": {
+   "kind": "cat",
+   "short": "Belen",
+   "siege": 0,
+   "niederlagen": 0,
+   "notiz": "Katze, Schiri-Prinzessin – Zuschauer-Wunsch von @MareikeNoe-g6q; Gast-Schiri F10 (stumm, Krönchen)"
+  },
+  "Ron der Apfel": {
+   "kind": "apple",
+   "short": "Ron",
+   "siege": 0,
+   "niederlagen": 0,
+   "notiz": "Apfel-Schiri mit Trillerpfeife – Zuschauer-Wunsch von @Webby_3000; Gast-Schiri F11 ('Ron sieht alles')"
   }
  },
  "folgen": [
@@ -137,36 +151,23 @@
    "sieger": "Zora",
    "youtube": "3kFPmEkKlLU",
    "datum": "2026-11-20 17:30"
+  },
+  {
+   "nr": 10,
+   "duell": "Kevin vs. Gustav (Schiri: Prinzessin Belen)",
+   "sieger": "Kevin",
+   "youtube": "ZeVtyRDkAvs",
+   "datum": "2026-11-21 13:00"
+  },
+  {
+   "nr": 11,
+   "duell": "Anton vs. Manni – Titelkampf (Schiri: Ron der Apfel)",
+   "sieger": "Manni",
+   "youtube": "CuUvtyQ9lFs",
+   "datum": "2026-11-21 17:30"
   }
  ],
  "naechste": [
-  {
-   "duell": "Kiwi-Kevin (neu, Zuschauer-Idee) vs. Gurken-Gustav",
-   "kinds": [
-    "kiwi",
-    "cucumber"
-   ],
-   "slot": "Sa 21.11. 13:00",
-   "folge": 10,
-   "neu": [
-    "Kevin wetzt seine Härchen (Teaser F09)",
-    "Katze Belen als Schiri-Prinzessin (Zuschauer-Wunsch) – neue Figur cat nötig",
-    "Teaser: Andeutung des ersten Obst-Rennens (zweite Sportart)"
-   ]
-  },
-  {
-   "duell": "Anton vs. Manni – Titelkampf/Gürtel-Verteidigung (Ring)",
-   "kinds": [
-    "pineapple",
-    "melon"
-   ],
-   "slot": "Sa 21.11. 17:30",
-   "folge": 11,
-   "neu": [
-    "In F08 angeteasert",
-    "Teaser: Anton will Bernd auf der Rennbahn schlagen – Ankündigung F12"
-   ]
-  },
   {
    "duell": "Bernd vs. Anton – erstes Obst-Rennen, Grudge-Match (Revanche für F02)",
    "kinds": [
@@ -176,8 +177,10 @@
    "folge": 12,
    "arena": "bahn",
    "neu": [
-    "Neue Kulisse Rennbahn in engine.py nötig"
-   ]
+    "Neue Kulisse Rennbahn in engine.py nötig",
+    "Anton hat in F11 angekündigt: 'Auf der Rennbahn schlag ich jeden. Sogar Bernd!'"
+   ],
+   "slot": "So 22.11. 13:00"
   },
   {
    "duell": "Emma vs. Zora – Revanche (Ring)",
@@ -185,7 +188,8 @@
     "strawberry",
     "lemon"
    ],
-   "folge": 13
+   "folge": 13,
+   "slot": "So 22.11. 17:30"
   },
   {
    "duell": "Fußball: Kalle (Elfmeter-Sieger S1) vs. Verlierer aus F12",
@@ -212,6 +216,26 @@
    ],
    "folge": 16,
    "arena": "bahn"
+  },
+  {
+   "duell": "Ring: Gustav vs. Kevin – Revanche ('haarige Kartoffel', Gustav hält F10 für Glück)",
+   "kinds": [
+    "cucumber",
+    "kiwi"
+   ],
+   "folge": 17,
+   "neu": [
+    "Zuschauer-Idee 'Herbert Kiwi' (@SvenZapke): Kevins Cousin Herbert könnte als Sekundant auftauchen"
+   ]
+  },
+  {
+   "duell": "Fußball: Anton vs. Kalle – Elfmeter (Schiri Ron)",
+   "kinds": [
+    "pineapple",
+    "coconut"
+   ],
+   "folge": 18,
+   "arena": "fussball"
   }
  ],
  "themen_pool": {

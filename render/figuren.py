@@ -279,9 +279,60 @@ def spr_belt():
     d.text((210, 85), "1", font=font(80), fill=(220, 40, 60), anchor="mm", stroke_width=4, stroke_fill=OC)
     return im
 
+def spr_cat(expr, look, crack=False):
+    # Katze (Gast, z. B. Schiri-Prinzessin Belen) mit Krönchen
+    w, h = 460, 620
+    im = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(im); cx = w // 2
+    fur, inner = (245, 160, 70), (255, 205, 150)
+    # Schwanz
+    d.line([(cx + 120, h - 60), (cx + 210, h - 180), (cx + 190, h - 300)], fill=OC, width=44, joint="curve")
+    d.line([(cx + 120, h - 60), (cx + 210, h - 180), (cx + 190, h - 300)], fill=fur, width=30, joint="curve")
+    # Körper
+    d.ellipse([cx - 150, 300, cx + 150, h - 10], fill=fur, outline=OC, width=10)
+    d.ellipse([cx - 85, 360, cx + 85, h - 40], fill=inner)
+    # Ohren
+    for sx in (-1, 1):
+        ear = [(cx + sx * 150, 150), (cx + sx * 165, 20), (cx + sx * 60, 95)]
+        d.polygon(ear, fill=fur); d.line(ear + [ear[0]], fill=OC, width=9)
+        ein = [(cx + sx * 140, 135), (cx + sx * 152, 55), (cx + sx * 85, 100)]
+        d.polygon(ein, fill=(255, 150, 170))
+    # Kopf
+    d.ellipse([cx - 175, 70, cx + 175, 370], fill=fur, outline=OC, width=10)
+    for k in (-1, 0, 1):
+        d.line([(cx + k * 40, 78), (cx + k * 30, 125)], fill=(215, 120, 40), width=12)
+    # Schnurrhaare + Nase
+    for sx in (-1, 1):
+        for dy in (-12, 12):
+            d.line([(cx + sx * 70, 300 + dy), (cx + sx * 190, 290 + dy * 2.2)], fill=OC, width=5)
+    d.polygon([(cx - 16, 278), (cx + 16, 278), (cx, 294)], fill=(240, 110, 140), outline=OC)
+    face(d, cx, 215, expr, 0.85, look)
+    # Krönchen (Prinzessin)
+    cr = [(cx - 70, 95), (cx - 70, 30), (cx - 35, 65), (cx, 5), (cx + 35, 65), (cx + 70, 30), (cx + 70, 95)]
+    d.polygon(cr, fill=(255, 200, 30)); d.line(cr + [cr[0]], fill=OC, width=7)
+    for x in (cx - 40, cx, cx + 40): d.ellipse([x - 10, 68, x + 10, 88], fill=(240, 90, 180), outline=OC, width=3)
+    return im, 0
+
+def spr_apple(expr, look, crack=False):
+    # Apfel (Gast, z. B. Schiri Ron) mit Trillerpfeife
+    w, h = 480, 540
+    im = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(im); cx = w // 2
+    d.line([(cx, 120), (cx - 10, 30)], fill=(110, 70, 30), width=20)
+    leaf = [(cx, 70), (cx + 70, 25), (cx + 140, 45), (cx + 70, 95)]
+    d.polygon(leaf, fill=(80, 180, 70)); d.line(leaf + [leaf[0]], fill=OC, width=7)
+    d.ellipse([cx - 210, 110, cx + 5, 520], fill=(225, 40, 50), outline=OC, width=10)
+    d.ellipse([cx - 5, 110, cx + 210, 520], fill=(225, 40, 50), outline=OC, width=10)
+    d.ellipse([cx - 195, 125, cx + 195, 510], fill=(225, 40, 50))
+    d.arc([cx - 60, 95, cx + 60, 175], 200, 340, fill=OC, width=9)
+    d.ellipse([cx - 150, 170, cx - 90, 260], fill=(255, 150, 150))
+    face(d, cx, 300, expr, 1.0, look)
+    # Trillerpfeife an der Kordel
+    d.line([(cx - 120, 160), (cx + 90, 430)], fill=(30, 30, 30), width=6)
+    d.rounded_rectangle([cx + 60, 410, cx + 150, 460], 18, fill=(200, 200, 215), outline=OC, width=6)
+    return im, 0
+
 KINDS = {"kiwi": spr_kiwi, "banana": spr_banana, "melon": spr_melon, "pineapple": spr_pineapple, "coconut": spr_coconut,
-         "strawberry": spr_strawberry, "lemon": spr_lemon, "cucumber": spr_cucumber, "birch": spr_birch}
-BASE_SC = {"banana": 1.0, "melon": 1.02, "pineapple": 0.92, "coconut": 1.0, "strawberry": 0.95, "lemon": 0.95, "cucumber": 0.9, "birch": 0.7, "kiwi": 0.95}
+         "strawberry": spr_strawberry, "lemon": spr_lemon, "cucumber": spr_cucumber, "birch": spr_birch, "cat": spr_cat, "apple": spr_apple}
+BASE_SC = {"banana": 1.0, "melon": 1.02, "pineapple": 0.92, "coconut": 1.0, "strawberry": 0.95, "lemon": 0.95, "cucumber": 0.9, "birch": 0.7, "kiwi": 0.95, "cat": 0.9, "apple": 0.95}
 _sc = {}
 def sprite(kind, expr, look, crack=False):
     k = (kind, expr, look, crack)
