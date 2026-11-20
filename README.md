@@ -1,3 +1,58 @@
-# Hirnalarm
+# Hirnalarm 🍌🥊🍉
 
-Obst-Duelle als deutsche 2D-Shorts für YouTube (Kanal Hirnalarm). Renderer, Episoden und Video-Ablage.
+Deutsche 2D-„Brainrot“-Shorts: Obst-Figuren tragen eine fortlaufende Liga aus – im Wrestling-Ring, auf der Rennbahn und beim Fußball.
+Zwei Folgen pro Tag (13:00 und 17:30) auf YouTube und Instagram, erstellt von Claude, gerendert mit Python.
+
+| Kanal | Link |
+|---|---|
+| YouTube | [Hirnalarm](https://www.youtube.com/channel/UCmLDHEd4GKLvHuW58FarfCQ) |
+| Instagram | @hirnalarm |
+
+## So entsteht eine Folge
+
+```
+liga.json (Warteschlange)  →  skript.txt  →  stimme.mp3 (ElevenLabs)  →  episode.json
+        →  Push  →  GitHub Action „Prüfen“ + „Video rendern“  →  Release FNN (Video + Vorschau)
+        →  vidIQ: Upload & Einplanen (YouTube + Instagram)  →  liga.json aktualisieren
+```
+
+Der genaue Ablauf für Claude steht in [`CLAUDE.md`](CLAUDE.md).
+
+## Ordner
+
+| Pfad | Inhalt |
+|---|---|
+| `engine.py` | Renderer: Timing, Szenen, Aktionen, Untertitel, Video-Ausgabe |
+| `render/figuren.py` | alle Obst-Figuren, Gesichter, Requisiten, Easing |
+| `render/ton.py` | Soundeffekte und Beat |
+| `episodes/FNN_slug/` | eine Folge: `skript.txt`, `episode.json`, `stimme.mp3` |
+| `liga.json` | Figuren mit Bilanz, bisherige Folgen, Warteschlange `naechste`, Themen-Pool |
+| `daten/` | Kommentare und Aufrufzahlen (automatisch alle 6 h, YouTube Data API) |
+| `tools/pruefen.py` | prüft Episoden und Liga auf Fehler |
+| `tools/youtube_daten.py` | holt Kommentare und Aufrufe |
+| `tools/testton.py` | künstliche Test-Stimme für Probe-Renders |
+| `fonts/` | Poppins Bold (SIL Open Font License) |
+
+## Lokal rendern
+
+```bash
+pip install -r requirements.txt          # dazu ffmpeg
+python3 tools/pruefen.py                  # alles prüfen
+python3 engine.py episodes/F09_zitrone_vs_erdbeere/episode.json stimme.mp3 F09.mp4
+python3 engine.py <episode.json> <stimme.mp3> x.mp4 preview 5,20,40   # nur Einzelbilder (prev_*.png)
+```
+
+## GitHub Actions
+
+| Workflow | Wann | Was |
+|---|---|---|
+| **Prüfen** | jeder Push | Episoden + Liga prüfen, Code-Check, Probe-Render |
+| **Video rendern** | Push einer `stimme.mp3`/`episode.json` oder manuell | rendert, speichert als Release `FNN` mit Video und Vorschau-Kontaktbogen |
+| **YouTube-Daten holen** | alle 6 h oder manuell | `daten/kommentare.json`, `daten/statistik.json` (Secret `YT_API_KEY`) |
+
+Fertige Videos: `https://github.com/RevLucaa/Hirnalarm/releases/download/FNN/FNN.mp4`
+
+## Die Liga
+
+Figuren, Bilanz und Storyline stehen in [`liga.json`](liga.json). Zuschauer-Ideen aus den Kommentaren werden aufgegriffen
+(z. B. Birken-Baum Rudi und Kiwi-Kevin).

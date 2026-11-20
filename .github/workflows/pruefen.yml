@@ -1,0 +1,30 @@
+name: Prüfen
+
+# Bei jedem Push: Episoden und liga.json auf Fehler prüfen und den Renderer mit einer Testfolge kurz anwerfen.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "daten/**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Werkzeuge installieren
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -q -r requirements.txt pyflakes
+      - name: Episoden und Liga prüfen
+        run: python3 tools/pruefen.py
+      - name: Python-Code auf Fehler prüfen
+        run: python3 -m pyflakes engine.py render/ tools/ | grep -E "undefined name '|invalid syntax" && exit 1 || true
+      - name: Probe-Render (3 Bilder einer echten Folge)
+        run: |
+          python3 tools/testton.py /tmp/test.mp3
+          python3 engine.py episodes/F09_zitrone_vs_erdbeere/episode.json /tmp/test.mp3 /tmp/x.mp4 preview 2,30,55
+          ls -la prev_*.png

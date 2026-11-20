@@ -1,0 +1,78 @@
+name: Video rendern
+
+# Rendert Episoden zu fertigen Videos und speichert jedes als GitHub-Release (Tag = Ordner-Kürzel, z. B. F12).
+# Startet automatisch, sobald eine stimme.mp3 gepusht wird, oder manuell mit einer Liste von Episoden-Ordnern.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "episodes/*/stimme.mp3"
+      - "episodes/*/episode.json"
+  workflow_dispatch:
+    inputs:
+      folgen:
+        description: "Episoden-Ordner, mit Leerzeichen getrennt (z. B. F12_bernd_vs_anton_rennen)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rendern-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  rendern:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Welche Folgen?
+        id: welche
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            liste="${{ github.event.inputs.folgen }}"
+          else
+            liste=$(git diff --name-only HEAD~1 HEAD -- episodes | cut -d/ -f2 | sort -u | tr '\n' ' ')
+          fi
+          echo "Folgen: $liste"
+          echo "liste=$liste" >> "$GITHUB_OUTPUT"
+
+      - name: Werkzeuge installieren
+        if: steps.welche.outputs.liste != ''
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -q -r requirements.txt
+
+      - name: Prüfen
+        if: steps.welche.outputs.liste != ''
+        run: python3 tools/pruefen.py ${{ steps.welche.outputs.liste }}
+
+      - name: Rendern und als Release speichern
+        if: steps.welche.outputs.liste != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for ordner in ${{ steps.welche.outputs.liste }}; do
+            d="episodes/$ordner"
+            if [ ! -f "$d/stimme.mp3" ] || [ ! -f "$d/episode.json" ]; then
+              echo "Überspringe $ordner (stimme.mp3 oder episode.json fehlt)"; continue
+            fi
+            tag="${ordner%%_*}"
+            python3 engine.py "$d/episode.json" "$d/stimme.mp3" "$tag.mp4"
+            # Kontaktbogen mit 12 Bildern zur Kontrolle
+            ffmpeg -loglevel error -y -i "$tag.mp4" -vf "fps=12/60,scale=270:-1,tile=6x2" -frames:v 1 "${tag}_vorschau.jpg"
+            dauer=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$tag.mp4")
+            titel="$tag – $(python3 -c "import json;f=json.load(open('$d/episode.json'))['fighters'];print(f[0]['short'],'vs.',f[1]['short'])")"
+            if gh release view "$tag" > /dev/null 2>&1; then
+              gh release upload "$tag" "$tag.mp4" "${tag}_vorschau.jpg" --clobber
+            else
+              gh release create "$tag" "$tag.mp4" "${tag}_vorschau.jpg" --title "$titel" \
+                --notes "Episode $ordner · Länge ${dauer%.*} s · Commit ${GITHUB_SHA::7}"
+            fi
+            echo "Fertig: https://github.com/${GITHUB_REPOSITORY}/releases/download/$tag/$tag.mp4 (${dauer} s)"
+          done

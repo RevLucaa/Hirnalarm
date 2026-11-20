@@ -4,3 +4,5 @@ prev_*.png
 __pycache__/
 *.mp3
 *.mp4
+!episodes/*/stimme.mp3
+*_vorschau.jpg
