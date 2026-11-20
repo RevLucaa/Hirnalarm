@@ -25,9 +25,10 @@ def lerp(a, b, x): return a + (b - a) * x
 # ============ sprites ============
 OC = (40, 25, 20)
 def face(d, cx, cy, expr, s=1.0, look=(0, 0)):
-    talk = expr.endswith("_t")  # Sprech-Variante: gleicher Blick, Mund offen
-    if talk:
-        expr = expr[:-2]
+    talk = 0  # Sprech-Varianten: "<expr>_t1" = halb offen, "<expr>_t2" = weit offen
+    if "_t" in expr:
+        expr, stufe = expr.rsplit("_t", 1)
+        talk = int(stufe or 2)
     er, pr = int(34 * s), int(16 * s)
     for ex in (-1, 1):
         x, y = cx + ex * int(48 * s), cy
@@ -45,8 +46,11 @@ def face(d, cx, cy, expr, s=1.0, look=(0, 0)):
             d.line([x - er, y - er - 4 * s + (ex > 0) * -14 * s, x + er, y - er - 4 * s + (ex < 0) * -14 * s], fill=OC, width=int(9 * s))
     my = cy + int(62 * s)
     if talk:
-        d.ellipse([cx - 34 * s, my - 22 * s, cx + 34 * s, my + 34 * s], fill=(120, 20, 30), outline=OC, width=int(8 * s))
-        d.chord([cx - 22 * s, my + 6 * s, cx + 22 * s, my + 34 * s], 180, 360, fill=(235, 90, 110))
+        h = (20 if talk == 1 else 34) * s  # Mundöffnung
+        bw = (28 if talk == 1 else 36) * s
+        d.ellipse([cx - bw, my - 6 * s - h * 0.45, cx + bw, my + h], fill=(120, 20, 30), outline=OC, width=int(8 * s))
+        if talk == 2:
+            d.chord([cx - 20 * s, my + h * 0.25, cx + 20 * s, my + h], 180, 360, fill=(235, 90, 110))
         return
     if expr == "happy":
         d.arc([cx - 50 * s, my - 40 * s, cx + 50 * s, my + 30 * s], 15, 165, fill=OC, width=int(10 * s))

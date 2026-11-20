@@ -90,9 +90,18 @@ _pcm = np.frombuffer(subprocess.run(["ffmpeg", "-loglevel", "error", "-i", AUDIO
 _hop = 6000 // FPS
 ENV = np.array([np.sqrt(np.mean(_pcm[i:i + _hop] ** 2)) for i in range(0, max(1, len(_pcm) - _hop), _hop)]) if len(_pcm) > _hop else np.zeros(1)
 ENV = ENV / (np.percentile(ENV, 95) + 1e-6)
-def mund_offen(t):
+# Mundstufen 0/1/2: leicht geglättet und relativ zur Umgebung, damit Silben sichtbar werden (kein Dauer-offen)
+_slow = np.convolve(ENV, np.ones(9) / 9, mode="same")
+MUND = []
+for _i in range(len(ENV)):
+    _g = 0.5 * (ENV[_i] + ENV[max(0, _i - 1)])
+    MUND.append(0 if _g < 0.15 else (2 if (_g > 0.45 and _g > 0.95 * _slow[_i]) else 1))
+for _i in range(1, len(MUND) - 1):  # einzelne Ausreißer-Bilder entfernen
+    if MUND[_i - 1] == MUND[_i + 1] != MUND[_i]:
+        MUND[_i] = MUND[_i - 1]
+def mund_stufe(t):
     i = int(t * FPS)
-    return 0 <= i < len(ENV) and ENV[i] > 0.22 and (i // 2) % 3 != 2  # leichtes Flattern statt Dauer-offen
+    return MUND[i] if 0 <= i < len(MUND) else 0
 if "preview" in sys.argv:
     for (si, p), (a_, b_) in zip(PHR, PH_T):
         print(f"{a_:6.2f}-{b_:6.2f} {SEGS[si]['scene']:8s} {p}", file=sys.stderr)
@@ -643,8 +652,9 @@ def frame(t, collect_sfx=False):
     sp_ = s.get("speaker")
     if sp_:
         for i_, f_ in enumerate(FIGHTERS):
-            if f_.get("short") == sp_ and F[i_]["expr"] not in ("dizzy",) and mund_offen(t):
-                F[i_]["expr"] = F[i_]["expr"] + "_t"
+            st_ = mund_stufe(t)
+            if f_.get("short") == sp_ and F[i_]["expr"] not in ("dizzy",) and st_:
+                F[i_]["expr"] = f"{F[i_]['expr']}_t{st_}"
     for ch in sorted(F, key=lambda c: -c["y"]): paste_char(img, ch)
     d = ImageDraw.Draw(img)
     for e in ex:
