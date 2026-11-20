@@ -43,18 +43,22 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
    Episoden-Dateien committen und pushen (`git -c push.negotiate=true push`).
 10. Kurze Zusammenfassung an Luca: Titel, Uhrzeiten, YouTube-Links, verbrauchte ElevenLabs-Credits.
 
-## Zweite Sportart: Obst-Rennen (Wunsch von Luca, 19.11.2026 – ersetzt die Regel vom 17.11.)
-Langsam vorgehen: Kämpfen im Ring bleibt der Kern, dazu kommt **genau eine** zweite Sportart, das **Wettrennen** (Rennbahn).
-Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Phase 4) es erlaubt.
-1. **F10–F11: nur Ring, aber andeuten.** Im Story-Teaser fällt ein Satz zum Rennen (z. B. „Anton will es nicht mehr mit Fäusten klären – sondern auf der Bahn!“); gern kurz eine Rennbahn im Hintergrund.
-2. **F12: erstes Rennen als Grudge-Match** – Bernd vs. Anton (Revanche für F02). Die Rivalität aus dem Ring läuft weiter, nur der Ort ist neu.
-3. **Ab F13: im Wechsel Ring und Rennen** (pro Tag eine Folge Ring, eine Rennen; nie zweimal Rennen hintereinander).
-   Die Ergebnisse hängen zusammen: Wer das Rennen verliert, muss im nächsten Ring-Kampf gegen den Stärksten (Champion) antreten, usw.
-   Jede Folge endet mit einem Cliffhanger, der in die jeweils andere Sportart führt.
-4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `daten/statistik.json` (kostenlos) Rennen vs. Ring vergleichen; Zuschauerdauer (`vidiq_channel_analytics`, 5 Credits) nur, wenn genug vidIQ-Credits da sind.
-   Rennen gleich gut oder besser → Wechsel beibehalten. Deutlich schlechter → Rennen nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
-Bilanz und Storyline gelten über beide Disziplinen. Für das Rennen in `engine.py` eine Kulisse (`"arena": "bahn"` in der Episode: Laufbahn, Start/Ziel, Zuschauer) und passende Aktionen ergänzen (Start, Überholen, Ausrutschen, Zielfoto); die bestehende Aktion `race` kann als Basis dienen.
-Rennen-Skript: Hook → Gegner/Grund für das Rennen → 2–3 Abschnitte (`Start!`, `Halbzeit!`, `Zielgerade!`) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.
+## Weitere Sportarten: Rennen und Fußball (Wunsch von Luca, 19./20.11.2026 – ersetzt die Regel vom 17.11.)
+Kämpfen im Ring bleibt der Kern. Dazu kommen **genau zwei** weitere Sportarten: **Wettrennen** (`"arena": "bahn"`) und **Fußball** (`"arena": "fussball"`, z. B. Elfmeterschießen).
+Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Punkt 4) es erlaubt.
+1. **F10–F11: Ring.** Im Story-Teaser das erste Rennen andeuten (z. B. „Anton will es nicht mehr mit Fäusten klären – sondern auf der Bahn!“).
+2. **F12: erstes Rennen** als Grudge-Match Bernd vs. Anton (Revanche für F02).
+   Fußball gibt es schon: Special S1 (20.11.) Bernd vs. Kalle, Elfmeterschießen, Sieger Kalle.
+3. **Ab F13: pro Tag eine Ring-Folge und eine Sport-Folge; die Sport-Folgen wechseln sich ab (Rennen, Fußball, Rennen, …).** Nie zweimal dieselbe Sportart hintereinander.
+   Die Ergebnisse hängen zusammen (Verlierer eines Rennens/Spiels muss im Ring gegen den Champion ran, Revanchen in der anderen Disziplin usw.).
+   Jede Folge endet mit einem Cliffhanger, der in eine andere Disziplin führt.
+4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `daten/statistik.json` (kostenlos) Ring vs. Rennen vs. Fußball vergleichen; Zuschauerdauer (`vidiq_channel_analytics`, 5 Credits) nur, wenn genug vidIQ-Credits da sind.
+   Läuft eine Sportart deutlich schlechter als der Ring → nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
+Bilanz und Storyline gelten über alle Disziplinen. In `engine.py` fehlen beide Kulissen noch – beim ersten Bedarf ergänzen:
+`bahn` (Laufbahn, Start/Ziel, Zuschauer; Aktionen Start, Überholen, Ausrutschen, Zielfoto; `race` als Basis) und
+`fussball` (Tor, Rasen, Ball; Aktionen Schuss, Parade, Pfosten, Tor-Jubel; Look an Special S1 `7P963hZzTs0` anlehnen).
+Sport-Skript: Hook → Grund für das Duell → 2–3 Abschnitte (Rennen: `Start!`, `Halbzeit!`, `Zielgerade!`; Fußball: `Schuss eins!` …) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.
+Jede Episode, die außerhalb dieses Ablaufs entsteht, ebenfalls in `liga.json` → `folgen` eintragen (Nummer `S<n>`).
 
 ## Hook und Drama (gilt für jede Folge, ab F10)
 - **Erster Satz = Konflikt, mitten drin**, keine Vorstellung: „Kalle hat Mannis Gürtel geklaut. Heute holt er ihn zurück!“ statt „Neu in der Obst-Liga: …“. Grund des Duells kommt aus der Storyline (Revanche, Verrat, Schummelei).

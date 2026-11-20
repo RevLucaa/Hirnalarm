@@ -5,7 +5,8 @@
    "kind": "banana",
    "short": "Bernd",
    "siege": 2,
-   "niederlagen": 2
+   "niederlagen": 3,
+   "notiz": "Verlor das Elfmeterschießen S1 gegen Kalle – will Revanche"
   },
   "Melonen-Manni": {
    "kind": "melon",
@@ -24,9 +25,9 @@
   "Kokos-Kalle": {
    "kind": "coconut",
    "short": "Kalle",
-   "siege": 0,
+   "siege": 1,
    "niederlagen": 2,
-   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert"
+   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert; erster Sieg im Fußball-Elfmeterschießen gegen Bernd (Special S1) – Fußball-Spezialist"
   },
   "Zitronen-Zora": {
    "kind": "lemon",
@@ -122,6 +123,15 @@
    "datum": "2026-11-20 13:00"
   },
   {
+   "nr": "S1",
+   "duell": "Bernd vs. Kalle – Fußball-Elfmeterschießen (Special)",
+   "sieger": "Kalle",
+   "youtube": "7P963hZzTs0",
+   "datum": "2026-11-20 15:00",
+   "arena": "fussball",
+   "hinweis": "außerhalb des normalen Ablaufs entstanden, nachgetragen am 20.11."
+  },
+  {
    "nr": 9,
    "duell": "Zora vs. Emma",
    "sieger": "Zora",
@@ -178,21 +188,30 @@
    "folge": 13
   },
   {
-   "duell": "Rennen: Verlierer aus F12 vs. Kiwi-Kevin (Ausgang bestimmt nächsten Ring-Gegner)",
+   "duell": "Fußball: Kalle (Elfmeter-Sieger S1) vs. Verlierer aus F12",
    "kinds": [
-    "?",
-    "kiwi"
+    "coconut",
+    "?"
    ],
    "folge": 14,
-   "arena": "bahn"
+   "arena": "fussball"
   },
   {
-   "duell": "Bernd vs. Kalle (Ring) – Gegner je nach Rennergebnis anpassen",
+   "duell": "Ring: Bernd vs. Kalle – Revanche fürs Elfmeterschießen",
    "kinds": [
     "banana",
     "coconut"
    ],
    "folge": 15
+  },
+  {
+   "duell": "Rennen: Verlierer aus F12 vs. Kiwi-Kevin (Ausgang bestimmt nächsten Ring-Gegner)",
+   "kinds": [
+    "?",
+    "kiwi"
+   ],
+   "folge": 16,
+   "arena": "bahn"
   }
  ],
  "themen_pool": {
@@ -226,9 +245,11 @@
   "Katze Belen als Schiri-Prinzessin (@MareikeNoe-g6q, Kommentar unter F04) – in F06 als 'notiert' erwähnt, noch einbauen (neue Figur cat nötig)"
  ],
  "zweite_sportart": {
-  "sportart": "Rennen (arena: bahn)",
-  "seit": "F12",
-  "regel": "Ring und Rennen im Wechsel, Rennergebnis bestimmt nächsten Ring-Gegner",
+  "sportarten": [
+   "Fußball (arena: fussball)",
+   "Rennen (arena: bahn)"
+  ],
+  "regel": "pro Tag 1 Ring + 1 Sport-Folge; Sport-Folgen abwechselnd Rennen/Fußball",
   "auswertung_nach_folge": 20
  }
 }
