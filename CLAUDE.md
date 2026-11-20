@@ -32,7 +32,7 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
    rendert und legt das Release `FNN` mit `FNN.mp4` und `FNN_vorschau.jpg` an. Status per REST abfragen (kein `gh run`/`gh release` – GraphQL ist gesperrt):
    `gh api "repos/RevLucaa/Hirnalarm/actions/runs?per_page=3" --jq '.workflow_runs[]|[.name,.status,.conclusion]|@tsv'` (dauert einige Minuten).
    Neu rendern: `gh api -X POST repos/RevLucaa/Hirnalarm/actions/workflows/rendern.yml/dispatches -f ref=main -f "inputs[folgen]=FNN_slug"`.
-   Öffentliche URL: `https://github.com/RevLucaa/Hirnalarm/releases/download/FNN/FNN.mp4` (mit `curl -sIL` auf 200 prüfen); Vorschau-JPG genauso ansehen.
+   Öffentliche URL: `https://github.com/RevLucaa/Hirnalarm/releases/download/FNN/FNN.mp4` (prüfen mit `curl -sL -r 0-0 -o /dev/null -w '%{http_code}' URL` → 206 oder 200; `curl -I` meldet fälschlich 401). Vorschau-JPG `…/FNN/FNN_vorschau.jpg` herunterladen und ansehen.
    **Notlösung**, falls die Action fehlschlägt: lokal rendern und über den Branch `ablage` bereitstellen (wird bei jedem Lauf überschrieben):
    ```
    rm -rf /tmp/ablage && mkdir /tmp/ablage && cd /tmp/ablage && git init -q -b ablage
