@@ -274,6 +274,47 @@ def draw_guest(img, x, ybot, sc, bald, expr="happy", rot=0):
     if rot: s = s.rotate(rot, expand=True, resample=Image.BICUBIC)
     img.alpha_composite(s, (int(x - s.size[0] / 2), int(ybot - s.size[1])))
 
+# ============ Kamera und Übergänge ============
+def _weich(x):
+    x = clamp(x); return x * x * (3 - 2 * x)
+
+# Aktionen direkt nach einem „FINALE“-Banner bekommen den stärkeren Ruck
+FINALE_IDS = {id(SEGS[i + 1]) for i, s_ in enumerate(SEGS[:-1]) if s_["scene"] == "banner" and "FINAL" in str(s_.get("label", "")).upper()}
+
+def kamera(img, t, s, u, a, b, F, evs):
+    """Zoom auf die sprechende Figur bzw. den Sieger, Ruck bei Treffern im Finale, Wackeln bei Treffern."""
+    dauer = max(0.3, b - a); z, fx, fy = 1.0, W / 2, FLOOR - 300
+    rein = _weich((t - a) / 0.35) * _weich((b - t) / 0.3)  # weich rein und raus
+    sp_ = s.get("speaker")
+    ziel = next((i for i, f in enumerate(FIGHTERS) if f.get("short") == sp_), None) if sp_ else None
+    if ziel is not None and F[ziel].get("show", True) and 120 < F[ziel]["x"] < W - 120 and F[ziel]["y"] < FLOOR + 60:
+        z, fx, fy = 1 + 0.12 * rein, F[ziel]["x"], F[ziel]["y"] - 260
+    elif s["scene"] == "win":
+        w = s.get("side", 0)
+        z, fx, fy = 1 + 0.16 * _weich((t - a) / 1.2), F[w]["x"], F[w]["y"] - 280
+    dx = dy = 0.0
+    for uu, kind in evs:  # Treffer: kurzer Zoom-Ruck + Wackeln, abklingend
+        dt = (u - uu) * dauer
+        if 0 <= dt < 0.35 and kind in ("boom", "boom_s", "thud"):
+            k = (1 - dt / 0.35) ** 2 * (1.0 if kind == "boom" else 0.5)
+            finale = 1.6 if id(s) in FINALE_IDS else 1.0
+            z += 0.06 * k * finale
+            dx += math.sin(t * 90) * 16 * k * finale; dy += math.cos(t * 77) * 12 * k * finale
+    if z <= 1.001 and not dx and not dy:
+        return img
+    fx = clamp(fx, W / 2 / z + 1, W - W / 2 / z - 1) if z > 1 else W / 2
+    cy = clamp(fy, H / 2 / z, H - H / 2 / z)
+    # Bild so transformieren, dass (fx, cy) in die Mitte rückt und um z vergrößert wird
+    ox, oy = fx - W / (2 * z), cy - H / (2 * z)
+    ox = clamp(ox, 0, W - W / z); oy = clamp(oy, 0, H - H / z)
+    return img.transform(img.size, Image.AFFINE, (1 / z, 0, ox + dx / z, 0, 1 / z, oy + dy / z), resample=Image.BILINEAR)
+
+def blitz(img, t, s, a):
+    """Kurzer weißer Blitz als Übergang beim Rundenbanner und beim Sieg."""
+    if s["scene"] in ("banner", "win") and 0 <= t - a < 0.16:
+        al = int(170 * (1 - (t - a) / 0.16))
+        img.alpha_composite(Image.new("RGBA", img.size, (255, 255, 255, al)))
+
 def frame(t, collect_sfx=False):
     s, u, a, b = seg_at(t)
     sc_ = s["scene"]
@@ -303,7 +344,7 @@ def frame(t, collect_sfx=False):
         if s.get("shake"): ex.append(("shake", 6))
     elif sc_ == "action":
         ai = s["actor"]; A, V = F[ai], F[1 - ai]
-        evs = ACTIONS[s["type"]](u, t, A, V, ai, s, ex)
+        evs = ACTIONS[s["type"]](u, t, A, V, ai, s, ex) or []
         if s.get("replay"): ex.append(("replay", u))
         if collect_sfx:
             for uu, kind in evs: SFX.append((a + uu * (b - a), kind))
@@ -362,6 +403,10 @@ def frame(t, collect_sfx=False):
             st_ = mund_stufe(t)
             if f_.get("short") == sp_ and F[i_]["expr"] not in ("dizzy",) and st_:
                 F[i_]["expr"] = f"{F[i_]['expr']}_t{st_}"
+                F[i_]["sy"] *= 1 + 0.025 * st_  # leichtes Mitwippen beim Sprechen
+    for i_ in range(2):  # Blinzeln: etwa alle 3–4 s für 0,12 s, beide Figuren versetzt
+        if F[i_]["expr"].split("_")[0] in ("happy", "angry", "grin", "sad") and (t + 1.7 * i_) % (3.3 + 0.6 * i_) < 0.12:
+            F[i_]["expr"] += "_b"
     for ch in sorted(F, key=lambda c: -c["y"]): paste_char(img, ch)
     d = ImageDraw.Draw(img)
     for e in ex:
@@ -442,6 +487,7 @@ def frame(t, collect_sfx=False):
             d.rectangle([px - 40, FLOOR - 580, px + 40, FLOOR - 540], fill=(230, 40, 60), outline=(30, 30, 40), width=6)
     sag = next((e[1] for e in ex if e[0] == "sag"), 0)
     front_ropes(d, sag)
+    img = kamera(img, t, s, u, a, b, F, evs if sc_ == "action" else [])
     for e in ex:
         k = e[0]
         if k == "burst": starburst(img, *e[1:])
@@ -487,6 +533,7 @@ def frame(t, collect_sfx=False):
             text_c(dd, (540, 635), e[3], font(min(96, 1500 / max(8, len(e[3]))) * s_), fill=(255, 230, 0), stroke=8)
             ay = 790 + 25 * math.sin(t * 8)
             dd.polygon([(500, ay), (580, ay), (580, ay + 70), (630, ay + 70), (540, ay + 150), (450, ay + 70), (500, ay + 70)], fill=(255, 230, 0), outline=(0, 0, 0))
+    blitz(img, t, s, a)
     topbar(img, score_at(t), pulse)
     captions(img, t)
     ImageDraw.Draw(img).text((540, 1880), "@Hirnalarm", font=font(38), fill=(255, 255, 255, 120), anchor="mm")

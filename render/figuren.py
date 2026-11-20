@@ -25,13 +25,22 @@ def lerp(a, b, x): return a + (b - a) * x
 # ============ sprites ============
 OC = (40, 25, 20)
 def face(d, cx, cy, expr, s=1.0, look=(0, 0)):
-    talk = 0  # Sprech-Varianten: "<expr>_t1" = halb offen, "<expr>_t2" = weit offen
-    if "_t" in expr:
-        expr, stufe = expr.rsplit("_t", 1)
-        talk = int(stufe or 2)
+    # Varianten als Anhang: "_t1"/"_t2" = Mund halb/weit offen (Sprechen), "_b" = Augen zu (Blinzeln)
+    teile = expr.split("_")
+    expr, talk, blink = teile[0], 0, False
+    for z in teile[1:]:
+        if z.startswith("t"):
+            talk = int(z[1:] or 2)
+        elif z == "b":
+            blink = True
     er, pr = int(34 * s), int(16 * s)
     for ex in (-1, 1):
         x, y = cx + ex * int(48 * s), cy
+        if blink and expr != "dizzy":
+            d.arc([x - er, y - er * 0.6, x + er, y + er * 0.6], 15, 165, fill=OC, width=int(9 * s))
+            if expr == "angry":
+                d.line([x - er, y - er - 4 * s + (ex < 0) * -18 * s, x + er, y - er - 4 * s + (ex > 0) * -18 * s], fill=OC, width=int(11 * s))
+            continue
         if expr == "dizzy":
             k = int(22 * s)
             d.line([x - k, y - k, x + k, y + k], fill=OC, width=int(10 * s)); d.line([x - k, y + k, x + k, y - k], fill=OC, width=int(10 * s))
