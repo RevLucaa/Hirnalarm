@@ -46,7 +46,7 @@ jobs:
           echo "Folgen: $liste"
           echo "liste=$liste" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         if: steps.welche.outputs.liste != ''
         with:
           python-version: "3.13"
