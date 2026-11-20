@@ -16,7 +16,8 @@ liga.json (Warteschlange)  →  skript.txt  →  stimme.mp3 (ElevenLabs)  →  e
         →  vidIQ: Upload & Einplanen (YouTube + Instagram)  →  liga.json aktualisieren
 ```
 
-Der genaue Ablauf für Claude steht in [`CLAUDE.md`](CLAUDE.md).
+Der genaue Ablauf für Claude steht in [`CLAUDE.md`](CLAUDE.md) – ganz oben die **Grundregeln**, die immer gelten
+(keine vidIQ-Credits, max. 2.000 ElevenLabs-Credits pro Folge, ElevenLabs nur für Stimmen, Rendern nur in GitHub Actions).
 
 ## Ordner
 
@@ -35,7 +36,7 @@ Der genaue Ablauf für Claude steht in [`CLAUDE.md`](CLAUDE.md).
 | `tools/testton.py` | künstliche Test-Stimme für Probe-Renders |
 | `fonts/` | Poppins Bold (SIL Open Font License) |
 
-## Lokal rendern
+## Lokal testen (nur Vorschau – fertige Videos entstehen ausschließlich in GitHub Actions)
 
 ```bash
 pip install -r requirements.txt          # dazu ffmpeg

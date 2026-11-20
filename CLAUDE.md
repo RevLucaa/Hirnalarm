@@ -4,6 +4,22 @@ YouTube-Kanal **Hirnalarm** (Channel-ID `UCmLDHEd4GKLvHuW58FarfCQ`): deutsche 2D
 Obst-Duelle im Wrestling-Ring. **Zwei Videos pro Tag: 13:00 und 17:30 (Europe/Berlin), öffentlich.**
 Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu diesen Uhrzeiten öffentlich eingeplant werden.
 
+## ⚠️ Grundregeln – gelten immer und gehen allem anderen in dieser Datei vor
+Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese Liste. Kann eine Regel nicht eingehalten werden: Lauf abbrechen und Luca Bescheid geben.
+1. **Keine vidIQ-Credits.** Nur Werkzeuge mit „Cost: 0 credit(s)“ verwenden (Upload, Entwurf, Einplanen, `social_post_list`, `social_post_status`, `social_account_list`).
+   Alles, was Credits kostet (`user_videos`, `video_comments`, `channel_analytics`, `get_videos_by_ids`, `watch_*`, Suchen, `compose` …), ist verboten – auch für Auswertungen.
+   Kommentare und Zahlen kommen aus `daten/` (YouTube Data API, kostenlos).
+2. **ElevenLabs: höchstens 2.000 Credits pro Folge – weniger ist besser.** Ziel ≈ 800–1.000. Vor dem Erzeugen mit `tools/stimme_bauen.py bloecke` rechnen;
+   jeder Block wird genau einmal erzeugt, Neuversuche zählen mit. Lieber Skript kürzen als die Grenze ausreizen.
+3. **ElevenLabs nur für Stimmen.** Keine Bilder, Videos, Musik, Soundeffekte oder Flows zum Rendern über ElevenLabs.
+4. **Immer in der Cloud rendern.** Das fertige Video entsteht ausschließlich über die GitHub Action „Video rendern“ (Release `FNN`).
+   Lokal nur Vorschau-Einzelbilder (`preview`). Schlägt die Action fehl: einmal neu starten; klappt es dann nicht, abbrechen und melden – nichts lokal Gerendertes posten.
+5. **Nie posten, wenn etwas fehlschlägt.** `tools/pruefen.py` muss 0 Fehler melden, die Action „Prüfen“ grün sein und das Vorschau-JPG angesehen werden.
+6. **Nichts doppelt einplanen.** Vor jedem Lauf mit `vidiq_social_post_list` prüfen, was schon geplant ist. Eingeplante Posts nicht verändern.
+7. **Jede Folge ist neu.** Eigene Story, eigene Gags, keine Kopien alter Skripte (YouTube „inauthentic content“). Bilanz und Storyline in `liga.json` pflegen.
+8. **Keine Geheimnisse ins Repo oder in den Chat.** API-Schlüssel nur als GitHub-Secret.
+9. **Am Ende immer kurz an Luca berichten:** Titel, Uhrzeiten, Links, verbrauchte ElevenLabs-Credits (pro Folge).
+
 ## Dateien
 - `engine.py` – Renderer: `python3 engine.py episode.json stimme.mp3 out.mp4` (Vorschau: `... out.mp4 preview 5,20,40`)
 - `render/figuren.py` – alle Figuren/Requisiten (neue Figur: `spr_<art>` + Eintrag in `KINDS`/`BASE_SC`); `render/ton.py` – Soundeffekte
@@ -41,14 +57,8 @@ Luca hat den Ablauf freigegeben: Videos dürfen ohne Rückfrage erstellt und zu 
    `gh api "repos/RevLucaa/Hirnalarm/actions/runs?per_page=3" --jq '.workflow_runs[]|[.name,.status,.conclusion]|@tsv'` (dauert einige Minuten).
    Neu rendern: `gh api -X POST repos/RevLucaa/Hirnalarm/actions/workflows/rendern.yml/dispatches -f ref=main -f "inputs[folgen]=FNN_slug"`.
    Öffentliche URL: `https://github.com/RevLucaa/Hirnalarm/releases/download/FNN/FNN.mp4` (prüfen mit `curl -sL -r 0-0 -o /dev/null -w '%{http_code}' URL` → 206 oder 200; `curl -I` meldet fälschlich 401). Vorschau-JPG `…/FNN/FNN_vorschau.jpg` herunterladen und ansehen.
-   **Notlösung**, falls die Action fehlschlägt: lokal rendern und über den Branch `ablage` bereitstellen (wird bei jedem Lauf überschrieben):
-   ```
-   rm -rf /tmp/ablage && mkdir /tmp/ablage && cd /tmp/ablage && git init -q -b ablage
-   git remote add origin https://github.com/RevLucaa/hirnalarm
-   cp <F_NN.mp4> FNN.mp4 && cp <F_MM.mp4> FMM.mp4 && git add . && git commit -qm "Ablage FNN FMM" && git push -f origin ablage
-   ```
-   Notlösungs-URL: `https://raw.githubusercontent.com/RevLucaa/hirnalarm/ablage/FNN.mp4` (vorher mit `curl -sI` auf 200 prüfen).
-8. **Upload**: `vidiq_video_upload` mit `url` = Release-URL (bzw. Notlösungs-URL) → `uploadId`. `vidiq_social_post_draft_create` mit
+   Schlägt die Action fehl: Log lesen, Ursache beheben, einmal neu starten. Klappt es dann nicht → abbrechen und Luca melden (Grundregel 4). Kein lokales Rendern als Ersatz.
+8. **Upload**: `vidiq_video_upload` mit `url` = Release-URL → `uploadId`. `vidiq_social_post_draft_create` mit
    YouTube-Ziel `UCmLDHEd4GKLvHuW58FarfCQ`, `privacyStatus: public`, `categoryId: 23`, Titel `X vs. Y 🍌🍉 … #shorts`,
    Beschreibung mit „Folge NN“, Kommentar-Frage und Hashtags, ~10 Tags, `publishAt` = morgen 13:00 bzw. 17:30 `+01:00` (Sommerzeit `+02:00`).
    **Im selben Draft zusätzlich Instagram** als zweites Ziel: `platform: INSTAGRAM`, `platformAccountId: 29785569181129808` (@hirnalarm),
@@ -69,7 +79,7 @@ Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Punkt 4)
 3. **Ab F13: pro Tag eine Ring-Folge und eine Sport-Folge; die Sport-Folgen wechseln sich ab (Rennen, Fußball, Rennen, …).** Nie zweimal dieselbe Sportart hintereinander.
    Die Ergebnisse hängen zusammen (Verlierer eines Rennens/Spiels muss im Ring gegen den Champion ran, Revanchen in der anderen Disziplin usw.).
    Jede Folge endet mit einem Cliffhanger, der in eine andere Disziplin führt.
-4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `daten/statistik.json` (kostenlos) Ring vs. Rennen vs. Fußball vergleichen; Zuschauerdauer (`vidiq_channel_analytics`, 5 Credits) nur, wenn genug vidIQ-Credits da sind.
+4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `daten/statistik.json` (kostenlos) Ring vs. Rennen vs. Fußball vergleichen. Keine vidIQ-Analytics (Grundregel 1).
    Läuft eine Sportart deutlich schlechter als der Ring → nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
 Bilanz und Storyline gelten über alle Disziplinen. In `engine.py` fehlen beide Kulissen noch – beim ersten Bedarf ergänzen:
 `bahn` (Laufbahn, Start/Ziel, Zuschauer; Aktionen Start, Überholen, Ausrutschen, Zielfoto; `race` als Basis) und
@@ -84,7 +94,7 @@ Jede Episode, die außerhalb dieses Ablaufs entsteht, ebenfalls in `liga.json` �
 
 ## Kostenlose Daten statt vidIQ-Credits
 vidIQ-Credits sind knapp (150/Monat). Hochladen, Entwurf, Einplanen, `social_post_list` und `social_post_status` kosten 0 Credits und bleiben erlaubt.
-**Nicht verwenden** (kosten Credits): `vidiq_user_videos`, `vidiq_video_comments`, `vidiq_get_videos_by_ids`, `vidiq_channel_analytics` (Ausnahme: Auswertung oben).
+**Nicht verwenden** (kosten Credits, siehe Grundregel 1): `vidiq_user_videos`, `vidiq_video_comments`, `vidiq_get_videos_by_ids`, `vidiq_channel_analytics` – ohne Ausnahme.
 Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.yml` alle 6 Stunden über die YouTube Data API (Secret `YT_API_KEY`) nach
 `daten/kommentare.json` und `daten/statistik.json`. Fehlen die Dateien oder sind sie älter als 2 Tage, Luca kurz Bescheid geben und ohne Kommentarwünsche weitermachen.
 
