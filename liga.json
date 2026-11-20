@@ -177,7 +177,7 @@
    "folge": 12,
    "arena": "bahn",
    "neu": [
-    "Neue Kulisse Rennbahn in engine.py nötig",
+    "Neue Kulisse Rennbahn in render/kulissen.py nötig (Renderer-Regeln in CLAUDE.md beachten)",
     "Anton hat in F11 angekündigt: 'Auf der Rennbahn schlag ich jeden. Sogar Bernd!'"
    ],
    "slot": "So 22.11. 13:00"
@@ -189,7 +189,8 @@
     "lemon"
    ],
    "folge": 13,
-   "slot": "So 22.11. 17:30"
+   "slot": "So 22.11. 17:30",
+   "neu": []
   },
   {
    "duell": "Fußball: Kalle (Elfmeter-Sieger S1) vs. Verlierer aus F12",
@@ -198,7 +199,8 @@
     "?"
    ],
    "folge": 14,
-   "arena": "fussball"
+   "arena": "fussball",
+   "neu": []
   },
   {
    "duell": "Ring: Bernd vs. Kalle – Revanche fürs Elfmeterschießen",
@@ -206,7 +208,8 @@
     "banana",
     "coconut"
    ],
-   "folge": 15
+   "folge": 15,
+   "neu": []
   },
   {
    "duell": "Rennen: Verlierer aus F12 vs. Kiwi-Kevin (Ausgang bestimmt nächsten Ring-Gegner)",
@@ -215,7 +218,8 @@
     "kiwi"
    ],
    "folge": 16,
-   "arena": "bahn"
+   "arena": "bahn",
+   "neu": []
   },
   {
    "duell": "Ring: Gustav vs. Kevin – Revanche ('haarige Kartoffel', Gustav hält F10 für Glück)",
@@ -235,7 +239,39 @@
     "coconut"
    ],
    "folge": 18,
-   "arena": "fussball"
+   "arena": "fussball",
+   "neu": []
+  },
+  {
+   "duell": "Ring: Zora vs. Kalle – Zora will ihren zweiten Sieg, Kalle sein Pflaster zurück",
+   "kinds": [
+    "lemon",
+    "coconut"
+   ],
+   "folge": 19
+  },
+  {
+   "duell": "Rennen: Emma vs. Anton – Anton will nach zwei Pleiten endlich gewinnen (Sahne auf der Bahn?)",
+   "kinds": [
+    "strawberry",
+    "pineapple"
+   ],
+   "folge": 20,
+   "arena": "bahn",
+   "neu": [
+    "Danach Auswertung Ring vs. Rennen vs. Fußball (siehe CLAUDE.md)"
+   ]
+  },
+  {
+   "duell": "Ring: Kevin vs. Manni – der ungeschlagene Neuling fordert den Champion (Titelkampf)",
+   "kinds": [
+    "kiwi",
+    "melon"
+   ],
+   "folge": 21,
+   "neu": [
+    "Cliffhanger auf das Pokal-Halbfinale"
+   ]
   }
  ],
  "themen_pool": {
@@ -275,5 +311,36 @@
   ],
   "regel": "pro Tag 1 Ring + 1 Sport-Folge; Sport-Folgen abwechselnd Rennen/Fußball",
   "auswertung_nach_folge": 20
+ },
+ "staffel_1": {
+  "titel": "Staffel 1 – Der Obst-Liga-Pokal",
+  "ziel": "Bis Folge 30 sammeln alle Figuren Punkte (Sieg = 3, egal welche Disziplin). Die besten vier spielen den Pokal aus.",
+  "bogen": [
+   {
+    "folgen": "F12–F21",
+    "inhalt": "Ring, Rennen und Fußball im Wechsel; Anton jagt seinen ersten Erfolg außerhalb des Rings, Kevin bleibt ungeschlagen bis zum Titelkampf F21, Kalles Pflaster-Fehde mit Zora."
+   },
+   {
+    "folgen": "F22–F26",
+    "inhalt": "Letzte Liga-Duelle um die Halbfinal-Plätze; ab F22 am Ende jeder Folge kurz die Tabelle (Top 4) einblenden; Zuschauer stimmen über eine Regeländerung ab."
+   },
+   {
+    "folgen": "F27–F28",
+    "inhalt": "Pokal-Halbfinale (je eine Disziplin per Zuschauer-Abstimmung)."
+   },
+   {
+    "folgen": "F29",
+    "inhalt": "Spiel um Platz 3 + großer Verrat als Cliffhanger."
+   },
+   {
+    "folgen": "F30",
+    "inhalt": "Pokal-Finale – Gürtel UND Pokal auf dem Spiel, Gast-Schiris Ron und Belen, Rudi als Kommentator."
+   }
+  ],
+  "regeln": [
+   "Jede Folge greift ein offenes Ereignis auf und legt ein neues an.",
+   "Zuschauer-Ideen aus Kommentaren/Issues bekommen kleine Gastauftritte und werden im Video namentlich gedankt.",
+   "F11 ist das Vorbild für Skript-Qualität: Konflikt im ersten Satz, kurze Figurensätze, Schummel-Gag, Streitfrage, Loop-Ende."
+  ]
  }
 }

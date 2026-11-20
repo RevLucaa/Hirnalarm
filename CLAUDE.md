@@ -53,7 +53,7 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
    Segmente, die eine Figur spricht, bekommen `"speaker": "<Kurzname>"` (zeigt ein Namensschild in Figurenfarbe über dem Untertitel); Erzähler-Segmente ohne `speaker`.
    Segmentgrenzen müssen an Sprecherwechseln liegen (ein Segment = ein Sprecher). `[laugh]` im Text markiert ein Lachen. Szenen: `intro`, `tag` (side), `banner` (label, color), `action` (type, actor, Parameter), `point` (side, show_score), `win` (side), `tease` (teaser kind | loser_expr), `cta` (line1, line2, challenger kind).
    Aktionen (siehe `ACTIONS` in `render/aktionen.py`): u. a. `race` (trip), `slam` (bounce, peel, jump0, hit), `post` (hit), `spin`, `headbutt`, `clash` (splash), `throw`, `bowl`, `catapult`. Neue Aktionen in `render/aktionen.py`, neue Figuren in `render/figuren.py` ergänzen.
-   Charakter-Arten (siehe `KINDS` in `render/figuren.py`): banana, melon, pineapple, coconut, strawberry, lemon, cucumber, birch, kiwi. Fighter 0 = links, 1 = rechts. `episode` = Folgennummer.
+   Charakter-Arten (siehe `KINDS` in `render/figuren.py`): banana, melon, pineapple, coconut, strawberry, lemon, cucumber, birch, kiwi, cat, apple. Fighter 0 = links, 1 = rechts. `episode` = Folgennummer.
 6. **Vorschau** lokal (`preview` mit ~12 Zeitpunkten), Bilder als Kontaktbogen ansehen, Timing der `hit`-Werte an die Phrasen-Zeiten (stderr) anpassen.
    Dann `python3 tools/pruefen.py FNN_slug` → muss 0 Fehler melden.
 7. **Rendern in GitHub** (Standard): Ordner committen und pushen (`git -c push.negotiate=true push`). Die Action „Video rendern“ startet automatisch,
@@ -90,6 +90,11 @@ Bilanz und Storyline gelten über alle Disziplinen. In `render/kulissen.py` fehl
 `fussball` (Tor, Rasen, Ball; Aktionen Schuss, Parade, Pfosten, Tor-Jubel; Look an Special S1 `7P963hZzTs0` anlehnen).
 Sport-Skript: Hook → Grund für das Duell → 2–3 Abschnitte (Rennen: `Start!`, `Halbzeit!`, `Zielgerade!`; Fußball: `Schuss eins!` …) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.
 Jede Episode, die außerhalb dieses Ablaufs entsteht, ebenfalls in `liga.json` → `folgen` eintragen (Nummer `S<n>`).
+
+## Staffel 1 – Der Obst-Liga-Pokal (Plan von Luca, 20.11.2026)
+Der Bogen bis F30 steht in `liga.json` → `staffel_1` (Punkte, Halbfinale F27–28, Finale F30). Jede neue Folge und jeder neue Eintrag in `naechste`
+muss in diesen Bogen passen. **Qualitätsmaßstab ist F11** (`episodes/F11_ananas_vs_melone_titelkampf/skript.txt`): Konflikt im ersten Satz,
+kurze Figurensätze, ein Schummel-/Story-Gag, konkrete Streitfrage, Loop-Ende – plus alles aus „Hook und Drama“.
 
 ## Hook und Drama (gilt für jede Folge, ab F10)
 - **Erster Satz = Konflikt, mitten drin**, keine Vorstellung: „Kalle hat Mannis Gürtel geklaut. Heute holt er ihn zurück!“ statt „Neu in der Obst-Liga: …“. Grund des Duells kommt aus der Storyline (Revanche, Verrat, Schummelei).
