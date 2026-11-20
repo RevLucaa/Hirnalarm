@@ -84,6 +84,15 @@ for (si, p), (a_, b_) in zip(PHR, PH_T):
         dd = span * (syl(w_) + 0.6) / L
         WORDS.append((w_, t, t + dd, NCH, si)); t += dd
         if wi % 2 == 1 or wi == len(ws) - 1: NCH += 1
+# Lautstärke pro Bild (für Mundbewegung der sprechenden Figur)
+_pcm = np.frombuffer(subprocess.run(["ffmpeg", "-loglevel", "error", "-i", AUDIO, "-ac", "1", "-ar", "6000", "-f", "s16le", "-"],
+                                    capture_output=True).stdout, dtype=np.int16).astype(np.float32)
+_hop = 6000 // FPS
+ENV = np.array([np.sqrt(np.mean(_pcm[i:i + _hop] ** 2)) for i in range(0, max(1, len(_pcm) - _hop), _hop)]) if len(_pcm) > _hop else np.zeros(1)
+ENV = ENV / (np.percentile(ENV, 95) + 1e-6)
+def mund_offen(t):
+    i = int(t * FPS)
+    return 0 <= i < len(ENV) and ENV[i] > 0.22 and (i // 2) % 3 != 2  # leichtes Flattern statt Dauer-offen
 if "preview" in sys.argv:
     for (si, p), (a_, b_) in zip(PHR, PH_T):
         print(f"{a_:6.2f}-{b_:6.2f} {SEGS[si]['scene']:8s} {p}", file=sys.stderr)
@@ -631,6 +640,11 @@ def frame(t, collect_sfx=False):
         gex = "grin" if sc_ == "point" else ("shock" if sc_ == "action" else "happy")
         draw_guest(img, 540, FLOOR - 170 - bob, 0.55, (t >= BALD_T) or GUEST.get("crack", False), gex, 4 * math.sin(t * 2))
     # draw lower (airborne) last
+    sp_ = s.get("speaker")
+    if sp_:
+        for i_, f_ in enumerate(FIGHTERS):
+            if f_.get("short") == sp_ and F[i_]["expr"] not in ("dizzy",) and mund_offen(t):
+                F[i_]["expr"] = F[i_]["expr"] + "_t"
     for ch in sorted(F, key=lambda c: -c["y"]): paste_char(img, ch)
     d = ImageDraw.Draw(img)
     for e in ex:

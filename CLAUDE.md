@@ -26,6 +26,8 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
 - `liga.json` – Charaktere, Bilanz, bisherige Folgen, Warteschlange `naechste`
 - `stimmen.json` – feste Stimmen-Besetzung (Erzähler + jede Figur, voice_id, Credit-Faktor); `tools/stimme_bauen.py` – Sprecher-Blöcke + Zusammenfügen
 - `episodes/FNN_slug/` – je Folge ein Ordner: `skript.txt` (mit Stimmen-Tags), `episode.json`, `stimme.mp3` (Specials: `SNN_slug/`)
+- `tools/wochenbericht.py` + Action „Wochenbericht“ – jeden Sonntag 19:00 Bericht als Issue (E-Mail an Luca), kostenlos aus `daten/`
+- `tests/demo_stimmen/` – Demo-Folge zum Testen von Renderer-Änderungen (Cloud-Test: `rendern.yml` mit `test=true`, Ergebnis als Artefakt)
 - `tools/pruefen.py` – prüft Episoden + Liga; **vor jedem Push ausführen**, muss „0 Fehler“ melden
 - Übersicht für Menschen: `README.md`
 
@@ -90,6 +92,9 @@ Jede Episode, die außerhalb dieses Ablaufs entsteht, ebenfalls in `liga.json` �
 ## Hook und Drama (gilt für jede Folge, ab F10)
 - **Erster Satz = Konflikt, mitten drin**, keine Vorstellung: „Kalle hat Mannis Gürtel geklaut. Heute holt er ihn zurück!“ statt „Neu in der Obst-Liga: …“. Grund des Duells kommt aus der Storyline (Revanche, Verrat, Schummelei).
 - Folgenübergreifendes Drama: jede Folge greift ein offenes Ereignis der Vorfolgen auf und legt ein neues an (in `liga.json` → Charakter-`notiz` festhalten).
+- **Loop-Ende:** Der letzte gesprochene Satz endet so, dass er nahtlos in den ersten Satz der Folge übergeht (z. B. Ende: „Wisst ihr, was ich jetzt mache?“ → Anfang: „Skandal! Kalle hat Mannis Gürtel geklaut!“). Kurzer `tail` (≈ 1–2 s), damit der Übergang sitzt.
+- **Erstes Bild = Action:** In den ersten 0,5 s ist schon etwas los (Figur mitten in der Bewegung, Schlag, Grimasse) – kein ruhiges Standbild.
+- Mundbewegung, Namensschild, Publikum und Soundeffekte macht der Renderer automatisch, sobald Segmente ein `speaker`-Feld haben.
 - Schluss: statt allgemein „Wer soll als Nächstes …?“ eine **konkrete Streitfrage**, die man nur im Kommentar beantworten kann (z. B. „Hat Anton geschummelt – ja oder nein?“). Die Frage im Video sprechen und als Text einblenden.
 
 ## Kostenlose Daten statt vidIQ-Credits

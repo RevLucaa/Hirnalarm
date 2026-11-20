@@ -51,6 +51,7 @@ python3 engine.py <episode.json> <stimme.mp3> x.mp4 preview 5,20,40   # nur Einz
 |---|---|---|
 | **Prüfen** | jeder Push | Episoden + Liga prüfen, Code-Check, Probe-Render |
 | **Video rendern** | Push einer `stimme.mp3`/`episode.json` oder manuell | rendert, speichert als Release `FNN` mit Video und Vorschau-Kontaktbogen |
+| **Wochenbericht** | sonntags 19:00 | Bericht als Issue + `berichte/` (beste Folgen, Disziplinen, Kommentare) |
 | **YouTube-Daten holen** | alle 6 h oder manuell | `daten/kommentare.json`, `daten/statistik.json` (Secret `YT_API_KEY`) |
 
 Fertige Videos: `https://github.com/RevLucaa/Hirnalarm/releases/download/FNN/FNN.mp4`

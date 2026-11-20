@@ -1,0 +1,35 @@
+name: Wochenbericht
+
+# Jeden Sonntag 19:00 (Berlin): Bericht aus den kostenlosen YouTube-Daten erstellen, im Repo ablegen
+# und als Issue anlegen – GitHub schickt Luca dazu eine E-Mail.
+on:
+  schedule:
+    - cron: "0 18 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  bericht:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bericht erstellen
+        id: b
+        run: echo "datei=$(python3 tools/wochenbericht.py)" >> "$GITHUB_OUTPUT"
+      - name: Im Repo speichern
+        run: |
+          git config user.name "hirnalarm-bot"
+          git config user.email "hirnalarm-bot@users.noreply.github.com"
+          git add berichte/
+          git diff --cached --quiet && exit 0
+          git commit -qm "Wochenbericht"
+          for i in 1 2 3; do git pull -q --rebase && git push && break; sleep 5; done
+      - name: Als Issue anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          titel=$(head -1 "${{ steps.b.outputs.datei }}" | sed 's/^# //')
+          gh api "repos/${GITHUB_REPOSITORY}/issues" -f title="$titel" -F body=@"${{ steps.b.outputs.datei }}" -f "labels[]=bericht" > /dev/null

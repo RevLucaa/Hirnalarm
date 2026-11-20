@@ -1,0 +1,90 @@
+{
+ "episode": 0,
+ "seed": 5,
+ "bg_top": [
+  20,
+  60,
+  110
+ ],
+ "mat": [
+  200,
+  80,
+  90
+ ],
+ "belt": true,
+ "fighters": [
+  {
+   "kind": "melon",
+   "name": "Melonen-Manni",
+   "short": "Manni",
+   "color": [
+    110,
+    200,
+    70
+   ]
+  },
+  {
+   "kind": "coconut",
+   "name": "Kokos-Kalle",
+   "short": "Kalle",
+   "color": [
+    190,
+    130,
+    80
+   ]
+  }
+ ],
+ "tail": 1.2,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Skandal in der Obst-Liga! Kokos-Kalle hat Mannis Gürtel geklaut!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Manni",
+   "text": "Kalle. Gib mir sofort meinen Gürtel zurück."
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Kalle",
+   "text": "Hol ihn dir doch, du wabbelige Wassermelone!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: KOPFNUSS",
+   "color": [
+    255,
+    120,
+    30
+   ],
+   "text": "Runde eins: Kopfnuss!"
+  },
+  {
+   "scene": "action",
+   "type": "headbutt",
+   "actor": 1,
+   "word": "BONK!",
+   "text": "Kalle nimmt Anlauf... und rammt Manni mit voller Wucht!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Manni",
+   "text": "[laugh] Das kitzelt nur."
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "MELONEN-MANNI GEWINNT! Der Gürtel bleibt beim Champion!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Kalle",
+   "loser_expr": "angry",
+   "text": "Pff. Wisst ihr, was ich jetzt mache?"
+  }
+ ]
+}

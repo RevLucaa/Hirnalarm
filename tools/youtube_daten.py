@@ -105,6 +105,14 @@ def main():
     if komm is not None:
         with open(os.path.join(OUT, "kommentare.json"), "w", encoding="utf-8") as f:
             json.dump({"stand": stand, "anzahl": len(komm), "kommentare": komm}, f, ensure_ascii=False, indent=1)
+    # Verlauf für Wochenvergleiche (eine Zeile pro Video und Abruf)
+    verlauf = os.path.join(OUT, "verlauf.csv")
+    neu = not os.path.exists(verlauf)
+    with open(verlauf, "a", encoding="utf-8") as f:
+        if neu:
+            f.write("stand,video,aufrufe,likes,kommentare\n")
+        for v in videos:
+            f.write(f"{stand},{v['id']},{v['aufrufe']},{v['likes']},{v['kommentare']}\n")
     print(f"{len(videos)} Videos, {len(komm) if komm is not None else 'keine'} Kommentar-Threads")
 
 

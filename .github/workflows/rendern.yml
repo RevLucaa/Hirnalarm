@@ -14,6 +14,10 @@ on:
       folgen:
         description: "Episoden-Ordner, mit Leerzeichen getrennt (z. B. F12_bernd_vs_anton_rennen)"
         required: true
+      test:
+        description: "Testlauf: Pfad relativ zum Repo (z. B. tests/demo_stimmen), Ergebnis nur als Artefakt, kein Release"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -49,7 +53,7 @@ jobs:
           pip install -q -r requirements.txt
 
       - name: Prüfen
-        if: steps.welche.outputs.liste != ''
+        if: steps.welche.outputs.liste != '' && github.event.inputs.test != 'true'
         run: python3 tools/pruefen.py ${{ steps.welche.outputs.liste }}
 
       - name: Rendern und als Release speichern
@@ -58,16 +62,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           for ordner in ${{ steps.welche.outputs.liste }}; do
-            d="episodes/$ordner"
+            if [ "${{ github.event.inputs.test }}" = "true" ]; then d="$ordner"; else d="episodes/$ordner"; fi
             if [ ! -f "$d/stimme.mp3" ] || [ ! -f "$d/episode.json" ]; then
               echo "Überspringe $ordner (stimme.mp3 oder episode.json fehlt)"; continue
             fi
-            tag="${ordner%%_*}"
+            tag="$(basename "$ordner")"; tag="${tag%%_*}"
             python3 engine.py "$d/episode.json" "$d/stimme.mp3" "$tag.mp4"
             # Kontaktbogen mit 12 Bildern zur Kontrolle
             ffmpeg -loglevel error -y -i "$tag.mp4" -vf "fps=12/60,scale=270:-1,tile=6x2" -frames:v 1 "${tag}_vorschau.jpg"
             dauer=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$tag.mp4")
             titel="$tag – $(python3 -c "import json;f=json.load(open('$d/episode.json'))['fighters'];print(f[0]['short'],'vs.',f[1]['short'])")"
+            if [ "${{ github.event.inputs.test }}" = "true" ]; then
+              mkdir -p testergebnis && mv "$tag.mp4" "${tag}_vorschau.jpg" testergebnis/; continue
+            fi
             if gh release view "$tag" > /dev/null 2>&1; then
               gh release upload "$tag" "$tag.mp4" "${tag}_vorschau.jpg" --clobber
             else
@@ -76,3 +83,11 @@ jobs:
             fi
             echo "Fertig: https://github.com/${GITHUB_REPOSITORY}/releases/download/$tag/$tag.mp4 (${dauer} s)"
           done
+
+      - name: Testergebnis hochladen
+        if: github.event.inputs.test == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: testergebnis
+          path: testergebnis/
+          retention-days: 7
