@@ -104,7 +104,7 @@ vidIQ-Credits sind knapp (150/Monat). Hochladen, Entwurf, Einplanen, `social_pos
 **Nicht verwenden** (kosten Credits, siehe Grundregel 1): `vidiq_user_videos`, `vidiq_video_comments`, `vidiq_get_videos_by_ids`, `vidiq_channel_analytics` – ohne Ausnahme.
 Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.yml` alle 6 Stunden über die YouTube Data API (Secret `YT_API_KEY`)
 und legt sie auf dem **Branch `daten`** ab (nicht auf `main`). Lesen im Lauf:
-`git fetch -q origin daten && git show origin/daten:kommentare.json` (ebenso `statistik.json`, `verlauf.csv`, `berichte/<Jahr>-KW<NN>.md`).
+`git fetch -q origin daten && git show FETCH_HEAD:kommentare.json` (ebenso `statistik.json`, `verlauf.csv`, `berichte/<Jahr>-KW<NN>.md`).
 Fehlen die Dateien oder sind sie älter als 2 Tage, Luca kurz Bescheid geben und ohne Kommentarwünsche weitermachen.
 
 ## Ideen und Wünsche (Issues)
