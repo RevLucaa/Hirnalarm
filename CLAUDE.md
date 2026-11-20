@@ -81,5 +81,6 @@ Kommentare und Aufrufzahlen holt stattdessen die GitHub Action `youtube-daten.ym
 `daten/kommentare.json` und `daten/statistik.json`. Fehlen die Dateien oder sind sie älter als 2 Tage, Luca kurz Bescheid geben und ohne Kommentarwünsche weitermachen.
 
 ## Grenzen
+- ElevenLabs: **höchstens 2.000 Credits pro Video** (Wunsch von Luca; ≈ 1 Credit pro Zeichen, auch bei mehreren Stimmen – Summe aller Texte zählt, Neuversuche mitgerechnet).
 - ElevenLabs: Starter-Plan 40.000 Credits/Monat. Vor dem Erzeugen `account_get_usage` prüfen; wenn < 2.000 übrig, abbrechen und Luca Bescheid geben.
 - Nie öffentlich posten, wenn das Rendern/Prüfen fehlschlägt – lieber Lauf abbrechen und melden.
