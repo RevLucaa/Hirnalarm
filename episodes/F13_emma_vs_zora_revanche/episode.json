@@ -1,0 +1,182 @@
+{
+ "episode": 13,
+ "seed": 131,
+ "bg_top": [
+  120,
+  30,
+  80
+ ],
+ "mat": [
+  240,
+  120,
+  150
+ ],
+ "fighters": [
+  {
+   "kind": "strawberry",
+   "name": "Erdbeer-Emma",
+   "short": "Emma",
+   "color": [
+    255,
+    90,
+    110
+   ]
+  },
+  {
+   "kind": "lemon",
+   "name": "Zitronen-Zora",
+   "short": "Zora",
+   "color": [
+    255,
+    235,
+    60
+   ]
+  }
+ ],
+ "tail": 1.6,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Zora hat Emma letztes Mal kopfüber in den Ringboden gesteckt! Heute will Emma Rache!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Emma",
+   "text": "Ich hab noch Ringboden in den Ohren. Das büßt du!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Zora",
+   "text": "Ich roll einfach wieder weg. Das klappt immer!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: SAURE DUSCHE",
+   "color": [
+    235,
+    200,
+    30
+   ],
+   "text": "Runde eins: Saure Dusche!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 1,
+   "proj": "juice",
+   "word": "SPRITZ!",
+   "text": "Zora spritzt Emma Zitronensaft genau in die Augen! Punkt für Zora!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Emma",
+   "loser_expr": "sad",
+   "text": "Aua! Das brennt wie verrückt!"
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: KERNCHEN-KANONE",
+   "color": [
+    230,
+    60,
+    90
+   ],
+   "text": "Runde zwei: Kernchen-Kanone!"
+  },
+  {
+   "scene": "action",
+   "type": "throw",
+   "actor": 0,
+   "proj": "seed",
+   "kleben": true,
+   "word": "RATATA!",
+   "text": "Emma schießt ihre Erdbeerkerne im Dauerfeuer! Zora sieht aus wie ein Streuselkuchen! Punkt für Emma!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Zora",
+   "loser_expr": "angry",
+   "show_score": true,
+   "text": "Hey! Die kleben überall!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Eins zu eins! Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "post",
+   "actor": 0,
+   "cream": true,
+   "hit": 0.7,
+   "text": "Zora rollt wieder weg, wie beim letzten Mal... aber Emma hat heimlich Sahne auf den Boden gesprüht! Zora rutscht volle Kanne gegen den Ringpfosten!"
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "ERDBEER-EMMA GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Emma",
+   "teaser": "coconut",
+   "text": "Und Kokos-Kalle? Der steht schon im Tor und wartet auf Anton!"
+  },
+  {
+   "scene": "cta",
+   "line1": "SAHNE IM RING ERLAUBT?",
+   "line2": "JA ODER NEIN?",
+   "text": "Ist Sahne auf dem Ringboden erlaubt? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Emma",
+   "line1": "SAHNE IM RING ERLAUBT?",
+   "line2": "JA ODER NEIN?",
+   "text": "Und wisst ihr noch, wie das letzte Mal ausging?"
+  }
+ ],
+ "bounds": [
+  3.45,
+  4.99,
+  7.59,
+  8.44,
+  10.09,
+  11.3,
+  12.36,
+  13.68,
+  16.99,
+  18.19,
+  19.21,
+  21.0,
+  22.07,
+  23.36,
+  26.21,
+  28.5,
+  29.65,
+  30.4,
+  32.17,
+  33.46,
+  34.65,
+  37.42,
+  40.41,
+  43.1,
+  44.94,
+  46.27,
+  48.85,
+  51.12,
+  52.33,
+  53.67
+ ]
+}
