@@ -89,6 +89,7 @@ def act_post(u, t, A, V, ai, p, ex):
         if u < h + 0.08: ex.append(("shake", 16))
         ex.append(("burst", postx - dr * 120, 820, 150, "BONK!", clamp((u - h) / 0.35)))
     ex.append(("post", postx))
+    if p.get("cream"): ex.append(("puddle", lerp(hV, postx, 0.5), abs(postx - hV) * 0.5))
     if p.get("peel"):
         pk = lerp(hV, postx, 0.45)
         if p.get("peel_u", 0) <= u < h: ex.append(("peel", pk, FLOOR, 0))
@@ -165,7 +166,7 @@ def act_throw(u, t, A, V, ai, p, ex):
         V["x"] = hV + jit; V["expr"] = "shock" if u < 0.6 else ("sad" if kind == "juice" else "dizzy")
         V["rot"] = dr * 8 * math.sin(t * 25) * (u < 0.6)
         ex.append(("burst", 540, 760, 200, p.get("word", "RATATA!"), clamp((u - first) / 0.5)))
-        if kind in ("slice", "cream"): ex.append(("stuck", V["x"], int(clamp((u - first) / 0.4) * 9), kind))
+        if kind in ("slice", "cream") or p.get("kleben"): ex.append(("stuck", V["x"], int(clamp((u - first) / 0.4) * 9), kind))
         ck = p.get("cherry", 0.62)
         if kind == "cream" and u > ck: ex.append(("cherry", V["x"], lerp(-100, FLOOR - 470, ease_out((u - ck) / 0.1))))
     return [(0.1, "whoosh")] + evs
@@ -282,4 +283,80 @@ def act_catapult(u, t, A, V, ai, p, ex):
     A["sy"] = 0.55 if near else 1; A["expr"] = "grin" if (u > rope or near) else "shock"; A["y"] = FLOOR
     return [(0.05, "whoosh"), (rope - 0.08, "boing"), (rope + 0.05, "whoosh")]
 
-ACTIONS = {"bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss}
+
+# ============ Rennen (arena „bahn“, ab F12) ============
+BAHN = [FLOOR - 20, FLOOR + 230]  # Fußlinie der beiden Bahnen: Fighter 0 hinten, Fighter 1 vorn
+
+
+def lauf_pose(ch, i, t, x, rennt=True):
+    """Figur i läuft auf ihrer Bahn nach rechts (wippt, lehnt sich nach vorn)."""
+    boden = BAHN[i]
+    ch["x"] = x; ch["boden"] = boden; ch["look"] = (1, 0)
+    ch["sc"] *= 0.9 if i == 0 else 1.0
+    if rennt:
+        ch["y"] = boden - abs(math.sin(t * 15 + i * 1.3)) * 45; ch["rot"] = -9; ch["sy"] = 1 + 0.04 * math.sin(t * 30 + i)
+    else:
+        ch["y"] = boden
+
+
+def act_dash(u, t, A, V, ai, p, ex):
+    # Start: A (Punktgewinner) läuft los, mit fehlstart=True schon vor dem Schuss. A = vorn
+    vi = 1 - ai; x0 = 170
+    a0 = 0.06 if p.get("fehlstart") else 0.2; v0 = p.get("schuss", 0.36)
+    for ch, i, s0, xe in ((A, ai, a0, 760), (V, vi, v0, 440)):
+        if u < s0:
+            lauf_pose(ch, i, t, x0, rennt=False); ch["sy"] = 0.86; ch["rot"] = -14; ch["expr"] = "angry"
+        else:
+            q = clamp((u - s0) / (0.9 - s0)); lauf_pose(ch, i, t, lerp(x0, xe, ease_out(q))); ch["expr"] = "grin" if ch is A else "angry"
+    if u > a0: ex.append(("lauf",))
+    if p.get("fehlstart"):
+        ex.append(("burst", 540, 820, 170, p.get("word", "FEHLSTART!"), clamp((u - 0.1) / 0.4)))
+        if p.get("hatschi"): ex.append(("burst", p.get("hatschi_x", 930), 700, 120, "HATSCHI!", clamp((u - p.get("hatschi_u", 0.28)) / 0.35)))
+    else:
+        ex.append(("burst", 540, 820, 160, p.get("word", "LOS!"), clamp((u - v0) / 0.4)))
+    return [(a0, "whoosh"), (v0, "pop"), (v0 + 0.05, "whoosh")]
+
+
+def act_propeller(u, t, A, V, ai, p, ex):
+    # V dreht sich wie ein Propeller, hebt ab und landet in den Zuschauern; A zieht vorbei. A = Punktgewinner
+    vi = 1 - ai; up = p.get("abheben", 0.22)
+    lauf_pose(A, ai, t, lerp(430, 790, ease_out(clamp(u / 0.9)))); A["expr"] = "grin" if u > 0.5 else "shock"
+    if u < up:
+        lauf_pose(V, vi, t, 760); V["expr"] = "grin"; V["rot"] = 25 * math.sin(t * 40) * clamp(u / up)
+    else:
+        q = clamp((u - up) / 0.4)
+        lauf_pose(V, vi, t, lerp(760, 900, q), rennt=False)
+        V["y"] = BAHN[vi] - 1000 * ease_out(q) + 250 * q * q; V["rot"] = (u - up) * 4200; V["sc"] *= 1 - 0.55 * q
+        V["expr"] = "grin" if q < 0.5 else "shock"
+        if q >= 1: V["show"] = False
+        if 0.15 < q < 1: ex.append(("speed",))
+        ex.append(("burst", 800, 640, 150, p.get("word", "PLUMPS!"), clamp((u - up - 0.4) / 0.4)))
+    ex.append(("lauf",))
+    return [(0.05, "whoosh"), (up, "boing"), (up + 0.2, "whoosh"), (up + 0.42, "thud")]
+
+
+def act_surf(u, t, A, V, ai, p, ex):
+    # V wirft eine Bananenschale nach hinten, A springt drauf und surft als Erster ins Ziel. A = Gewinner
+    vi = 1 - ai; zx = p.get("ziel_x", 900); wurf, sprung, foto = 0.14, p.get("sprung", 0.34), p.get("foto", 0.76)
+    ex.append(("ziel", zx))
+    ax0, vx0 = 380, 620
+    if u < sprung:
+        lauf_pose(A, ai, t, lerp(ax0 - 40, ax0, u / sprung)); A["expr"] = "angry" if u < wurf + 0.08 else "shock"
+    elif u < sprung + 0.08:
+        q = (u - sprung) / 0.08; lauf_pose(A, ai, t, ax0, rennt=False); A["y"] = BAHN[ai] - math.sin(q * math.pi) * 220; A["expr"] = "grin"
+    else:
+        q = clamp((u - sprung - 0.08) / (foto - sprung - 0.08)); x = lerp(ax0, zx + 110, ease_in(q))
+        lauf_pose(A, ai, t, x, rennt=False); A["y"] = BAHN[ai] - 28; A["rot"] = -14 + 4 * math.sin(t * 9); A["expr"] = "grin"
+        ex.append(("peel", x, BAHN[ai] - 70, -10))
+        if q < 1: ex.append(("speed",))
+        ex.append(("burst", 420, 820, 150, p.get("word", "SURF!"), clamp((u - sprung - 0.1) / 0.4)))
+    if wurf <= u < sprung:  # Schale fliegt von V nach hinten vor A's Füße
+        q = (u - wurf) / (sprung - wurf); px = lerp(vx0, ax0 + 30, q); py = lerp(BAHN[vi] - 300, BAHN[ai] - 10, q) - math.sin(q * math.pi) * 260
+        ex.append(("peel", px, py, -q * 600))
+    vx = lerp(vx0, zx - 70, clamp(u / foto)) if u < foto else zx - 70
+    lauf_pose(V, vi, t, vx, rennt=u < foto); V["expr"] = "grin" if u < sprung + 0.15 else "shock"
+    if u < foto: ex.append(("lauf",))
+    else: ex.append(("zielfoto", (u - foto) / max(0.01, 1 - foto)))
+    return [(wurf, "whoosh"), (sprung, "boing"), (sprung + 0.1, "whoosh"), (foto, "pop")]
+
+ACTIONS = {"bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}

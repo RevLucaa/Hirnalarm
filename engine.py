@@ -109,7 +109,8 @@ if "preview" in sys.argv:
 
 BELT = None
 
-from render.kulissen import FLOOR, make_bg, front_ropes
+from render.kulissen import FLOOR, make_bg, front_ropes, bahn_vorne, ziellinie
+BAHN_ARENA = EP.get("arena") == "bahn"
 BG = make_bg(EP)
 
 # ============ draw helpers ============
@@ -121,9 +122,10 @@ def paste_char(img, ch):
     s = spr.resize((nw, nh), Image.BICUBIC)
     if ch.get("flip"): s = s.transpose(Image.FLIP_LEFT_RIGHT); headx = -headx
     if ch["rot"]: s = s.rotate(ch["rot"], expand=True, resample=Image.BICUBIC)
-    if ch["y"] >= FLOOR - 400:
-        sw = nw * 0.42 * clamp(1 - (FLOOR - ch["y"]) / 500)
-        ImageDraw.Draw(img, "RGBA").ellipse([ch["x"] - sw, FLOOR - 16, ch["x"] + sw, FLOOR + 16], fill=(0, 0, 0, 70))
+    boden = ch.get("boden", FLOOR)
+    if ch["y"] >= boden - 400:
+        sw = nw * 0.42 * clamp(1 - (boden - ch["y"]) / 500)
+        ImageDraw.Draw(img, "RGBA").ellipse([ch["x"] - sw, boden - 16, ch["x"] + sw, boden + 16], fill=(0, 0, 0, 70))
     img.alpha_composite(s, (int(ch["x"] - s.size[0] / 2), int(ch["y"] - s.size[1])))
     if ch.get("crown", 0) > 0:
         cu = ch["crown"]
@@ -392,12 +394,19 @@ def frame(t, collect_sfx=False):
         if e[0] == "shake": shake = (random.randint(-e[1], e[1]), random.randint(-e[1], e[1]))
     if any(e[0] == "speed" for e in ex): speed_lines(d, t)
     for e in ex:
+        if e[0] == "ziel": ziellinie(d, e[1])
+        elif e[0] == "puddle":
+            rnd_ = random.Random(5)
+            for _ in range(9):
+                px_ = e[1] + rnd_.uniform(-e[2], e[2]); w_ = rnd_.uniform(50, 95)
+                d.ellipse([px_ - w_, FLOOR - 18, px_ + w_, FLOOR + 22], fill=(255, 255, 255), outline=(200, 200, 210), width=4)
+    for e in ex:
         if e[0] == "peel":
             p_ = PEEL.rotate(e[3], expand=True); img.alpha_composite(p_, (int(e[1] - p_.size[0] / 2), int(e[2] - p_.size[1] + 40)))
-    if GUEST and GUEST_T <= t < TEASE_T:
+    if GUEST and GUEST_T <= t < TEASE_T and not (BAHN_ARENA and sc_ == "action" and s.get("type") in ("propeller", "surf")):
         bob = abs(math.sin(t * 9)) * 25 if sc_ == "point" else 0
         gex = "grin" if sc_ == "point" else ("shock" if sc_ == "action" else "happy")
-        draw_guest(img, 540, FLOOR - 170 - bob, 0.55, (t >= BALD_T) or GUEST.get("crack", False), gex, 4 * math.sin(t * 2))
+        draw_guest(img, GUEST.get("x", 540), FLOOR - 170 - bob, 0.55, (t >= BALD_T) or GUEST.get("crack", False), gex, 4 * math.sin(t * 2))
     # draw lower (airborne) last
     sp_ = s.get("speaker")
     if sp_:
@@ -448,6 +457,11 @@ def frame(t, collect_sfx=False):
             rnd = random.Random(77)
             for _ in range(e[2]):
                 x, y = e[1] + rnd.uniform(-140, 140), rnd.uniform(FLOOR - 560, FLOOR - 120)
+                if len(e) > 3 and e[3] == "seed":
+                    for k_ in range(3):
+                        sx_, sy_ = x + rnd.uniform(-40, 40), y + rnd.uniform(-40, 40)
+                        d.ellipse([sx_ - 8, sy_ - 12, sx_ + 8, sy_ + 12], fill=(250, 220, 60), outline=OC, width=3)
+                    continue
                 if len(e) > 3 and e[3] == "cream":
                     d.ellipse([x - 48, y - 36, x + 48, y + 36], fill=(255, 255, 255), outline=(190, 190, 200), width=4)
                     d.ellipse([x - 22, y - 58, x + 26, y - 14], fill=(255, 255, 255), outline=(190, 190, 200), width=3)
@@ -488,7 +502,8 @@ def frame(t, collect_sfx=False):
             d.rectangle([px - 30, FLOOR - 560, px + 30, FLOOR + 30], fill=(210, 210, 225), outline=(30, 30, 40), width=7)
             d.rectangle([px - 40, FLOOR - 580, px + 40, FLOOR - 540], fill=(230, 40, 60), outline=(30, 30, 40), width=6)
     sag = next((e[1] for e in ex if e[0] == "sag"), 0)
-    front_ropes(d, sag)
+    if BAHN_ARENA: bahn_vorne(d, t, any(e[0] == "lauf" for e in ex))
+    else: front_ropes(d, sag)
     img = kamera(img, t, s, u, a, b, F, evs if sc_ == "action" else [])
     for e in ex:
         k = e[0]
@@ -525,6 +540,11 @@ def frame(t, collect_sfx=False):
             dd.rectangle([24, 345, W - 24, H - 290], outline=(255, 255, 255), width=6)
             if int(t * 3) % 2 == 0: dd.ellipse([70, 365, 115, 410], fill=(230, 30, 50, 255))
             dd.text((135, 388), "ZEITLUPE", font=font(58), fill=(255, 255, 255), anchor="lm", stroke_width=6, stroke_fill=(0, 0, 0))
+        elif k == "zielfoto":
+            dd = ImageDraw.Draw(img, "RGBA")
+            if e[1] < 0.12: img.alpha_composite(Image.new("RGBA", img.size, (255, 255, 255, int(220 * (1 - e[1] / 0.12))))); dd = ImageDraw.Draw(img, "RGBA")
+            dd.rectangle([24, 345, W - 24, H - 290], outline=(255, 255, 255), width=8)
+            text_c(dd, (540, 420), "ZIELFOTO", font(80), fill=(255, 230, 0), stroke=8)
         elif k == "splash": splash(ImageDraw.Draw(img), e[1], e[2], e[3])
         elif k == "big" and e[2] > 0:
             text_c(ImageDraw.Draw(img), (540, 560), e[1], font(190 * back_out(e[2] / 0.4)), fill=(255, 230, 0), stroke=14)

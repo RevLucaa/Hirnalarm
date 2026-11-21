@@ -52,7 +52,7 @@ Festgelegt von Luca (20.11.2026). Steht irgendwo unten etwas anderes, gilt diese
 5. **Episode-JSON** schreiben als `episodes/FNN_slug/episode.json` (Muster: `episodes/F09_zitrone_vs_erdbeere/episode.json`); Skript als `skript.txt`, getempte Stimme als `stimme.mp3` in denselben Ordner. Die `text`-Felder müssen das Skript **ohne** Tags exakt wiedergeben (an Satzzeichen . ! ? : getrennt).
    Segmente, die eine Figur spricht, bekommen `"speaker": "<Kurzname>"` (zeigt ein Namensschild in Figurenfarbe über dem Untertitel); Erzähler-Segmente ohne `speaker`.
    Segmentgrenzen müssen an Sprecherwechseln liegen (ein Segment = ein Sprecher). `[laugh]` im Text markiert ein Lachen. Szenen: `intro`, `tag` (side), `banner` (label, color), `action` (type, actor, Parameter), `point` (side, show_score), `win` (side), `tease` (teaser kind | loser_expr), `cta` (line1, line2, challenger kind).
-   Aktionen (siehe `ACTIONS` in `render/aktionen.py`): u. a. `race` (trip), `slam` (bounce, peel, jump0, hit), `post` (hit), `spin`, `headbutt`, `clash` (splash), `throw`, `bowl`, `catapult`. Neue Aktionen in `render/aktionen.py`, neue Figuren in `render/figuren.py` ergänzen.
+   Aktionen (siehe `ACTIONS` in `render/aktionen.py`): u. a. `race` (trip), `dash`/`propeller`/`surf` (nur Arena bahn), `slam` (bounce, peel, jump0, hit), `post` (hit), `spin`, `headbutt`, `clash` (splash), `throw`, `bowl`, `catapult`. Neue Aktionen in `render/aktionen.py`, neue Figuren in `render/figuren.py` ergänzen.
    Charakter-Arten (siehe `KINDS` in `render/figuren.py`): banana, melon, pineapple, coconut, strawberry, lemon, cucumber, birch, kiwi, cat, apple. Fighter 0 = links, 1 = rechts. `episode` = Folgennummer.
 6. **Vorschau** lokal (`preview` mit ~12 Zeitpunkten), Bilder als Kontaktbogen ansehen, Timing der `hit`-Werte an die Phrasen-Zeiten (stderr) anpassen.
    Dann `python3 tools/pruefen.py FNN_slug` → muss 0 Fehler melden.
@@ -85,7 +85,7 @@ Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Punkt 4)
    Jede Folge endet mit einem Cliffhanger, der in eine andere Disziplin führt.
 4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `statistik.json` bzw. dem Wochenbericht (Branch `daten`, kostenlos) Ring vs. Rennen vs. Fußball vergleichen. Keine vidIQ-Analytics (Grundregel 1).
    Läuft eine Sportart deutlich schlechter als der Ring → nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
-Bilanz und Storyline gelten über alle Disziplinen. In `render/kulissen.py` fehlen beide Kulissen noch – beim ersten Bedarf ergänzen (Aktionen in `render/aktionen.py`):
+Bilanz und Storyline gelten über alle Disziplinen. `bahn` gibt es seit Renderer 1.5.0 (F12: Aktionen `dash`, `propeller`, `surf`); `fussball` fehlt noch – beim ersten Bedarf in `render/kulissen.py` ergänzen (Aktionen in `render/aktionen.py`):
 `bahn` (Laufbahn, Start/Ziel, Zuschauer; Aktionen Start, Überholen, Ausrutschen, Zielfoto; `race` als Basis) und
 `fussball` (Tor, Rasen, Ball; Aktionen Schuss, Parade, Pfosten, Tor-Jubel; Look an Special S1 `7P963hZzTs0` anlehnen).
 Sport-Skript: Hook → Grund für das Duell → 2–3 Abschnitte (Rennen: `Start!`, `Halbzeit!`, `Zielgerade!`; Fußball: `Schuss eins!` …) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.

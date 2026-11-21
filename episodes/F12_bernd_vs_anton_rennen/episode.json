@@ -1,0 +1,192 @@
+{
+ "episode": 12,
+ "seed": 121,
+ "arena": "bahn",
+ "bg_top": [
+  70,
+  150,
+  230
+ ],
+ "guest": {
+  "kind": "apple",
+  "name": "Starter Ron der Apfel",
+  "thanks": "STARTER|Idee: @Webby_3000",
+  "x": 990
+ },
+ "fighters": [
+  {
+   "kind": "banana",
+   "name": "Bananen-Bernd",
+   "short": "Bernd",
+   "color": [
+    255,
+    216,
+    40
+   ]
+  },
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    245,
+    175,
+    40
+   ]
+  }
+ ],
+ "tail": 1.6,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Bernd ist stinksauer! Anton hat im Titelkampf mit einer Bananenschale geschummelt!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Bernd",
+   "text": "Das war meine Familie, du Stachelkopf!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Anton",
+   "text": "Reg dich ab. Auf der Bahn bist du sowieso Kompott."
+  },
+  {
+   "scene": "guest",
+   "text": "Erstes Obst-Rennen! Schiri Ron hat die Startpistole."
+  },
+  {
+   "scene": "banner",
+   "label": "START!",
+   "color": [
+    60,
+    170,
+    240
+   ],
+   "text": "Start!"
+  },
+  {
+   "scene": "action",
+   "type": "dash",
+   "actor": 1,
+   "fehlstart": true,
+   "hatschi": true,
+   "hatschi_x": 840,
+   "schuss": 0.6,
+   "text": "Anton rennt los, bevor Ron schießt! Fehlstart! Aber Ron hat gerade geniest. Führung Anton!",
+   "hatschi_u": 0.5
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Bernd",
+   "loser_expr": "angry",
+   "text": "Ron! Schau doch mal hin!"
+  },
+  {
+   "scene": "banner",
+   "label": "HALBZEIT!",
+   "color": [
+    240,
+    160,
+    30
+   ],
+   "text": "Halbzeit!"
+  },
+  {
+   "scene": "action",
+   "type": "propeller",
+   "actor": 0,
+   "word": "PLUMPS!",
+   "text": "Anton dreht seine Blätter wie einen Propeller und hebt ab... direkt in die Zuschauer! Bernd zieht vorbei! Führung Bernd!",
+   "abheben": 0.3
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Anton",
+   "loser_expr": "angry",
+   "show_score": true,
+   "text": "Das war Seitenwind!"
+  },
+  {
+   "scene": "banner",
+   "label": "ZIELGERADE – FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Zielgerade!"
+  },
+  {
+   "scene": "action",
+   "type": "surf",
+   "actor": 0,
+   "text": "Anton wirft wieder eine Bananenschale... aber Bernd springt drauf und surft damit ins Ziel! Zielfoto: eine Bananenlänge!",
+   "foto": 0.69,
+   "ziel_x": 760
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "BANANEN-BERND GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Anton",
+   "loser_expr": "angry",
+   "text": "Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?"
+  },
+  {
+   "scene": "cta",
+   "line1": "BANANEN-SURFEN ERLAUBT?",
+   "line2": "JA ODER NEIN?",
+   "text": "Darf man auf einer Bananenschale ins Ziel surfen? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Anton",
+   "line1": "BANANEN-SURFEN ERLAUBT?",
+   "line2": "JA ODER NEIN?",
+   "text": "Warum war der eigentlich so sauer?"
+  }
+ ],
+ "bounds": [
+  1.76,
+  4.71,
+  7.38,
+  8.51,
+  10.62,
+  12.22,
+  14.02,
+  14.84,
+  17.13,
+  18.19,
+  19.95,
+  21.25,
+  22.05,
+  23.3,
+  24.25,
+  27.86,
+  29.24,
+  30.29,
+  31.51,
+  33.27,
+  34.42,
+  36.79,
+  39.52,
+  40.42,
+  41.86,
+  43.63,
+  45.48,
+  47.62,
+  48.87,
+  51.89,
+  53.09,
+  54.47
+ ]
+}

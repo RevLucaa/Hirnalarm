@@ -2,6 +2,13 @@
 
 Versionen des Renderers (`render/__init__.py` → `VERSION`). Jede Folge nennt im Release die Version, mit der sie gerendert wurde.
 
+## 1.5.0 – 21.11.2026
+- Neue Arena `"arena": "bahn"` (Laufbahn mit Tribüne, Werbebande, zwei Bahnen, bewegte Markierungen beim Laufen, Ziellinie)
+- Neue Renn-Aktionen: `dash` (Start, optional `fehlstart`/`hatschi`), `propeller` (Figur hebt ab und landet in den Zuschauern), `surf` (Bananenschalen-Surfen ins Ziel mit Zielfoto)
+- `post` kann eine Sahne-Pfütze zeigen (`cream: true`), `throw` kann Kerne kleben lassen (`kleben: true`)
+- Gast-Figur mit eigener x-Position (`guest.x`); Schatten folgen der Bahn der Figur
+- Ring-Folgen unverändert (Bild-Test bitgenau gleich)
+
 ## 1.4.0 – 20.11.2026
 - Kamera: Zoom auf die sprechende Figur und den Sieger, Ruck und Wackeln bei Treffern (stärker im Finale)
 - Figuren blinzeln und wippen beim Sprechen mit
