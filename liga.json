@@ -4,9 +4,9 @@
   "Bananen-Bernd": {
    "kind": "banana",
    "short": "Bernd",
-   "siege": 2,
+   "siege": 3,
    "niederlagen": 3,
-   "notiz": "Verlor das Elfmeterschießen S1 gegen Kalle – will Revanche"
+   "notiz": "Verlor S1 (Elfmeter) gegen Kalle – will Revanche (F15). Gewann F12, das erste Obst-Rennen, gegen Anton: surfte auf Antons Schummel-Bananenschale ins Ziel (Zielfoto: eine Bananenlänge)"
   },
   "Melonen-Manni": {
    "kind": "melon",
@@ -19,8 +19,8 @@
    "kind": "pineapple",
    "short": "Anton",
    "siege": 2,
-   "niederlagen": 2,
-   "notiz": "F11 Titelkampf verloren: trug Mannis Gürtel vorab, schummelte mit Bananenschale (Schiri Ron sah es). Sagt: 'Im Ring ist alles gezinkt' – fordert Bernd auf der Rennbahn heraus (F12); will den Gürtel trotzdem"
+   "niederlagen": 3,
+   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin"
   },
   "Kokos-Kalle": {
    "kind": "coconut",
@@ -33,8 +33,8 @@
    "kind": "lemon",
    "short": "Zora",
    "siege": 1,
-   "niederlagen": 1,
-   "notiz": "Erster Sieg in F09 (rollt weg, weil sie eiert)"
+   "niederlagen": 2,
+   "notiz": "Erster Sieg F09 (rollt weg, weil sie eiert). F13 gegen Emma verloren: ihr Weg-Roll-Trick ging auf Sahne schief (gegen den Ringpfosten). Saure Dusche (Zitronensaft) als Waffe; will Revanche wegen 'Sahne-Betrug'"
   },
   "Gurken-Gustav": {
    "kind": "cucumber",
@@ -60,9 +60,9 @@
   "Erdbeer-Emma": {
    "kind": "strawberry",
    "short": "Emma",
-   "siege": 0,
+   "siege": 1,
    "niederlagen": 1,
-   "notiz": "Debüt F09; Aktion Sahne-Attacke (Sprühsahne + Kirsche), steckte kopfüber im Ringboden"
+   "notiz": "Debüt F09 (verloren, kopfüber im Ringboden). F13 Revanche gewonnen: heimliche Sahne-Pfütze, Zora rutschte gegen den Ringpfosten. Streitfrage: Ist Sahne im Ring erlaubt? Kündigte an: Kalle wartet im Tor auf Anton"
   },
   "Prinzessin Belen": {
    "kind": "cat",
@@ -76,7 +76,7 @@
    "short": "Ron",
    "siege": 0,
    "niederlagen": 0,
-   "notiz": "Apfel-Schiri mit Trillerpfeife – Zuschauer-Wunsch von @Webby_3000; Gast-Schiri F11 ('Ron sieht alles')"
+   "notiz": "Apfel-Schiri mit Trillerpfeife – Zuschauer-Wunsch von @Webby_3000; Gast-Schiri F11 ('Ron sieht alles'); Starter mit Startpistole in F12 (nieste beim Fehlstart)"
   }
  },
  "folgen": [
@@ -165,42 +165,38 @@
    "sieger": "Manni",
    "youtube": "CuUvtyQ9lFs",
    "datum": "2026-11-21 17:30"
+  },
+  {
+   "nr": 12,
+   "duell": "Bernd vs. Anton – erstes Obst-Rennen (Starter: Ron der Apfel)",
+   "sieger": "Bernd",
+   "youtube": "jnQxGiL68SI",
+   "datum": "2026-11-22 13:00",
+   "arena": "bahn"
+  },
+  {
+   "nr": 13,
+   "duell": "Emma vs. Zora – Revanche",
+   "sieger": "Emma",
+   "youtube": null,
+   "datum": "2026-11-22 17:30",
+   "hinweis": "YouTube-Upload wegen vidIQ-Tageslimit am 22.11. ab 09:00 nachgereicht (Instagram eingeplant)"
   }
  ],
  "naechste": [
   {
-   "duell": "Bernd vs. Anton – erstes Obst-Rennen, Grudge-Match (Revanche für F02)",
-   "kinds": [
-    "banana",
-    "pineapple"
-   ],
-   "folge": 12,
-   "arena": "bahn",
-   "neu": [
-    "Neue Kulisse Rennbahn in render/kulissen.py nötig (Renderer-Regeln in CLAUDE.md beachten)",
-    "Anton hat in F11 angekündigt: 'Auf der Rennbahn schlag ich jeden. Sogar Bernd!'"
-   ],
-   "slot": "So 22.11. 13:00"
-  },
-  {
-   "duell": "Emma vs. Zora – Revanche (Ring)",
-   "kinds": [
-    "strawberry",
-    "lemon"
-   ],
-   "folge": 13,
-   "slot": "So 22.11. 17:30",
-   "neu": []
-  },
-  {
-   "duell": "Fußball: Kalle (Elfmeter-Sieger S1) vs. Verlierer aus F12",
+   "duell": "Fußball: Kalle vs. Anton – Elfmeterschießen (Anton: 'Im Fußball schieß ich jeden ab!')",
    "kinds": [
     "coconut",
-    "?"
+    "pineapple"
    ],
    "folge": 14,
    "arena": "fussball",
-   "neu": []
+   "neu": [
+    "Neue Kulisse fussball nötig (Look an S1 anlehnen)",
+    "Emma hat in F13 angekündigt: 'Kalle wartet im Tor auf Anton'"
+   ],
+   "slot": "Mo 23.11. 13:00"
   },
   {
    "duell": "Ring: Bernd vs. Kalle – Revanche fürs Elfmeterschießen",
@@ -209,12 +205,13 @@
     "coconut"
    ],
    "folge": 15,
-   "neu": []
+   "neu": [],
+   "slot": "Mo 23.11. 17:30"
   },
   {
-   "duell": "Rennen: Verlierer aus F12 vs. Kiwi-Kevin (Ausgang bestimmt nächsten Ring-Gegner)",
+   "duell": "Rennen: Anton vs. Kiwi-Kevin (Anton will nach F12 endlich auf der Bahn gewinnen)",
    "kinds": [
-    "?",
+    "pineapple",
     "kiwi"
    ],
    "folge": 16,
@@ -233,17 +230,17 @@
    ]
   },
   {
-   "duell": "Fußball: Anton vs. Kalle – Elfmeter (Schiri Ron)",
+   "duell": "Fußball: Zora vs. Emma – Elfmeter-Revanche für den 'Sahne-Betrug' (Schiri Ron)",
    "kinds": [
-    "pineapple",
-    "coconut"
+    "lemon",
+    "strawberry"
    ],
    "folge": 18,
    "arena": "fussball",
    "neu": []
   },
   {
-   "duell": "Ring: Zora vs. Kalle – Zora will ihren zweiten Sieg, Kalle sein Pflaster zurück",
+   "duell": "Ring: Zora vs. Kalle – Zora will nach zwei Pleiten zurückschlagen, Kalle sein Pflaster zurück",
    "kinds": [
     "lemon",
     "coconut"
@@ -272,6 +269,27 @@
    "neu": [
     "Cliffhanger auf das Pokal-Halbfinale"
    ]
+  },
+  {
+   "duell": "Fußball: Bernd vs. Gustav – Bernd will nach dem Rennsieg auch im Fußball punkten, Gustav endlich seinen ersten Sieg",
+   "kinds": [
+    "banana",
+    "cucumber"
+   ],
+   "folge": 22,
+   "arena": "fussball",
+   "neu": [
+    "Ab F22 Tabelle (Top 4) am Ende einblenden"
+   ]
+  },
+  {
+   "duell": "Ring: Rudi vs. Emma – der ungeschlagene Baum gegen die Sahne-Spezialistin",
+   "kinds": [
+    "birch",
+    "strawberry"
+   ],
+   "folge": 23,
+   "neu": []
   }
  ],
  "themen_pool": {
@@ -302,7 +320,8 @@
   ]
  },
  "zuschauer_wuensche": [
-  "Katze Belen als Schiri-Prinzessin (@MareikeNoe-g6q, Kommentar unter F04) – in F06 als 'notiert' erwähnt, noch einbauen (neue Figur cat nötig)"
+  "Katze Belen als Schiri-Prinzessin (@MareikeNoe-g6q, Kommentar unter F04) – in F06 als 'notiert' erwähnt, noch einbauen (neue Figur cat nötig)",
+  "'Kris der kissin!!' (@Webby_3000, Kommentar unter F09, 21.11.) – unklar (Kris das Kissen? neue Figur?); bei Gelegenheit als Gag/Gast prüfen"
  ],
  "zweite_sportart": {
   "sportarten": [
