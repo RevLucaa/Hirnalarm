@@ -4,9 +4,9 @@
   "Bananen-Bernd": {
    "kind": "banana",
    "short": "Bernd",
-   "siege": 3,
+   "siege": 4,
    "niederlagen": 3,
-   "notiz": "Verlor S1 (Elfmeter) gegen Kalle – will Revanche (F15). Gewann F12, das erste Obst-Rennen, gegen Anton: surfte auf Antons Schummel-Bananenschale ins Ziel (Zielfoto: eine Bananenlänge)"
+   "notiz": "Verlor S1 (Elfmeter) gegen Kalle – will Revanche (F15). Gewann F12, das erste Obst-Rennen, gegen Anton: surfte auf Antons Schummel-Bananenschale ins Ziel (Zielfoto: eine Bananenlänge) | F15 Revanche gegen Kalle im Ring gewonnen (weggeduckt, Kalle flog aus der Halle) – Streitfrage: Zählt Wegducken als Sieg?"
   },
   "Melonen-Manni": {
    "kind": "melon",
@@ -19,15 +19,15 @@
    "kind": "pineapple",
    "short": "Anton",
    "siege": 2,
-   "niederlagen": 3,
-   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin"
+   "niederlagen": 4,
+   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin | F14 Elfmeter gegen Kalle verloren: hat Kalles Lieblingsball zerstochen, Ball platzte an seinen Stacheln; Streitfrage: Darf man sich selbst als Ball schießen? Kevin fordert ihn auf der Rennbahn (F16)"
   },
   "Kokos-Kalle": {
    "kind": "coconut",
    "short": "Kalle",
-   "siege": 1,
-   "niederlagen": 2,
-   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert; erster Sieg im Fußball-Elfmeterschießen gegen Bernd (Special S1) – Fußball-Spezialist"
+   "siege": 2,
+   "niederlagen": 3,
+   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert; erster Sieg im Fußball-Elfmeterschießen gegen Bernd (Special S1) – Fußball-Spezialist | F14 Elfmeter gegen Anton gewonnen (Kopfball-Parade, schoss sich nach dem geplatzten Ball selbst als 'Kokos-Kanone' ins Netz; Anton schuldet ihm einen Ball). F15 im Ring gegen Bernd verloren: Kokos-Kanone, Bernd duckte sich, Kalle flog aus der Halle"
   },
   "Zitronen-Zora": {
    "kind": "lemon",
@@ -55,7 +55,7 @@
    "short": "Kevin",
    "siege": 1,
    "niederlagen": 0,
-   "notiz": "Zuschauer-Idee von @nice-b5c6; Debüt F10: erster Sieg gegen Gustav (Kiwi-Rakete, Gustav knallt gegen Ringpfosten). Gustav nennt ihn 'haarige Kartoffel' – Fehde offen"
+   "notiz": "Zuschauer-Idee von @nice-b5c6; Debüt F10: erster Sieg gegen Gustav (Kiwi-Rakete, Gustav knallt gegen Ringpfosten). Gustav nennt ihn 'haarige Kartoffel' – Fehde offen | Kündigte in F15 an: 'Auf der Rennbahn bin ich schneller als jede Ananas!' -> F16"
   },
   "Erdbeer-Emma": {
    "kind": "strawberry",
@@ -181,33 +181,26 @@
    "youtube": null,
    "datum": "2026-11-22 17:30",
    "hinweis": "YouTube noch NICHT hochgeladen: vidIQ-Tageslimit (3 YouTube-Uploads/Tag für alle Kanäle) am 21.11. und 22.11. ausgeschöpft. Instagram eingeplant 22.11. 17:30. Video: Release F13"
+  },
+  {
+   "nr": 14,
+   "duell": "Kalle vs. Anton – Elfmeterschießen (Schiri: Ron der Apfel)",
+   "sieger": "Kalle",
+   "youtube": null,
+   "datum": "2026-11-23 13:00",
+   "arena": "fussball",
+   "hinweis": "Instagram eingeplant 23.11. 13:00. YouTube-Ziel wegen vidIQ-Tageslimit (3/Tag) erst am 23.11. ab 09:00 einplanbar (vidIQ postId 05b509bb-636f-44b6-ac95-fc4b7862d619). Video: Release F14"
+  },
+  {
+   "nr": 15,
+   "duell": "Bernd vs. Kalle – Ring-Revanche fürs Elfmeterschießen",
+   "sieger": "Bernd",
+   "youtube": null,
+   "datum": "2026-11-23 17:30",
+   "hinweis": "Instagram eingeplant 23.11. 17:30. YouTube-Ziel wegen vidIQ-Tageslimit erst am 23.11. ab 09:00 einplanbar (vidIQ postId 442a4520-551a-4492-9f84-c89daa2a5a41). Video: Release F15"
   }
  ],
  "naechste": [
-  {
-   "duell": "Fußball: Kalle vs. Anton – Elfmeterschießen (Anton: 'Im Fußball schieß ich jeden ab!')",
-   "kinds": [
-    "coconut",
-    "pineapple"
-   ],
-   "folge": 14,
-   "arena": "fussball",
-   "neu": [
-    "Neue Kulisse fussball nötig (Look an S1 anlehnen)",
-    "Emma hat in F13 angekündigt: 'Kalle wartet im Tor auf Anton'"
-   ],
-   "slot": "Mo 23.11. 13:00"
-  },
-  {
-   "duell": "Ring: Bernd vs. Kalle – Revanche fürs Elfmeterschießen",
-   "kinds": [
-    "banana",
-    "coconut"
-   ],
-   "folge": 15,
-   "neu": [],
-   "slot": "Mo 23.11. 17:30"
-  },
   {
    "duell": "Rennen: Anton vs. Kiwi-Kevin (Anton will nach F12 endlich auf der Bahn gewinnen)",
    "kinds": [
@@ -216,7 +209,8 @@
    ],
    "folge": 16,
    "arena": "bahn",
-   "neu": []
+   "neu": [],
+   "slot": "Di 24.11. 13:00"
   },
   {
    "duell": "Ring: Gustav vs. Kevin – Revanche ('haarige Kartoffel', Gustav hält F10 für Glück)",
@@ -227,7 +221,8 @@
    "folge": 17,
    "neu": [
     "Zuschauer-Idee 'Herbert Kiwi' (@SvenZapke): Kevins Cousin Herbert könnte als Sekundant auftauchen"
-   ]
+   ],
+   "slot": "Di 24.11. 17:30"
   },
   {
    "duell": "Fußball: Zora vs. Emma – Elfmeter-Revanche für den 'Sahne-Betrug' (Schiri Ron)",
@@ -290,6 +285,29 @@
    ],
    "folge": 23,
    "neu": []
+  },
+  {
+   "duell": "Rennen: Rudi vs. Zora – der langsamste Baum gegen die eiernde Zitrone (Rudi will ungeschlagen bleiben, Zora rollt einfach)",
+   "kinds": [
+    "birch",
+    "lemon"
+   ],
+   "folge": 24,
+   "arena": "bahn",
+   "neu": [
+    "Gag-Idee: Rudi schlägt Wurzeln am Start"
+   ]
+  },
+  {
+   "duell": "Ring: Kalle vs. Anton – Revanche fürs Elfmeterschießen, Anton schuldet Kalle noch einen Ball",
+   "kinds": [
+    "coconut",
+    "pineapple"
+   ],
+   "folge": 25,
+   "neu": [
+    "Offener Faden aus F14: zerstochener Ball"
+   ]
   }
  ],
  "themen_pool": {
