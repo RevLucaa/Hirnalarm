@@ -85,7 +85,8 @@ Keine weiteren Sportarten/Themen aus `themen_pool`, bis die Auswertung (Punkt 4)
    Jede Folge endet mit einem Cliffhanger, der in eine andere Disziplin führt.
 4. **Auswertung nach ca. F20:** Aufrufe/Likes/Kommentare aus `statistik.json` bzw. dem Wochenbericht (Branch `daten`, kostenlos) Ring vs. Rennen vs. Fußball vergleichen. Keine vidIQ-Analytics (Grundregel 1).
    Läuft eine Sportart deutlich schlechter als der Ring → nur noch als seltenes Special. Ergebnis kurz an Luca melden, erst danach über weitere Sportarten nachdenken.
-Bilanz und Storyline gelten über alle Disziplinen. `bahn` gibt es seit Renderer 1.5.0 (F12: Aktionen `dash`, `propeller`, `surf`); `fussball` fehlt noch – beim ersten Bedarf in `render/kulissen.py` ergänzen (Aktionen in `render/aktionen.py`):
+Bilanz und Storyline gelten über alle Disziplinen. `bahn` gibt es seit Renderer 1.5.0 (F12: Aktionen `dash`, `propeller`, `surf`); `fussball` seit 1.6.0 (F14: Aktion `elfer` mit `art` = `kopf` | `platzt` | `selbst`; weitere Fußball-Gags in `render/aktionen.py` ergänzen). Sprechen Nebenrollen (z. B. im Teaser), in der Episode `"nebenrollen": [{"short", "color"}]` setzen (Namensschild).
+Ursprüngliche Planung:
 `bahn` (Laufbahn, Start/Ziel, Zuschauer; Aktionen Start, Überholen, Ausrutschen, Zielfoto; `race` als Basis) und
 `fussball` (Tor, Rasen, Ball; Aktionen Schuss, Parade, Pfosten, Tor-Jubel; Look an Special S1 `7P963hZzTs0` anlehnen).
 Sport-Skript: Hook → Grund für das Duell → 2–3 Abschnitte (Rennen: `Start!`, `Halbzeit!`, `Zielgerade!`; Fußball: `Schuss eins!` …) statt Runden → `NAME GEWINNT!` → Cliffhanger → Frage.

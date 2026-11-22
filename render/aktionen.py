@@ -4,7 +4,7 @@ import math
 import random
 
 from render.figuren import BASE_SC, clamp, ease_in, ease_out, lerp
-from render.kulissen import FLOOR, W
+from render.kulissen import ELFER, FLOOR, TORLINIE, W
 
 HOME = [300, 790]
 FIGHTERS = []           # aus der Episode
@@ -359,4 +359,103 @@ def act_surf(u, t, A, V, ai, p, ex):
     else: ex.append(("zielfoto", (u - foto) / max(0.01, 1 - foto)))
     return [(wurf, "whoosh"), (sprung, "boing"), (sprung + 0.1, "whoosh"), (foto, "pop")]
 
-ACTIONS = {"bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}
+
+# ============ Fußball (arena „fussball“, ab F14) ============
+SCHUETZE_Y = FLOOR + 260
+
+
+def torwart(ch, t, x=540):
+    """Figur steht als Torwart auf der Torlinie (kleiner, weil weiter hinten), tänzelt."""
+    ch["x"] = x + 40 * math.sin(t * 5); ch["y"] = TORLINIE; ch["boden"] = TORLINIE
+    ch["sc"] *= 0.74; ch["look"] = (0, 1)
+
+
+def schuetze(ch, u, t, kick):
+    """Figur läuft vorn links zum Ball an und schießt bei u = kick."""
+    ch["boden"] = SCHUETZE_Y; ch["z"] = 1e9; ch["look"] = (1, -1)
+    if u < kick:
+        q = u / kick; ch["x"] = lerp(150, ELFER[0] - 120, ease_in(q)); ch["y"] = SCHUETZE_Y - abs(math.sin(t * 15)) * 30 * (q > 0.2)
+        ch["rot"] = -8 * (q > 0.2); ch["expr"] = "angry"
+    else:
+        q = clamp((u - kick) / 0.1); ch["x"] = ELFER[0] - 120 + 40 * q; ch["y"] = SCHUETZE_Y; ch["rot"] = -18 * math.sin(q * math.pi)
+
+
+def flug(u, u0, u1, p0, p1, r0, r1, hoch=120):
+    q = clamp((u - u0) / (u1 - u0))
+    return lerp(p0[0], p1[0], q), lerp(p0[1], p1[1], q) - math.sin(q * math.pi) * hoch, lerp(r0, r1, q), q
+
+
+def act_elfer(u, t, A, V, ai, p, ex):
+    """Elfmeter. A = Punktgewinner. art:
+    kopf   – V schießt, Torwart A köpft den Ball zurück in V's Gesicht
+    platzt – V schießt, der Ball bleibt in A's Stacheln stecken und platzt
+    selbst – A schießt sich selbst als Kugel ins Tor, Torwart V springt in die falsche Ecke"""
+    art = p.get("art", "kopf"); kick = p.get("kick", 0.28); evs = [(0.02, "whistle"), (kick, "pop"), (kick + 0.01, "whoosh")]
+    if art in ("kopf", "platzt"):
+        S, K = V, A
+        schuetze(S, u, t, kick); torwart(K, t)
+        kx = K["x"]; kopf_y = TORLINIE - (380 if K["kind"] == "pineapple" else 260)
+        if u < kick:
+            ex.append(("ball", ELFER[0], ELFER[1] - 30, 46, 0)); K["expr"] = "angry"
+        elif art == "kopf":
+            hit, back = p.get("hit", 0.46), p.get("back", 0.62)
+            if u < hit:
+                x, y, r, q = flug(u, kick, hit, (ELFER[0], ELFER[1] - 30), (kx, kopf_y), 46, 32, 200)
+                ex.append(("ball", x, y, r, u * 30)); K["expr"] = "angry"
+            elif u < back:
+                K["sy"] = 1 - 0.12 * math.exp(-(u - hit) * 25); K["y"] = TORLINIE - 60 * math.sin(clamp((u - hit) / 0.1) * math.pi); K["expr"] = "grin"
+                x, y, r, q = flug(u, hit, back, (kx, kopf_y), (S["x"] + 20, SCHUETZE_Y - 330), 32, 58, 60)
+                ex.append(("ball", x, y, r, -u * 30))
+                ex.append(("burst", kx, kopf_y - 120, 130, "BONK!", clamp((u - hit) / 0.3)))
+                if u < hit + 0.06: ex.append(("shake", 14))
+            else:
+                K["expr"] = "grin"
+                q = clamp((u - back) / 0.2); S["rot"] = 70 * ease_out(q); S["y"] = SCHUETZE_Y + 30 * q; S["expr"] = "dizzy"; S["x"] = ELFER[0] - 140 - 60 * q
+                ex.append(("ball", lerp(S["x"] + 40, 700, q), SCHUETZE_Y - 330 - math.sin(q * math.pi) * 300 + 300 * q * q, 50, u * 20))
+                ex.append(("burst", 360, 1050, 150, p.get("word", "AUTSCH!"), clamp((u - back) / 0.35)))
+                if u < back + 0.06: ex.append(("shake", 20))
+            evs += [(hit, "boom_s"), (back, "boom")]
+        else:  # platzt
+            hit, peng = p.get("hit", 0.44), p.get("peng", 0.62)
+            krone = (kx, TORLINIE - 470)
+            if u < hit:
+                x, y, r, q = flug(u, kick, hit, (ELFER[0], ELFER[1] - 30), krone, 46, 30, 220)
+                ex.append(("ball", x, y, r, u * 30)); K["expr"] = "shock"
+                K["sy"] = 1 + 0.08 * clamp((u - hit + 0.1) / 0.1)
+            elif u < peng:
+                K["expr"] = "shock"; K["x"] = kx; jig = 6 * math.sin(t * 50)
+                ex.append(("ball", K["x"] + jig, krone[1] + 10, 30 + 4 * (u - hit) / (peng - hit) * math.sin(t * 40), 0))
+                if u < hit + 0.05: ex.append(("shake", 8))
+                S["expr"] = "shock"
+            else:
+                K["expr"] = "grin"; S["expr"] = "sad"; S["look"] = (0, -1)
+                ex.append(("fetzen", K["x"], krone[1] + 10, clamp((u - peng) / 0.35)))
+                ex.append(("burst", K["x"], krone[1] - 120, 160, p.get("word", "PENG!"), clamp((u - peng) / 0.35)))
+                if u < peng + 0.06: ex.append(("shake", 18))
+            evs += [(hit, "thud"), (peng, "boom")]
+    else:  # selbst
+        S, K = A, V
+        torwart(K, t); tor = p.get("tor", (700, TORLINIE - 230)); los, rein = kick, p.get("hit", 0.55)
+        S["boden"] = SCHUETZE_Y; S["z"] = 1e9
+        if u < los:
+            q = u / los; S["x"] = lerp(220, ELFER[0] - 60, ease_in(q)); S["y"] = SCHUETZE_Y; S["sy"] = 1 - 0.18 * q; S["expr"] = "angry"; S["look"] = (1, -1)
+            K["expr"] = "shock"
+        elif u < rein:
+            q = (u - los) / (rein - los)
+            S["x"] = lerp(ELFER[0] - 60, tor[0], q); S["y"] = lerp(SCHUETZE_Y, tor[1] + 150, q) - math.sin(q * math.pi) * 260
+            S["rot"] = -q * 1440; S["sc"] *= lerp(1, 0.62, q); S["expr"] = "grin"; S["z"] = 0
+            ex.append(("speed",))
+            K["x"] = lerp(540, 330, ease_out(clamp(q / 0.7))); K["rot"] = 70 * ease_out(clamp(q / 0.7)); K["y"] = TORLINIE - 160 * math.sin(clamp(q / 0.7) * math.pi); K["expr"] = "shock"
+        else:
+            q = clamp((u - rein) / 0.15)
+            S["x"] = tor[0] + 25 * q; S["y"] = tor[1] + 150 - 10 * math.sin(t * 30) * (1 - q); S["sc"] *= 0.62; S["expr"] = "grin"; S["z"] = 0
+            S["sx"] = 1 + 0.15 * math.exp(-(u - rein) * 20); S["rot"] = 8 * math.sin(t * 6)
+            K["x"] = 330; K["rot"] = 90; K["y"] = TORLINIE + 20; K["expr"] = "dizzy"
+            ex.append(("netz", S["x"], S["y"] - 120, 170))
+            ex.append(("burst", 540, 520, 200, p.get("word", "TOOOR!"), clamp((u - rein) / 0.4)))
+            if u < rein + 0.06: ex.append(("shake", 22))
+        evs += [(rein, "boom"), (rein + 0.05, "boing")]
+    return evs
+
+
+ACTIONS = {"elfer": act_elfer, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}

@@ -1,0 +1,204 @@
+{
+ "episode": 14,
+ "seed": 141,
+ "arena": "fussball",
+ "bg_top": [
+  40,
+  70,
+  150
+ ],
+ "guest": {
+  "kind": "apple",
+  "name": "Schiri Ron der Apfel",
+  "thanks": "SCHIRI|Idee: @Webby_3000",
+  "x": 985
+ },
+ "fighters": [
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    255,
+    200,
+    40
+   ]
+  },
+  {
+   "kind": "coconut",
+   "name": "Kokos-Kalle",
+   "short": "Kalle",
+   "color": [
+    200,
+    140,
+    90
+   ],
+   "crack": true
+  }
+ ],
+ "nebenrollen": [
+  {
+   "short": "Bernd",
+   "color": [
+    255,
+    216,
+    40
+   ]
+  }
+ ],
+ "tail": 1.5,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Anton hat Kalles Lieblingsball zerstochen! Jetzt steht Kalle im Tor!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Kalle",
+   "text": "Den Ball bezahlst du. Mit Toren."
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Anton",
+   "text": "Im Fußball schieß ich jeden ab, Kokosbirne!"
+  },
+  {
+   "scene": "guest",
+   "text": "Elfmeterschießen! Schiri Ron hat die Pfeife."
+  },
+  {
+   "scene": "banner",
+   "label": "SCHUSS 1: KOKOS-KOPFBALL",
+   "color": [
+    60,
+    170,
+    240
+   ],
+   "text": "Schuss eins!"
+  },
+  {
+   "scene": "action",
+   "type": "elfer",
+   "art": "kopf",
+   "actor": 1,
+   "word": "AUTSCH!",
+   "text": "Anton schießt... und Kalle köpft den Ball zurück! Mitten in Antons Gesicht! Punkt für Kalle!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Anton",
+   "loser_expr": "angry",
+   "text": "Mein Gesicht! Das war Absicht!"
+  },
+  {
+   "scene": "banner",
+   "label": "SCHUSS 2: STACHEL-PARADE",
+   "color": [
+    240,
+    160,
+    30
+   ],
+   "text": "Schuss zwei!"
+  },
+  {
+   "scene": "action",
+   "type": "elfer",
+   "art": "platzt",
+   "actor": 0,
+   "word": "PENG!",
+   "text": "Jetzt muss Anton ins Tor. Kalle hämmert drauf... und der Ball bleibt in Antons Stacheln stecken! Peng! Geplatzt! Punkt für Anton!",
+   "peng": 0.69
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Kalle",
+   "loser_expr": "sad",
+   "show_score": true,
+   "text": "Schon wieder mein Ball!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Eins zu eins! Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "elfer",
+   "art": "selbst",
+   "actor": 1,
+   "word": "TOOOR!",
+   "text": "Kein Ball mehr da? Kalle schießt sich einfach selbst! Kokos-Kanone, mitten durch Antons Blätter ins Netz!",
+   "kick": 0.45,
+   "hit": 0.78
+  },
+  {
+   "scene": "win",
+   "side": 1,
+   "text": "KOKOS-KALLE GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Bernd",
+   "teaser": "banana",
+   "text": "Kalle, genieß es. Im Ring hol ich mir meine Revanche!"
+  },
+  {
+   "scene": "cta",
+   "line1": "SICH SELBST SCHIESSEN?",
+   "line2": "ERLAUBT? JA ODER NEIN?",
+   "text": "Darf man sich selbst als Ball schießen? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Anton",
+   "line1": "SICH SELBST SCHIESSEN?",
+   "line2": "ERLAUBT? JA ODER NEIN?",
+   "text": "Und wisst ihr, wessen Ball ich zerstochen hab?"
+  }
+ ],
+ "bounds": [
+  2.12,
+  3.82,
+  5.38,
+  6.44,
+  9.77,
+  11.19,
+  12.79,
+  13.82,
+  14.93,
+  16.85,
+  18.53,
+  19.86,
+  21.16,
+  22.66,
+  23.87,
+  25.49,
+  27.04,
+  29.75,
+  30.35,
+  31.3,
+  32.49,
+  34.29,
+  35.68,
+  36.85,
+  38.13,
+  40.05,
+  43.24,
+  45.0,
+  46.68,
+  49.2,
+  51.38,
+  52.52,
+  53.87
+ ]
+}

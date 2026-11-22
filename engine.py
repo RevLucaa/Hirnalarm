@@ -109,8 +109,9 @@ if "preview" in sys.argv:
 
 BELT = None
 
-from render.kulissen import FLOOR, make_bg, front_ropes, bahn_vorne, ziellinie
+from render.kulissen import FLOOR, make_bg, front_ropes, bahn_vorne, ziellinie, netz_davor, fussball
 BAHN_ARENA = EP.get("arena") == "bahn"
+FUSS_ARENA = EP.get("arena") == "fussball"
 BG = make_bg(EP)
 
 # ============ draw helpers ============
@@ -227,7 +228,7 @@ def captions(img, t):
         if sum(ws) + gap * (len(ws) - 1) <= 1000 or sz <= 60: break
         sz -= 6
     sp = SEGS[WORDS[i][4]].get("speaker")  # Figurenstimme: Namensschild über dem Untertitel
-    f_sp = next((f for f in EP["fighters"] if f.get("short") == sp), None) if sp else None
+    f_sp = next((f for f in EP["fighters"] + EP.get("nebenrollen", []) if f.get("short") == sp), None) if sp else None
     if f_sp:
         lab = f_sp["short"].upper() + ":"
         lw = d.textlength(lab, font=font(58))
@@ -418,8 +419,17 @@ def frame(t, collect_sfx=False):
     for i_ in range(2):  # Blinzeln: etwa alle 3–4 s für 0,12 s, beide Figuren versetzt
         if F[i_]["expr"].split("_")[0] in ("happy", "angry", "grin", "sad") and (t + 1.7 * i_) % (3.3 + 0.6 * i_) < 0.12:
             F[i_]["expr"] += "_b"
-    for ch in sorted(F, key=lambda c: -c["y"]): paste_char(img, ch)
+    for ch in sorted(F, key=lambda c: c.get("z", -c["y"])): paste_char(img, ch)
     d = ImageDraw.Draw(img)
+    for e in ex:
+        if e[0] == "netz": netz_davor(d, e[1], e[2], e[3])
+        elif e[0] == "ball": fussball(d, e[1], e[2], e[3], e[4])
+        elif e[0] == "fetzen":
+            q = e[3]; rnd_ = random.Random(9)
+            for _ in range(12):
+                ang = rnd_.uniform(0, 2 * math.pi); v = rnd_.uniform(150, 380)
+                fx_, fy_ = e[1] + math.cos(ang) * v * q, e[2] + math.sin(ang) * v * q + 500 * q * q
+                if q < 1: d.polygon([(fx_ - 16, fy_ - 10), (fx_ + 14, fy_ - 14), (fx_ + 10, fy_ + 12)], fill=(250, 250, 250) if rnd_.random() < 0.6 else (25, 25, 30), outline=(20, 20, 25))
     for e in ex:
         if e[0] == "proj":
             x, y = e[1], e[2]
@@ -503,7 +513,7 @@ def frame(t, collect_sfx=False):
             d.rectangle([px - 40, FLOOR - 580, px + 40, FLOOR - 540], fill=(230, 40, 60), outline=(30, 30, 40), width=6)
     sag = next((e[1] for e in ex if e[0] == "sag"), 0)
     if BAHN_ARENA: bahn_vorne(d, t, any(e[0] == "lauf" for e in ex))
-    else: front_ropes(d, sag)
+    elif not FUSS_ARENA: front_ropes(d, sag)
     img = kamera(img, t, s, u, a, b, F, evs if sc_ == "action" else [])
     for e in ex:
         k = e[0]

@@ -2,6 +2,13 @@
 
 Versionen des Renderers (`render/__init__.py` → `VERSION`). Jede Folge nennt im Release die Version, mit der sie gerendert wurde.
 
+## 1.6.0 – 22.11.2026
+- Neue Arena `"arena": "fussball"` (Stadion mit Fans in Vereinsfarben, Werbebande, Rasen mit Mähstreifen, Strafraum, Tor mit Netz)
+- Neue Aktion `elfer` mit `art`: `kopf` (Torwart köpft den Ball zurück ins Gesicht des Schützen), `platzt` (Ball bleibt in den Stacheln stecken und platzt), `selbst` (Figur schießt sich selbst ins Tor und hängt im Netz)
+- Namensschild auch für Nebenrollen, die nur im Teaser sprechen (`"nebenrollen": [{"short", "color"}]`)
+- Figuren können mit `z` vor andere gezeichnet werden (Schütze vorn)
+- Ring- und Bahn-Folgen unverändert
+
 ## 1.5.0 – 21.11.2026
 - Neue Arena `"arena": "bahn"` (Laufbahn mit Tribüne, Werbebande, zwei Bahnen, bewegte Markierungen beim Laufen, Ziellinie)
 - Neue Renn-Aktionen: `dash` (Start, optional `fehlstart`/`hatschi`), `propeller` (Figur hebt ab und landet in den Zuschauern), `surf` (Bananenschalen-Surfen ins Ziel mit Zielfoto)
