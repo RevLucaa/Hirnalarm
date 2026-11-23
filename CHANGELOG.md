@@ -2,6 +2,11 @@
 
 Versionen des Renderers (`render/__init__.py` → `VERSION`). Jede Folge nennt im Release die Version, mit der sie gerendert wurde.
 
+## 1.7.0 – 23.11.2026
+- Neue Renn-Aktionen: `ueberholen` (Figur bleibt stehen und winkt in die Tribüne, die andere zieht vorbei; `word`, `word2`, `stopp`), `huepf` (Riesensprünge auf der Zielgeraden, Zielfoto „um ein Haar“; `foto`, `spruenge`, `haar_u`)
+- Neue Ring-Aktion `handtuch` (Gast/Sekundant wirft ein Handtuch ins Gesicht, Figur tappt blind, wird aus dem Ring gerammt; `von_x`, `kleb`, `hit`, `tuch_y`)
+- Bestehende Aktionen und Folgen unverändert
+
 ## 1.6.0 – 22.11.2026
 - Neue Arena `"arena": "fussball"` (Stadion mit Fans in Vereinsfarben, Werbebande, Rasen mit Mähstreifen, Strafraum, Tor mit Netz)
 - Neue Aktion `elfer` mit `art`: `kopf` (Torwart köpft den Ball zurück ins Gesicht des Schützen), `platzt` (Ball bleibt in den Stacheln stecken und platzt), `selbst` (Figur schießt sich selbst ins Tor und hängt im Netz)

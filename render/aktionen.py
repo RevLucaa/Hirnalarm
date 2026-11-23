@@ -360,6 +360,71 @@ def act_surf(u, t, A, V, ai, p, ex):
     return [(wurf, "whoosh"), (sprung, "boing"), (sprung + 0.1, "whoosh"), (foto, "pop")]
 
 
+def act_ueberholen(u, t, A, V, ai, p, ex):
+    """Rennen, Mitte: V bleibt stehen und winkt in die Tribüne, A zieht vorbei. A = Punktgewinner (ab 1.7.0)"""
+    vi = 1 - ai; stopp = p.get("stopp", 0.18)
+    lauf_pose(A, ai, t, lerp(300, 820, ease_out(clamp(u / 0.85)))); A["expr"] = "grin" if u > 0.5 else "angry"
+    if u < stopp:
+        lauf_pose(V, vi, t, lerp(520, 600, u / stopp)); V["expr"] = "grin"
+    else:
+        lauf_pose(V, vi, t, 600, rennt=False); V["look"] = (0, -1); V["expr"] = "grin" if u < 0.62 else "shock"
+        V["rot"] = 14 * math.sin(t * 16) if u < 0.62 else 0
+        ex.append(("burst", 640, 600, 130, p.get("word", "WINK WINK!"), clamp((u - stopp) / 0.35)))
+        if u > 0.62: ex.append(("burst", 330, 820, 120, p.get("word2", "UPS!"), clamp((u - 0.62) / 0.3)))
+    ex.append(("lauf",))
+    return [(0.05, "whoosh"), (stopp, "pop"), (0.45, "whoosh"), (0.62, "boing")]
+
+
+def act_huepf(u, t, A, V, ai, p, ex):
+    """Rennen, Zielgerade: A holt mit Riesensprüngen auf, Zielfoto, A gewinnt um ein Haar. A = Gewinner (ab 1.7.0)"""
+    vi = 1 - ai; zx = p.get("ziel_x", 820); foto = p.get("foto", 0.62); n = p.get("spruenge", 4)
+    ex.append(("ziel", zx))
+    vx = lerp(560, zx - 50, clamp(u / foto)) if u < foto else zx - 50
+    lauf_pose(V, vi, t, vx, rennt=u < foto); V["expr"] = "grin" if u < foto * 0.6 else "shock"
+    q = clamp(u / foto); ax = lerp(200, zx - 20, q) if u < foto else zx - 20
+    lauf_pose(A, ai, t, ax, rennt=False)
+    if u < foto:
+        ph = (q * n) % 1.0
+        A["y"] = BAHN[ai] - math.sin(ph * math.pi) * 330; A["sy"] = 1 - 0.18 * (ph < 0.08 or ph > 0.92); A["rot"] = -18 * math.sin(ph * math.pi)
+        A["expr"] = "grin"; ex.append(("speed",)); ex.append(("lauf",))
+        ex.append(("burst", 330, 720, 130, p.get("word", "BOING!"), clamp(u / 0.3)))
+    else:
+        A["expr"] = "grin"
+        ex.append(("zielfoto", (u - foto) / max(0.01, 1 - foto)))
+        ex.append(("burst", 540, 1060, 150, p.get("word2", "UM EIN HAAR!"), clamp((u - p.get("haar_u", foto + 0.08)) / 0.35)))
+    evs = [(foto, "pop")]
+    for k in range(n): evs.append((foto * k / n + 0.01, "boing"))
+    return evs
+
+
+def act_handtuch(u, t, A, V, ai, p, ex):
+    """Ring: Sekundant (Gast) wirft das Handtuch in V's Gesicht, V tappt blind, A rammt V aus dem Ring. A = Gewinner (ab 1.7.0)"""
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    wurf, kleb, ramm = p.get("wurf", 0.08), p.get("kleb", 0.3), p.get("hit", 0.62)
+    gx, gy = p.get("von_x", 540), FLOOR - 420; ty = p.get("tuch_y", 330)
+    vx = hV
+    if u < kleb:
+        q = clamp((u - wurf) / (kleb - wurf))
+        if u >= wurf: ex.append(("tuch", lerp(gx, hV, q), lerp(gy, FLOOR - ty, q) - math.sin(q * math.pi) * 260, q * 720, 0))
+        V["expr"] = "angry"; A["expr"] = "angry"
+    elif u < ramm:
+        vx = hV - dr * 70 * math.sin((u - kleb) * 14); V["x"] = vx; V["rot"] = 8 * math.sin(t * 12); V["expr"] = "shock"
+        ex.append(("tuch", vx, FLOOR - ty + V["rot"], V["rot"] * 2, 1))
+        ex.append(("burst", 540, 640, 130, p.get("word", "WO BIN ICH?"), clamp((u - kleb) / 0.3)))
+        q = clamp((u - (ramm - 0.16)) / 0.16)
+        A["x"] = lerp(hA, hA - dr * 100, ease_out(clamp((u - kleb) / 0.15))) if q <= 0 else lerp(hA - dr * 100, hV - dr * 190, ease_in(q))
+        A["rot"] = -dr * 18 * (q > 0); A["sy"] = 0.85; A["expr"] = "grin"
+    else:
+        q = clamp((u - ramm) / 0.3); A["x"] = hV - dr * 190; A["expr"] = "grin"
+        V["x"] = lerp(hV, hV + dr * 700, ease_out(q)); V["y"] = FLOOR - math.sin(q * math.pi) * 520; V["rot"] = dr * 600 * q; V["expr"] = "dizzy"
+        V["sc"] *= 1 - 0.4 * q
+        if q >= 1: V["show"] = False
+        if q < 1: ex.append(("tuch", V["x"], V["y"] - ty, V["rot"], 1))
+        if u < ramm + 0.08: ex.append(("shake", 24))
+        ex.append(("burst", 540, 760, 230, p.get("word2", "RAUS!"), clamp((u - ramm) / 0.45)))
+    return [(wurf, "whoosh"), (kleb, "pop"), (ramm - 0.12, "whoosh"), (ramm, "boom"), (ramm + 0.3, "thud")]
+
+
 # ============ Fußball (arena „fussball“, ab F14) ============
 SCHUETZE_Y = FLOOR + 260
 
@@ -458,4 +523,4 @@ def act_elfer(u, t, A, V, ai, p, ex):
     return evs
 
 
-ACTIONS = {"elfer": act_elfer, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}
+ACTIONS = {"elfer": act_elfer, "ueberholen": act_ueberholen, "huepf": act_huepf, "handtuch": act_handtuch, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}

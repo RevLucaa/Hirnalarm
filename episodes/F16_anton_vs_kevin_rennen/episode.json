@@ -1,0 +1,201 @@
+{
+ "episode": 16,
+ "seed": 161,
+ "arena": "bahn",
+ "bg_top": [
+  255,
+  150,
+  90
+ ],
+ "guest": {
+  "kind": "apple",
+  "name": "Starter Ron der Apfel",
+  "thanks": "STARTER|Idee: @Webby_3000",
+  "x": 990
+ },
+ "fighters": [
+  {
+   "kind": "pineapple",
+   "name": "Ananas-Anton",
+   "short": "Anton",
+   "color": [
+    245,
+    175,
+    40
+   ]
+  },
+  {
+   "kind": "kiwi",
+   "name": "Kiwi-Kevin",
+   "short": "Kevin",
+   "color": [
+    150,
+    215,
+    70
+   ]
+  }
+ ],
+ "nebenrollen": [
+  {
+   "short": "Gustav",
+   "color": [
+    90,
+    200,
+    150
+   ]
+  }
+ ],
+ "tail": 1.6,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Kevin nennt Anton eine lahme Ananas! Heute wird das auf der Bahn geklärt!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Anton",
+   "text": "Diesmal ohne Bananenschale. Ich gewinne ehrlich!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Kevin",
+   "text": "Du und ehrlich? Das will ich sehen!"
+  },
+  {
+   "scene": "guest",
+   "text": "Starter Ron hebt die Pistole. Diesmal ohne Niesen."
+  },
+  {
+   "scene": "banner",
+   "label": "START!",
+   "color": [
+    60,
+    170,
+    240
+   ],
+   "text": "Start!"
+  },
+  {
+   "scene": "action",
+   "type": "dash",
+   "actor": 1,
+   "word": "ZISCH!",
+   "schuss": 0.26,
+   "text": "Kevin schießt los wie eine haarige Rakete! Führung Kevin!"
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Anton",
+   "loser_expr": "angry",
+   "text": "Der hat doch einen Motor im Fell!"
+  },
+  {
+   "scene": "banner",
+   "label": "HALBZEIT!",
+   "color": [
+    240,
+    160,
+    30
+   ],
+   "text": "Halbzeit!"
+  },
+  {
+   "scene": "action",
+   "type": "ueberholen",
+   "actor": 0,
+   "word": "HALLO OMA!",
+   "word2": "UPS!",
+   "text": "Kevin bleibt stehen und winkt seiner Oma auf der Tribüne! Anton zieht vorbei! Führung Anton!"
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Kevin",
+   "loser_expr": "shock",
+   "show_score": true,
+   "text": "Hallo Oma! Oh. Ups."
+  },
+  {
+   "scene": "banner",
+   "label": "ZIELGERADE – FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Zielgerade!"
+  },
+  {
+   "scene": "action",
+   "type": "huepf",
+   "actor": 1,
+   "word": "KÄNGURU!",
+   "foto": 0.2,
+   "text": "Kevin hüpft wie ein Känguru! Zielfoto! Antons Blätter sind vorn... aber Ron sagt: Blätter zählen nicht! Kevin gewinnt um ein Haar!",
+   "spruenge": 3,
+   "haar_u": 0.67
+  },
+  {
+   "scene": "win",
+   "side": 1,
+   "text": "KIWI-KEVIN GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Gustav",
+   "teaser": "cucumber",
+   "text": "Glück gehabt, haarige Kartoffel. Im Ring zupf ich dir jedes Haar einzeln!"
+  },
+  {
+   "scene": "cta",
+   "line1": "ZÄHLEN ANTONS BLÄTTER?",
+   "line2": "JA ODER NEIN?",
+   "text": "Zählen Antons Blätter beim Zielfoto? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Anton",
+   "line1": "ZÄHLEN ANTONS BLÄTTER?",
+   "line2": "JA ODER NEIN?",
+   "text": "Und wer hat mich eigentlich lahm genannt?"
+  }
+ ],
+ "bounds": [
+  2.57,
+  4.66,
+  6.75,
+  8.23,
+  9.84,
+  11.56,
+  13.66,
+  15.19,
+  15.99,
+  18.84,
+  20.17,
+  22.46,
+  23.52,
+  26.55,
+  27.93,
+  29.18,
+  30.43,
+  31.24,
+  32.1,
+  33.3,
+  35.15,
+  36.25,
+  37.82,
+  38.86,
+  40.14,
+  41.78,
+  43.54,
+  45.83,
+  48.88,
+  51.26,
+  52.59,
+  54.01
+ ]
+}

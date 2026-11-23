@@ -404,7 +404,7 @@ def frame(t, collect_sfx=False):
     for e in ex:
         if e[0] == "peel":
             p_ = PEEL.rotate(e[3], expand=True); img.alpha_composite(p_, (int(e[1] - p_.size[0] / 2), int(e[2] - p_.size[1] + 40)))
-    if GUEST and GUEST_T <= t < TEASE_T and not (BAHN_ARENA and sc_ == "action" and s.get("type") in ("propeller", "surf")):
+    if GUEST and GUEST_T <= t < TEASE_T and not (BAHN_ARENA and sc_ == "action" and s.get("type") in ("propeller", "surf", "huepf")):
         bob = abs(math.sin(t * 9)) * 25 if sc_ == "point" else 0
         gex = "grin" if sc_ == "point" else ("shock" if sc_ == "action" else "happy")
         draw_guest(img, GUEST.get("x", 540), FLOOR - 170 - bob, 0.55, (t >= BALD_T) or GUEST.get("crack", False), gex, 4 * math.sin(t * 2))
@@ -463,6 +463,13 @@ def frame(t, collect_sfx=False):
             bd_.line([(300, 40), (360, 5)], fill=OC, width=10)
             br = br.rotate(ang, expand=True, resample=Image.BICUBIC)
             img.alpha_composite(br, (int(bx - br.size[0] / 2), int(by - br.size[1] / 2))); d = ImageDraw.Draw(img)
+        elif e[0] == "tuch":  # Handtuch (ab 1.7.0): fliegend (e[4]=0) oder im Gesicht (e[4]=1)
+            tw_ = Image.new("RGBA", (240, 170), (0, 0, 0, 0)); td_ = ImageDraw.Draw(tw_)
+            td_.rounded_rectangle([8, 8, 232, 162], 22, fill=(250, 250, 248), outline=OC, width=7)
+            for yy in (40, 130): td_.line([(14, yy), (226, yy)], fill=(80, 150, 230), width=10)
+            if e[4]: tw_ = tw_.resize((280, 200), Image.BICUBIC)
+            tw_ = tw_.rotate(e[3], expand=True, resample=Image.BICUBIC)
+            img.alpha_composite(tw_, (int(e[1] - tw_.size[0] / 2), int(e[2] - tw_.size[1] / 2))); d = ImageDraw.Draw(img)
         elif e[0] == "stuck":
             rnd = random.Random(77)
             for _ in range(e[2]):
