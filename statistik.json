@@ -1,28 +1,37 @@
 {
- "stand": "2026-11-23T06:37:56+00:00",
+ "stand": "2026-11-23T23:36:17+00:00",
  "kanal": {
-  "viewCount": "12070",
-  "subscriberCount": "27",
+  "viewCount": "14272",
+  "subscriberCount": "28",
   "hiddenSubscriberCount": false,
-  "videoCount": "10"
+  "videoCount": "14"
  },
  "videos": [
+  {
+   "id": "5vnUFn0KFEQ",
+   "titel": "Ananas vs. Kokosnuss ⚽🍍🥥 Elfmeterschießen – Kalle schießt sich selbst! #shorts",
+   "veroeffentlicht": "2026-11-23T12:00:12Z",
+   "dauer": "PT58S",
+   "aufrufe": 900,
+   "likes": 9,
+   "kommentare": 0
+  },
   {
    "id": "jnQxGiL68SI",
    "titel": "Banane vs. Ananas 🍌🍍 Das erste Obst-RENNEN! #shorts",
    "veroeffentlicht": "2026-11-22T12:00:13Z",
    "dauer": "PT59S",
-   "aufrufe": 862,
-   "likes": 16,
-   "kommentare": 1
+   "aufrufe": 878,
+   "likes": 17,
+   "kommentare": 2
   },
   {
    "id": "CuUvtyQ9lFs",
    "titel": "Ananas vs. Melone 🍍🍉 Titelkampf mit Schummel-Trick! #shorts",
    "veroeffentlicht": "2026-11-21T16:30:40Z",
    "dauer": "PT1M",
-   "aufrufe": 980,
-   "likes": 10,
+   "aufrufe": 999,
+   "likes": 11,
    "kommentare": 1
   },
   {
@@ -30,16 +39,16 @@
    "titel": "Kiwi vs. Gurke 🥝🥒 Kevins erster Kampf! #shorts",
    "veroeffentlicht": "2026-11-21T12:00:04Z",
    "dauer": "PT59S",
-   "aufrufe": 1138,
-   "likes": 21,
-   "kommentare": 1
+   "aufrufe": 1234,
+   "likes": 22,
+   "kommentare": 3
   },
   {
    "id": "3kFPmEkKlLU",
    "titel": "Zitrone vs. Erdbeere 🍋🍓 Zoras erster Sieg?! #shorts",
    "veroeffentlicht": "2026-11-20T16:30:12Z",
    "dauer": "PT1M",
-   "aufrufe": 1171,
+   "aufrufe": 1177,
    "likes": 6,
    "kommentare": 1
   },
@@ -48,8 +57,8 @@
    "titel": "Bernd vs. Kalle ⚽🍌🥥 Elfmeterschießen in der Obst-Liga! #shorts",
    "veroeffentlicht": "2026-11-20T14:00:33Z",
    "dauer": "PT49S",
-   "aufrufe": 1146,
-   "likes": 13,
+   "aufrufe": 1157,
+   "likes": 14,
    "kommentare": 2
   },
   {
@@ -57,7 +66,7 @@
    "titel": "Ananas vs. Kokosnuss 🍍🥥 Wer darf um den Gürtel kämpfen? #shorts",
    "veroeffentlicht": "2026-11-20T12:00:02Z",
    "dauer": "PT1M",
-   "aufrufe": 1245,
+   "aufrufe": 1254,
    "likes": 13,
    "kommentare": 5
   },
@@ -66,7 +75,7 @@
    "titel": "Banane vs. Melone REVANCHE 🍌🍉 Kampf um den Gürtel! #shorts",
    "veroeffentlicht": "2026-11-19T16:30:26Z",
    "dauer": "PT1M",
-   "aufrufe": 1142,
+   "aufrufe": 1148,
    "likes": 10,
    "kommentare": 3
   },
@@ -75,7 +84,7 @@
    "titel": "Baum vs. Gurke 🌳🥒 Rudis erster Kampf! #shorts",
    "veroeffentlicht": "2026-11-19T12:00:08Z",
    "dauer": "PT1M",
-   "aufrufe": 1251,
+   "aufrufe": 1256,
    "likes": 20,
    "kommentare": 2
   },
@@ -84,7 +93,7 @@
    "titel": "Banane vs. Zitrone 🍌🍋 Bernds Comeback?! #shorts",
    "veroeffentlicht": "2026-11-18T16:30:32Z",
    "dauer": "PT59S",
-   "aufrufe": 1209,
+   "aufrufe": 1211,
    "likes": 12,
    "kommentare": 0
   },
@@ -93,7 +102,7 @@
    "titel": "Melone vs. Ananas 🍉🍍 Mit Schiri Birken-Baum Rudi! #shorts",
    "veroeffentlicht": "2026-11-18T12:00:08Z",
    "dauer": "PT59S",
-   "aufrufe": 1331,
+   "aufrufe": 1336,
    "likes": 27,
    "kommentare": 2
   },
@@ -102,7 +111,7 @@
    "titel": "Melone vs. Kokosnuss 🍉🥥 Kopf gegen Kopf! #shorts",
    "veroeffentlicht": "2026-11-17T16:30:33Z",
    "dauer": "PT59S",
-   "aufrufe": 1155,
+   "aufrufe": 1159,
    "likes": 17,
    "kommentare": 0
   },
@@ -111,7 +120,7 @@
    "titel": "Banane vs. Ananas 🍌🍍 Bernd verliert?! #shorts",
    "veroeffentlicht": "2026-11-17T12:00:10Z",
    "dauer": "PT59S",
-   "aufrufe": 1317,
+   "aufrufe": 1323,
    "likes": 8,
    "kommentare": 1
   },
@@ -120,7 +129,7 @@
    "titel": "Banane vs. Melone 🍌🍉 Wer gewinnt den Kampf? #shorts",
    "veroeffentlicht": "2026-11-16T21:22:29Z",
    "dauer": "PT1M",
-   "aufrufe": 1104,
+   "aufrufe": 1108,
    "likes": 16,
    "kommentare": 0
   }
