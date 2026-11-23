@@ -19,8 +19,8 @@
    "kind": "pineapple",
    "short": "Anton",
    "siege": 2,
-   "niederlagen": 4,
-   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin | F14 Elfmeter gegen Kalle verloren: hat Kalles Lieblingsball zerstochen, Ball platzte an seinen Stacheln; Streitfrage: Darf man sich selbst als Ball schießen? Kevin fordert ihn auf der Rennbahn (F16)"
+   "niederlagen": 5,
+   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin | F14 Elfmeter gegen Kalle verloren: hat Kalles Lieblingsball zerstochen, Ball platzte an seinen Stacheln; Streitfrage: Darf man sich selbst als Ball schießen? Kevin fordert ihn auf der Rennbahn (F16) | F16 Rennen gegen Kevin verloren, diesmal OHNE Schummeln – Zielfoto: seine Blätter vorn, zählen aber nicht. Ärgert sich, 'lahme Ananas' genannt zu werden"
   },
   "Kokos-Kalle": {
    "kind": "coconut",
@@ -40,8 +40,8 @@
    "kind": "cucumber",
    "short": "Gustav",
    "siege": 0,
-   "niederlagen": 2,
-   "notiz": "F06 gegen Rudi, F10 gegen Kevin verloren; Gurken-Shuriken; kitzlig; hält Kevins Sieg für Glück -> will Revanche"
+   "niederlagen": 3,
+   "notiz": "F06 gegen Rudi, F10 gegen Kevin verloren; Gurken-Shuriken; kitzlig; hält Kevins Sieg für Glück -> will Revanche | F17 Revanche gegen Kevin verloren (Gurken-Hammer machte Kevin zum Pfannkuchen, dann Kiwi-Kegeln und Herberts Handtuch). Hält den Handtuch-Wurf für Betrug -> will gegen Herbert/Kevin klagen; immer noch sieglos"
   },
   "Birken-Baum Rudi": {
    "kind": "birch",
@@ -53,16 +53,16 @@
   "Kiwi-Kevin": {
    "kind": "kiwi",
    "short": "Kevin",
-   "siege": 1,
+   "siege": 3,
    "niederlagen": 0,
-   "notiz": "Zuschauer-Idee von @nice-b5c6; Debüt F10: erster Sieg gegen Gustav (Kiwi-Rakete, Gustav knallt gegen Ringpfosten). Gustav nennt ihn 'haarige Kartoffel' – Fehde offen | Kündigte in F15 an: 'Auf der Rennbahn bin ich schneller als jede Ananas!' -> F16"
+   "notiz": "Zuschauer-Idee von @nice-b5c6; Debüt F10: erster Sieg gegen Gustav (Kiwi-Rakete, Gustav knallt gegen Ringpfosten). Gustav nennt ihn 'haarige Kartoffel' – Fehde offen | Kündigte in F15 an: 'Auf der Rennbahn bin ich schneller als jede Ananas!' -> F16 | F16 Rennen gegen Anton gewonnen: winkte zur Halbzeit seiner Oma, holte mit Känguru-Sprüngen auf, Zielfoto um ein Haar ('Blätter zählen nicht' – Ron). F17 Ring-Revanche gegen Gustav gewonnen: Cousin Herbert Kiwi (Sekundant, Idee @SvenZapke) warf Gustav das Handtuch ins Gesicht – Streitfrage: Darf ein Sekundant das? Weiter ungeschlagen (3:0) bis zum Titelkampf F21"
   },
   "Erdbeer-Emma": {
    "kind": "strawberry",
    "short": "Emma",
    "siege": 1,
    "niederlagen": 1,
-   "notiz": "Debüt F09 (verloren, kopfüber im Ringboden). F13 Revanche gewonnen: heimliche Sahne-Pfütze, Zora rutschte gegen den Ringpfosten. Streitfrage: Ist Sahne im Ring erlaubt? Kündigte an: Kalle wartet im Tor auf Anton"
+   "notiz": "Debüt F09 (verloren, kopfüber im Ringboden). F13 Revanche gewonnen: heimliche Sahne-Pfütze, Zora rutschte gegen den Ringpfosten. Streitfrage: Ist Sahne im Ring erlaubt? Kündigte an: Kalle wartet im Tor auf Anton | Kündigte in F17 an: 'Zora, morgen Elfmeter – diesmal ohne Sahne. Vielleicht.' (F18)"
   },
   "Prinzessin Belen": {
    "kind": "cat",
@@ -77,6 +77,13 @@
    "siege": 0,
    "niederlagen": 0,
    "notiz": "Apfel-Schiri mit Trillerpfeife – Zuschauer-Wunsch von @Webby_3000; Gast-Schiri F11 ('Ron sieht alles'); Starter mit Startpistole in F12 (nieste beim Fehlstart)"
+  },
+  "Herbert Kiwi": {
+   "kind": "kiwi",
+   "short": "Herbert",
+   "siege": 0,
+   "niederlagen": 0,
+   "notiz": "Kevins Cousin, Zuschauer-Idee von @SvenZapke ('Herbert kiwi', Kommentar unter F07). Stummer Sekundant in F17: warf Gustav das Handtuch ins Gesicht"
   }
  },
  "folgen": [
@@ -198,32 +205,26 @@
    "youtube": null,
    "datum": "2026-11-23 17:30",
    "hinweis": "Instagram eingeplant 23.11. 17:30. YouTube NICHT eingeplant: vidIQ-Tageslimit (3/Tag) auch am 23.11. schon ausgeschöpft (nächster Reset 24.11. 09:00). vidIQ postId 442a4520-551a-4492-9f84-c89daa2a5a41, YouTube-publicationId de19b0d0-460a-4b73-9a95-29e01627ae57. Video: Release F15"
+  },
+  {
+   "nr": 16,
+   "duell": "Anton vs. Kevin – Rennen (Starter: Ron der Apfel)",
+   "sieger": "Kevin",
+   "youtube": null,
+   "datum": "2026-11-24 13:00",
+   "arena": "bahn",
+   "hinweis": "Instagram eingeplant 24.11. 13:00. YouTube: vidIQ-Tageslimit am 23.11. ausgeschöpft – Veröffentlichung nach Reset 24.11. 09:05 geplant (vidIQ postId df389fb0-6644-46ea-a417-fa50988927ee, YouTube-publicationId da068a4d-f28f-4d7b-aea6-a03a8dbdb670). Video: Release F16, Renderer 1.7.0, ElevenLabs 812 Credits"
+  },
+  {
+   "nr": 17,
+   "duell": "Gustav vs. Kevin – Ring-Revanche (Sekundant Herbert Kiwi, Idee @SvenZapke)",
+   "sieger": "Kevin",
+   "youtube": null,
+   "datum": "2026-11-24 17:30",
+   "hinweis": "Instagram eingeplant 24.11. 17:30. YouTube: vidIQ-Tageslimit am 23.11. ausgeschöpft – Veröffentlichung nach Reset 24.11. 09:05 geplant (vidIQ postId bd9e652b-936e-4425-aa02-6681551f93f5, YouTube-publicationId add4f3d5-9e36-4648-9877-1de815cc246f). Video: Release F17, Renderer 1.7.0, ElevenLabs 979 Credits"
   }
  ],
  "naechste": [
-  {
-   "duell": "Rennen: Anton vs. Kiwi-Kevin (Anton will nach F12 endlich auf der Bahn gewinnen)",
-   "kinds": [
-    "pineapple",
-    "kiwi"
-   ],
-   "folge": 16,
-   "arena": "bahn",
-   "neu": [],
-   "slot": "Di 24.11. 13:00"
-  },
-  {
-   "duell": "Ring: Gustav vs. Kevin – Revanche ('haarige Kartoffel', Gustav hält F10 für Glück)",
-   "kinds": [
-    "cucumber",
-    "kiwi"
-   ],
-   "folge": 17,
-   "neu": [
-    "Zuschauer-Idee 'Herbert Kiwi' (@SvenZapke): Kevins Cousin Herbert könnte als Sekundant auftauchen"
-   ],
-   "slot": "Di 24.11. 17:30"
-  },
   {
    "duell": "Fußball: Zora vs. Emma – Elfmeter-Revanche für den 'Sahne-Betrug' (Schiri Ron)",
    "kinds": [
@@ -232,7 +233,8 @@
    ],
    "folge": 18,
    "arena": "fussball",
-   "neu": []
+   "neu": [],
+   "slot": "Mi 25.11. 13:00"
   },
   {
    "duell": "Ring: Zora vs. Kalle – Zora will nach zwei Pleiten zurückschlagen, Kalle sein Pflaster zurück",
@@ -240,7 +242,8 @@
     "lemon",
     "coconut"
    ],
-   "folge": 19
+   "folge": 19,
+   "slot": "Mi 25.11. 17:30"
   },
   {
    "duell": "Rennen: Emma vs. Anton – Anton will nach zwei Pleiten endlich gewinnen (Sahne auf der Bahn?)",
@@ -307,6 +310,27 @@
    "folge": 25,
    "neu": [
     "Offener Faden aus F14: zerstochener Ball"
+   ]
+  },
+  {
+   "duell": "Fußball: Manni vs. Zora – der Gürtel-Champion muss ins Tor, Zora braucht Punkte fürs Halbfinale (letzter Liga-Spieltag, Schiri Ron)",
+   "kinds": [
+    "melon",
+    "lemon"
+   ],
+   "folge": 26,
+   "arena": "fussball",
+   "neu": [
+    "Tabelle (Top 4) einblenden",
+    "Zuschauer stimmen über die Disziplinen der Halbfinals ab"
+   ]
+  },
+  {
+   "duell": "Pokal-Halbfinale 1 – Paarung aus der Tabelle nach F26, Disziplin per Zuschauer-Abstimmung",
+   "kinds": [],
+   "folge": 27,
+   "neu": [
+    "Gustav will den Handtuch-Wurf aus F17 noch vor dem Halbfinale anfechten – Gag für Rudi als Kommentator"
    ]
   }
  ],
