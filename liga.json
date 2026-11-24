@@ -20,21 +20,21 @@
    "short": "Anton",
    "siege": 2,
    "niederlagen": 5,
-   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin | F14 Elfmeter gegen Kalle verloren: hat Kalles Lieblingsball zerstochen, Ball platzte an seinen Stacheln; Streitfrage: Darf man sich selbst als Ball schießen? Kevin fordert ihn auf der Rennbahn (F16) | F16 Rennen gegen Kevin verloren, diesmal OHNE Schummeln – Zielfoto: seine Blätter vorn, zählen aber nicht. Ärgert sich, 'lahme Ananas' genannt zu werden"
+   "notiz": "F11 Titelkampf verloren (Schummel-Bananenschale, Schiri Ron sah es). F12 Rennen gegen Bernd verloren: Fehlstart (Ron nieste), Propeller-Flug in die Zuschauer, Bananenschale ging nach hinten los. Sagt: 'Rennen ist was für Turnschuhe. Im Fußball schieß ich jeden ab! Kalle, hörst du?' -> F14 Fußball gegen Kalle; will den Gürtel weiterhin | F14 Elfmeter gegen Kalle verloren: hat Kalles Lieblingsball zerstochen, Ball platzte an seinen Stacheln; Streitfrage: Darf man sich selbst als Ball schießen? Kevin fordert ihn auf der Rennbahn (F16) | F16 Rennen gegen Kevin verloren, diesmal OHNE Schummeln – Zielfoto: seine Blätter vorn, zählen aber nicht. Ärgert sich, 'lahme Ananas' genannt zu werden | Kündigte in F19 an: 'Emma, morgen auf der Rennbahn – ich bring einen Sahne-Detektor mit!' (F20)"
   },
   "Kokos-Kalle": {
    "kind": "coconut",
    "short": "Kalle",
    "siege": 2,
-   "niederlagen": 3,
-   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert; erster Sieg im Fußball-Elfmeterschießen gegen Bernd (Special S1) – Fußball-Spezialist | F14 Elfmeter gegen Anton gewonnen (Kopfball-Parade, schoss sich nach dem geplatzten Ball selbst als 'Kokos-Kanone' ins Netz; Anton schuldet ihm einen Ball). F15 im Ring gegen Bernd verloren: Kokos-Kanone, Bernd duckte sich, Kalle flog aus der Halle"
+   "niederlagen": 4,
+   "notiz": "Ringrichter in F07; F08 mit Pflaster auf dem Riss (flog in Runde 2 weg), per Seil-Katapult hinter die Zuschauer geschleudert; erster Sieg im Fußball-Elfmeterschießen gegen Bernd (Special S1) – Fußball-Spezialist | F14 Elfmeter gegen Anton gewonnen (Kopfball-Parade, schoss sich nach dem geplatzten Ball selbst als 'Kokos-Kanone' ins Netz; Anton schuldet ihm einen Ball). F15 im Ring gegen Bernd verloren: Kokos-Kanone, Bernd duckte sich, Kalle flog aus der Halle | F19 im Ring gegen Zora verloren: Kopf-gegen-Kopf gewonnen, dann Zitronensaft im Riss, im Finale schwindelig gedreht. Will sein Pflaster weiterhin zurück (Zora hat es)"
   },
   "Zitronen-Zora": {
    "kind": "lemon",
    "short": "Zora",
-   "siege": 1,
-   "niederlagen": 2,
-   "notiz": "Erster Sieg F09 (rollt weg, weil sie eiert). F13 gegen Emma verloren: ihr Weg-Roll-Trick ging auf Sahne schief (gegen den Ringpfosten). Saure Dusche (Zitronensaft) als Waffe; will Revanche wegen 'Sahne-Betrug'"
+   "siege": 2,
+   "niederlagen": 3,
+   "notiz": "Erster Sieg F09 (rollt weg, weil sie eiert). F13 gegen Emma verloren: ihr Weg-Roll-Trick ging auf Sahne schief (gegen den Ringpfosten). Saure Dusche (Zitronensaft) als Waffe; will Revanche wegen 'Sahne-Betrug' | F18 Elfmeter gegen Emma verloren (eigener Eier-Ball traf, kullerte dann vor Aufregung aus dem Tor, Sahne-Ball ins Gesicht). Hat Kalles altes Pflaster aus F08 geklaut (Glücksbringer). F19 Ring gegen Kalle gewonnen: saure Dusche in Kalles Riss, Finale Schwindel-Trick (eierte im Kreis, Kalle kippte um). Hat das Pflaster immer noch"
   },
   "Gurken-Gustav": {
    "kind": "cucumber",
@@ -60,9 +60,9 @@
   "Erdbeer-Emma": {
    "kind": "strawberry",
    "short": "Emma",
-   "siege": 1,
+   "siege": 2,
    "niederlagen": 1,
-   "notiz": "Debüt F09 (verloren, kopfüber im Ringboden). F13 Revanche gewonnen: heimliche Sahne-Pfütze, Zora rutschte gegen den Ringpfosten. Streitfrage: Ist Sahne im Ring erlaubt? Kündigte an: Kalle wartet im Tor auf Anton | Kündigte in F17 an: 'Zora, morgen Elfmeter – diesmal ohne Sahne. Vielleicht.' (F18)"
+   "notiz": "Debüt F09 (verloren, kopfüber im Ringboden). F13 Revanche gewonnen: heimliche Sahne-Pfütze, Zora rutschte gegen den Ringpfosten. Streitfrage: Ist Sahne im Ring erlaubt? Kündigte an: Kalle wartet im Tor auf Anton | Kündigte in F17 an: 'Zora, morgen Elfmeter – diesmal ohne Sahne. Vielleicht.' (F18) | F18 Elfmeter gegen Zora gewonnen: Ron fand bei der Kontrolle keine Sahne – die Sahne war IM Ball (platzte in Zoras Gesicht). Streitfrage: Ist ein Sahne-Ball erlaubt? Anton fordert sie auf der Rennbahn (F20) und bringt einen 'Sahne-Detektor' mit"
   },
   "Prinzessin Belen": {
    "kind": "cat",
@@ -222,31 +222,28 @@
    "youtube": null,
    "datum": "2026-11-24 17:30",
    "hinweis": "Instagram eingeplant 24.11. 17:30. YouTube NICHT eingeplant: vidIQ-Tageslimit (3 YouTube-Uploads/Tag für alle Kanäle) am 23.11. und schon am 24.11. vor 09:05 ausgeschöpft (nächster Reset 25.11. 09:00). vidIQ postId bd9e652b-936e-4425-aa02-6681551f93f5, YouTube-publicationId add4f3d5-9e36-4648-9877-1de815cc246f. Video: Release F17, Renderer 1.7.0, ElevenLabs 979 Credits"
+  },
+  {
+   "nr": 18,
+   "duell": "Zora vs. Emma – Elfmeter-Revanche für den Sahne-Betrug (Schiri Ron)",
+   "sieger": "Emma",
+   "youtube": null,
+   "datum": "2026-11-25 13:00",
+   "arena": "fussball",
+   "hinweis": "Instagram eingeplant 25.11. 13:00. YouTube wird am 25.11. um 09:05 über vidIQ veröffentlicht (Kontingent). vidIQ postId 58dd160c-18bb-4577-b167-4533c6968103, YouTube-publicationId ab3e299e-f392-4a3c-a949-31fbb762f23d, Instagram-publicationId b38fa3ea-6e45-4711-9cc3-85a431b9b4f3. Video: Release F18, Renderer 1.8.0, ElevenLabs 1022 Credits"
+  },
+  {
+   "nr": 19,
+   "duell": "Zora vs. Kalle – Ring, Kampf ums geklaute Pflaster",
+   "sieger": "Zora",
+   "youtube": null,
+   "datum": "2026-11-25 17:30",
+   "hinweis": "Instagram eingeplant 25.11. 17:30. YouTube wird am 25.11. um 09:05 über vidIQ veröffentlicht (Kontingent). vidIQ postId 72c55ff5-da03-4ffd-a383-50a86642df1a, YouTube-publicationId 85ba1d0d-d9a4-4eba-8614-32bceda51cbf, Instagram-publicationId 27a1f44c-2955-439e-8f13-1bf7a553c6a5. Video: Release F19, Renderer 1.8.0, ElevenLabs 966 Credits"
   }
  ],
  "naechste": [
   {
-   "duell": "Fußball: Zora vs. Emma – Elfmeter-Revanche für den 'Sahne-Betrug' (Schiri Ron)",
-   "kinds": [
-    "lemon",
-    "strawberry"
-   ],
-   "folge": 18,
-   "arena": "fussball",
-   "neu": [],
-   "slot": "Mi 25.11. 13:00"
-  },
-  {
-   "duell": "Ring: Zora vs. Kalle – Zora will nach zwei Pleiten zurückschlagen, Kalle sein Pflaster zurück",
-   "kinds": [
-    "lemon",
-    "coconut"
-   ],
-   "folge": 19,
-   "slot": "Mi 25.11. 17:30"
-  },
-  {
-   "duell": "Rennen: Emma vs. Anton – Anton will nach zwei Pleiten endlich gewinnen (Sahne auf der Bahn?)",
+   "duell": "Rennen: Emma vs. Anton – Anton will nach zwei Pleiten endlich gewinnen und bringt einen 'Sahne-Detektor' mit (angekündigt in F19)",
    "kinds": [
     "strawberry",
     "pineapple"
@@ -255,7 +252,8 @@
    "arena": "bahn",
    "neu": [
     "Danach Auswertung Ring vs. Rennen vs. Fußball (siehe CLAUDE.md)"
-   ]
+   ],
+   "slot": "Do 26.11. 13:00"
   },
   {
    "duell": "Ring: Kevin vs. Manni – der ungeschlagene Neuling fordert den Champion (Titelkampf)",
@@ -266,7 +264,8 @@
    "folge": 21,
    "neu": [
     "Cliffhanger auf das Pokal-Halbfinale"
-   ]
+   ],
+   "slot": "Do 26.11. 17:30"
   },
   {
    "duell": "Fußball: Bernd vs. Gustav – Bernd will nach dem Rennsieg auch im Fußball punkten, Gustav endlich seinen ersten Sieg",
@@ -332,6 +331,22 @@
    "neu": [
     "Gustav will den Handtuch-Wurf aus F17 noch vor dem Halbfinale anfechten – Gag für Rudi als Kommentator"
    ]
+  },
+  {
+   "duell": "Pokal-Halbfinale 2 – Paarung aus der Tabelle nach F26, Disziplin per Zuschauer-Abstimmung (die andere als in F27)",
+   "kinds": [],
+   "folge": 28,
+   "neu": [
+    "Offener Faden: Kalles Pflaster (Zora hat es seit F18/F19)"
+   ]
+  },
+  {
+   "duell": "Spiel um Platz 3 + großer Verrat als Cliffhanger aufs Finale",
+   "kinds": [],
+   "folge": 29,
+   "neu": [
+    "Zuschauerwunsch @Webby_3000: 'Anton gegen Manni!!!' – passt, falls beide nicht im Finale stehen"
+   ]
   }
  ],
  "themen_pool": {
@@ -363,7 +378,8 @@
  },
  "zuschauer_wuensche": [
   "Katze Belen als Schiri-Prinzessin (@MareikeNoe-g6q, Kommentar unter F04) – in F06 als 'notiert' erwähnt, noch einbauen (neue Figur cat nötig)",
-  "'Kris der kissin!!' (@Webby_3000, Kommentar unter F09, 21.11.) – unklar (Kris das Kissen? neue Figur?); bei Gelegenheit als Gag/Gast prüfen"
+  "'Kris der kissin!!' (@Webby_3000, Kommentar unter F09, 21.11.) – unklar (Kris das Kissen? neue Figur?); bei Gelegenheit als Gag/Gast prüfen",
+  "'Anton gegen Manni!!!' (@Webby_3000, Kommentar unter F12, 23.11.) – Rückkampf Titel F11; in F29 oder als Special einplanen"
  ],
  "zweite_sportart": {
   "sportarten": [
