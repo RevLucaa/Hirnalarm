@@ -210,10 +210,10 @@
    "nr": 16,
    "duell": "Anton vs. Kevin – Rennen (Starter: Ron der Apfel)",
    "sieger": "Kevin",
-   "youtube": null,
+   "youtube": "raNRdOOMP5g",
    "datum": "2026-11-24 13:00",
    "arena": "bahn",
-   "hinweis": "Instagram eingeplant 24.11. 13:00. YouTube: vidIQ-Tageslimit am 23.11. ausgeschöpft – Veröffentlichung nach Reset 24.11. 09:05 geplant (vidIQ postId df389fb0-6644-46ea-a417-fa50988927ee, YouTube-publicationId da068a4d-f28f-4d7b-aea6-a03a8dbdb670). Video: Release F16, Renderer 1.7.0, ElevenLabs 812 Credits"
+   "hinweis": "YouTube am 24.11. 08:06 UTC über vidIQ hochgeladen (Veröffentlichung 13:00 geplant); Instagram 13:00. Video: Release F16, Renderer 1.7.0, ElevenLabs 812 Credits"
   },
   {
    "nr": 17,
@@ -221,7 +221,7 @@
    "sieger": "Kevin",
    "youtube": null,
    "datum": "2026-11-24 17:30",
-   "hinweis": "Instagram eingeplant 24.11. 17:30. YouTube: vidIQ-Tageslimit am 23.11. ausgeschöpft – Veröffentlichung nach Reset 24.11. 09:05 geplant (vidIQ postId bd9e652b-936e-4425-aa02-6681551f93f5, YouTube-publicationId add4f3d5-9e36-4648-9877-1de815cc246f). Video: Release F17, Renderer 1.7.0, ElevenLabs 979 Credits"
+   "hinweis": "Instagram eingeplant 24.11. 17:30. YouTube NICHT eingeplant: vidIQ-Tageslimit (3 YouTube-Uploads/Tag für alle Kanäle) am 23.11. und schon am 24.11. vor 09:05 ausgeschöpft (nächster Reset 25.11. 09:00). vidIQ postId bd9e652b-936e-4425-aa02-6681551f93f5, YouTube-publicationId add4f3d5-9e36-4648-9877-1de815cc246f. Video: Release F17, Renderer 1.7.0, ElevenLabs 979 Credits"
   }
  ],
  "naechste": [
