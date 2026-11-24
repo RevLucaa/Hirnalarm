@@ -131,20 +131,21 @@ def act_headbutt(u, t, A, V, ai, p, ex):
 def act_clash(u, t, A, V, ai, p, ex):
     # A = winner; both charge to centre; V cracks
     dA = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
-    if u < 0.2:
-        A["x"] = lerp(hA, hA - dA * 120, ease_out(u / 0.2)); V["x"] = lerp(hV, hV + dA * 120, ease_out(u / 0.2))
+    hit = p.get("hit", 0.36); c0 = hit - 0.16  # ab 1.8.0 einstellbar (Standard wie bisher)
+    if u < c0:
+        A["x"] = lerp(hA, hA - dA * 120, ease_out(u / c0)); V["x"] = lerp(hV, hV + dA * 120, ease_out(u / c0))
         A["expr"] = V["expr"] = "angry"
-    elif u < 0.36:
-        q = ease_in((u - 0.2) / 0.16)
+    elif u < hit:
+        q = ease_in((u - c0) / 0.16)
         A["x"] = lerp(hA - dA * 120, 540 - dA * 190, q); V["x"] = lerp(hV + dA * 120, 540 + dA * 190, q)
         A["expr"] = V["expr"] = "angry"; A["rot"] = -dA * 15; V["rot"] = dA * 15
     else:
-        A["x"] = 540 - dA * 190; V["x"] = 540 + dA * 190; A["expr"] = "dizzy" if u < 0.6 else "grin"
-        V["crack"] = True; V["expr"] = "dizzy" if u < 0.55 else "shock"
-        if u < 0.46: ex.append(("shake", 28))
-        ex.append(("burst", 540, 760, 240, "KRACH!", clamp((u - 0.36) / 0.4)))
-        if p.get("splash"): ex.append(("splash", V["x"], FLOOR - 380, clamp((u - 0.5) / 0.5)))
-    return [(0.2, "whoosh"), (0.36, "boom"), (0.5, "pop")]
+        A["x"] = 540 - dA * 190; V["x"] = 540 + dA * 190; A["expr"] = "dizzy" if u < hit + 0.24 else "grin"
+        V["crack"] = True; V["expr"] = "dizzy" if u < hit + 0.19 else "shock"
+        if u < hit + 0.1: ex.append(("shake", 28))
+        ex.append(("burst", 540, 760, 240, "KRACH!", clamp((u - hit) / 0.4)))
+        if p.get("splash"): ex.append(("splash", V["x"], FLOOR - 380, clamp((u - hit - 0.14) / 0.5)) + ((tuple(p["splash_farbe"]),) if p.get("splash_farbe") else ()))
+    return [(c0, "whoosh"), (hit, "boom"), (hit + 0.14, "pop")]
 
 def act_throw(u, t, A, V, ai, p, ex):
     # A spuckt/spritzt Projektile auf V (proj: seed | juice)
@@ -522,5 +523,113 @@ def act_elfer(u, t, A, V, ai, p, ex):
         evs += [(rein, "boom"), (rein + 0.05, "boing")]
     return evs
 
+def tor_rein(u, rein, tor, ex, word="TOOOR!"):
+    """Ball zappelt im Netz (ab 1.8.0)."""
+    q = clamp((u - rein) / 0.15)
+    ex.append(("ball", tor[0] + 20 * q, tor[1] + 40 * q, 30, 0))
+    ex.append(("netz", tor[0] + 20 * q, tor[1] + 40 * q, 110))
+    ex.append(("burst", 540, 520, 200, word, clamp((u - rein) / 0.4)))
+    if u < rein + 0.06: ex.append(("shake", 20))
 
-ACTIONS = {"elfer": act_elfer, "ueberholen": act_ueberholen, "huepf": act_huepf, "handtuch": act_handtuch, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}
+
+def act_elfer2(u, t, A, V, ai, p, ex):
+    """Elfmeter, weitere Gags (ab 1.8.0). A = Schütze UND Punktgewinner, V = Torwart. art:
+    eiern – der Ball eiert im Zickzack, Torwart springt jedes Mal in die falsche Richtung
+    leer  – Torwart kullert vor Aufregung aus dem Tor, Ball rollt gemütlich ins leere Tor
+    sahne – Ball platzt als Sahne in V's Gesicht (Klecks bleibt), V tappt blind, Ball im Netz"""
+    art = p.get("art", "eiern"); kick = p.get("kick", 0.28); S, K = A, V
+    tor = p.get("tor", (690, TORLINIE - 200)); rein = p.get("hit", 0.62)
+    evs = [(0.02, "whistle"), (kick, "pop"), (kick + 0.01, "whoosh")]
+    schuetze(S, u, t, kick); torwart(K, t)
+    start = (ELFER[0], ELFER[1] - 30)
+    if art == "eiern":
+        S["rot"] += 14 * math.sin(t * 16)  # die Schützin eiert schon beim Anlauf
+        if u < kick:
+            ex.append(("ball", start[0], start[1], 46, 0)); K["expr"] = "angry"
+        elif u < rein:
+            q = (u - kick) / (rein - kick)
+            zick = math.sin(q * 3 * math.pi) * 230 * (1 - 0.5 * q)
+            x = lerp(start[0], tor[0], q) + zick; y = lerp(start[1], tor[1], q) - math.sin(q * math.pi) * 140
+            ex.append(("ball", x, y, lerp(46, 30, q), u * 40))
+            K["x"] = 540 - zick * 1.1; K["y"] = TORLINIE - 90 * abs(math.sin(q * 3 * math.pi)); K["rot"] = -zick * 0.12
+            K["expr"] = "shock"; S["expr"] = "grin"
+            if q > 0.25: ex.append(("burst", 330, 1000, 120, p.get("word", "EIER-BALL!"), clamp((q - 0.25) / 0.3)))
+        else:
+            K["x"] = 360; K["rot"] = -80; K["y"] = TORLINIE + 20; K["expr"] = "dizzy"; S["expr"] = "grin"
+            tor_rein(u, rein, tor, ex, p.get("word2", "TOOOR!"))
+        for k in range(1, 4): evs.append((kick + (rein - kick) * k / 3.4, "boing"))
+        evs += [(rein, "boom")]
+    elif art == "leer":
+        weg = p.get("weg", 0.12)
+        if u > weg:  # Torwart kullert seitlich aus dem Kasten und bleibt draußen liegen
+            q = clamp((u - weg) / 0.3)
+            K["x"] = lerp(540, 110, ease_out(q)); K["rot"] = 540 * q; K["y"] = TORLINIE - math.sin(q * math.pi) * 60 + 30 * q
+            K["expr"] = "shock" if q < 1 else "dizzy"
+            if q >= 1: K["rot"] = 90 + 6 * math.sin(t * 8)
+            ex.append(("burst", 200, TORLINIE - 380, 120, p.get("word", "KULLER!"), clamp((u - weg) / 0.3)))
+        if u < kick:
+            ex.append(("ball", start[0], start[1], 46, 0))
+        elif u < rein:
+            q = (u - kick) / (rein - kick)
+            ex.append(("ball", lerp(start[0], tor[0], q), lerp(start[1], tor[1] + 60, q), lerp(46, 30, q), u * 12))
+            S["expr"] = "grin"
+        else:
+            S["expr"] = "grin"; tor_rein(u, rein, (tor[0], tor[1] + 60), ex, p.get("word2", "TOR!"))
+        evs += [(weg, "whoosh"), (weg + 0.3, "thud"), (rein, "boom_s")]
+    else:  # sahne
+        hit = p.get("platsch", 0.42); gesicht = (540, TORLINIE - 200)
+        if u < kick:
+            ex.append(("ball", start[0], start[1], 46, 0)); K["expr"] = "angry"
+        elif u < hit:
+            x, y, r, q = flug(u, kick, hit, start, gesicht, 46, 34, 120)
+            K["x"] = 540; ex.append(("ball", x, y, r, u * 30)); K["expr"] = "shock"
+        else:
+            q = clamp((u - hit) / 0.5)
+            K["x"] = 540 + 70 * math.sin((u - hit) * 14) * (u < rein + 0.1); K["rot"] = 8 * math.sin(t * 11); K["expr"] = "shock"
+            ex.append(("splash", K["x"], gesicht[1], clamp((u - hit) / 0.5)))
+            ex.append(("klecks", K["x"], gesicht[1] + 10, int(110 * min(1, (u - hit) / 0.05 + 0.3))))
+            ex.append(("burst", 540, 760, 200, p.get("word", "PLATSCH!"), clamp((u - hit) / 0.4)))
+            if u < hit + 0.06: ex.append(("shake", 16))
+            S["expr"] = "grin"
+            boden = (tor[0] + 40, TORLINIE - 40)
+            if u < rein:  # Ball plumpst runter und kullert langsam am blinden Torwart vorbei ins Netz
+                q2 = (u - hit) / (rein - hit)
+                if q2 < 0.12:
+                    x, y, r, _ = flug(q2, 0, 0.12, gesicht, (560, TORLINIE + 10), 34, 30, 40)
+                else:
+                    x, y, r, _ = flug(q2, 0.12, 1, (560, TORLINIE + 10), boden, 30, 30, 0)
+                ex.append(("ball", x, y, r, u * 8))
+            else:
+                tor_rein(u, rein, boden, ex, p.get("word2", "TOOOR!"))
+        evs += [(hit, "boom_s"), (hit + 0.02, "pop"), (rein, "boom")]
+    return evs
+
+
+def act_schwindel(u, t, A, V, ai, p, ex):
+    """Ring (ab 1.8.0): A eiert immer schneller im Kreis um V, V dreht sich mit, wird schwindelig und kippt um. A = Gewinner"""
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    los, fall = p.get("los", 0.14), p.get("hit", 0.7); R = p.get("radius", 340); cx = p.get("mitte_x", 560)
+    V["x"] = lerp(hV, cx, ease_out(clamp(u / los)))  # V geht in die Ringmitte, A kreist um V
+    if u < los:
+        q = ease_out(u / los); A["x"] = lerp(hA, cx - dr * R, q); A["expr"] = "grin"; V["expr"] = "angry"
+    elif u < fall:
+        q = (u - los) / (fall - los); ph = math.pi + 2 * math.pi * (2.2 * q * q + 0.8 * q) * (-dr)  # immer schneller
+        A["x"] = cx + R * math.cos(ph); A["y"] = FLOOR - 30 - 60 * math.sin(ph); A["rot"] = 22 * math.sin(t * 14); A["expr"] = "grin"
+        vorn = math.sin(ph) < 0
+        A["z"] = -FLOOR + 1 if vorn else -FLOOR - 400
+        A["sc"] *= 1.0 if vorn else 0.88
+        V["look"] = (1 if A["x"] > V["x"] else -1, 0)
+        V["rot"] = 10 * q * math.sin(t * 9); V["expr"] = "shock" if q < 0.55 else "dizzy"
+        if q > 0.45: ex.append(("burst", hV, 560, 120, p.get("word", "SCHWINDELIG!"), clamp((q - 0.45) / 0.3)))
+        if q > 0.6: ex.append(("speed",))
+    else:
+        q = clamp((u - fall) / 0.07)
+        A["x"] = cx - dr * R; A["expr"] = "grin"; A["y"] = FLOOR - abs(math.sin(t * 9)) * 30
+        V["rot"] = dr * 95 * ease_in(q); V["y"] = FLOOR + 45 * q; V["expr"] = "dizzy"
+        if u < fall + 0.08: ex.append(("shake", 24))
+        ex.append(("burst", 540, 760, 230, p.get("word2", "PLUMPS!"), clamp((u - fall) / 0.45)))
+    evs = [(los + k * 0.09, "whoosh") for k in range(int((fall - los) / 0.09))]
+    return evs + [(fall, "boom"), (fall + 0.05, "boing")]
+
+
+ACTIONS = {"elfer2": act_elfer2, "schwindel": act_schwindel, "elfer": act_elfer, "ueberholen": act_ueberholen, "huepf": act_huepf, "handtuch": act_handtuch, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}

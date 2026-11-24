@@ -1,0 +1,212 @@
+{
+ "episode": 18,
+ "seed": 181,
+ "arena": "fussball",
+ "bg_top": [
+  40,
+  70,
+  150
+ ],
+ "guest": {
+  "kind": "apple",
+  "name": "Schiri Ron der Apfel",
+  "thanks": "SCHIRI|Idee: @Webby_3000",
+  "x": 985
+ },
+ "fighters": [
+  {
+   "kind": "lemon",
+   "name": "Zitronen-Zora",
+   "short": "Zora",
+   "color": [
+    255,
+    235,
+    60
+   ]
+  },
+  {
+   "kind": "strawberry",
+   "name": "Erdbeer-Emma",
+   "short": "Emma",
+   "color": [
+    255,
+    90,
+    110
+   ]
+  }
+ ],
+ "nebenrollen": [
+  {
+   "short": "Kalle",
+   "color": [
+    200,
+    140,
+    90
+   ]
+  }
+ ],
+ "tail": 1.5,
+ "segments": [
+  {
+   "scene": "intro",
+   "text": "Emma hat Zora im Ring auf Sahne ausrutschen lassen! Heute rächt sich Zora – beim Elfmeter!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Zora",
+   "text": "Diesmal rutsch ich nicht. Ich hab Stollen!"
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Emma",
+   "text": "Süß. Ich hab gar nichts dabei. Ehrlich."
+  },
+  {
+   "scene": "guest",
+   "text": "Schiri Ron filzt Emma. Keine Sahne. Anpfiff!"
+  },
+  {
+   "scene": "banner",
+   "label": "SCHUSS 1: EIER-BALL",
+   "color": [
+    235,
+    200,
+    30
+   ],
+   "text": "Schuss eins!"
+  },
+  {
+   "scene": "action",
+   "type": "elfer2",
+   "art": "eiern",
+   "actor": 0,
+   "word": "EIER-BALL!",
+   "text": "Zoras Ball eiert! Links, rechts, links... Emma springt ins Leere! Punkt für Zora!",
+   "kick": 0.12,
+   "hit": 0.65
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Emma",
+   "loser_expr": "angry",
+   "text": "Der Ball ist ja betrunken!"
+  },
+  {
+   "scene": "banner",
+   "label": "SCHUSS 2: LEERES TOR",
+   "color": [
+    240,
+    110,
+    140
+   ],
+   "text": "Schuss zwei!"
+  },
+  {
+   "scene": "action",
+   "type": "elfer2",
+   "art": "leer",
+   "actor": 1,
+   "word": "KULLER!",
+   "word2": "TOR!",
+   "text": "Zora kullert vor Aufregung aus dem Tor! Emma schiebt gemütlich ein. Punkt für Emma!",
+   "weg": 0.05,
+   "kick": 0.55,
+   "hit": 0.81
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Zora",
+   "loser_expr": "sad",
+   "show_score": true,
+   "text": "Ich bin einfach zu rund!"
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Eins zu eins! Finale!"
+  },
+  {
+   "scene": "action",
+   "type": "elfer2",
+   "art": "sahne",
+   "actor": 1,
+   "word": "PLATSCH!",
+   "text": "Emma schießt... Platsch! Sahne mitten in Zoras Gesicht! Der Ball war mit Sahne gefüllt! Zora sieht nichts. Tor!",
+   "kick": 0.05,
+   "platsch": 0.11,
+   "hit": 0.96
+  },
+  {
+   "scene": "win",
+   "side": 1,
+   "text": "ERDBEER-EMMA GEWINNT!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Kalle",
+   "teaser": "coconut",
+   "text": "Zora! Du hast mein altes Pflaster geklaut. Morgen im Ring hol ich's mir!"
+  },
+  {
+   "scene": "cta",
+   "line1": "SAHNE-BALL ERLAUBT?",
+   "line2": "JA ODER NEIN?",
+   "text": "Ist ein Sahne-Ball erlaubt? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Zora",
+   "line1": "SAHNE-BALL ERLAUBT?",
+   "line2": "JA ODER NEIN?",
+   "text": "Und wisst ihr, was Emma mir im Ring angetan hat?"
+  }
+ ],
+ "bounds": [
+  4.25,
+  5.35,
+  6.93,
+  8.27,
+  8.78,
+  10.89,
+  11.69,
+  13.42,
+  14.58,
+  15.32,
+  16.28,
+  17.69,
+  19.27,
+  20.78,
+  22.02,
+  24.06,
+  24.73,
+  27.82,
+  29.45,
+  30.48,
+  32.59,
+  33.89,
+  34.93,
+  35.77,
+  36.03,
+  38.88,
+  40.7,
+  42.54,
+  42.77,
+  44.39,
+  45.25,
+  47.42,
+  49.23,
+  50.98,
+  52.17,
+  53.53
+ ]
+}

@@ -190,11 +190,11 @@ def confetti(d, t):
                        (xx - 14 * math.cos(a) + 6, y - 8 * math.sin(a) + 12), (xx + 14 * math.cos(a) + 6, y + 8 * math.sin(a) + 12)], fill=c)
 
 SPLASH = [(random.uniform(-1, 1), random.uniform(-1.4, -0.4), random.uniform(10, 22)) for _ in range(60)]
-def splash(d, cx, cy, u):
+def splash(d, cx, cy, u, farbe=(250, 250, 245)):
     if u <= 0 or u > 1: return
     for vx, vy, r_ in SPLASH:
         x = cx + vx * 700 * u; y = cy + vy * 700 * u + 1400 * u * u
-        d.ellipse([x - r_, y - r_, x + r_, y + r_], fill=(250, 250, 245), outline=(200, 200, 190))
+        d.ellipse([x - r_, y - r_, x + r_, y + r_], fill=tuple(farbe), outline=tuple(int(c * 0.8) for c in farbe))
 
 def topbar(img, sc, pulse):
     d = ImageDraw.Draw(img)
@@ -485,6 +485,12 @@ def frame(t, collect_sfx=False):
                     continue
                 d.ellipse([x - 26, y - 26, x + 26, y + 26], fill=(70, 150, 60), outline=OC, width=4)
                 d.ellipse([x - 18, y - 18, x + 18, y + 18], fill=(190, 230, 150))
+        elif e[0] == "klecks":  # Sahne-Klecks im Gesicht (ab 1.8.0)
+            x, y, r_ = e[1], e[2], e[3]; rnd_ = random.Random(31)
+            for _ in range(6):
+                ox, oy, rr = rnd_.uniform(-0.6, 0.6) * r_, rnd_.uniform(-0.4, 0.5) * r_, rnd_.uniform(0.35, 0.55) * r_
+                d.ellipse([x + ox - rr, y + oy - rr, x + ox + rr, y + oy + rr], fill=(255, 255, 255), outline=(195, 195, 205), width=4)
+            d.ellipse([x - 0.5 * r_, y - 0.35 * r_, x + 0.5 * r_, y + 0.35 * r_], fill=(255, 255, 255))
         elif e[0] == "cherry":
             x, y = e[1], e[2]
             d.line([(x, y - 40), (x + 30, y - 95)], fill=(60, 120, 40), width=8)
@@ -562,7 +568,7 @@ def frame(t, collect_sfx=False):
             if e[1] < 0.12: img.alpha_composite(Image.new("RGBA", img.size, (255, 255, 255, int(220 * (1 - e[1] / 0.12))))); dd = ImageDraw.Draw(img, "RGBA")
             dd.rectangle([24, 345, W - 24, H - 290], outline=(255, 255, 255), width=8)
             text_c(dd, (540, 420), "ZIELFOTO", font(80), fill=(255, 230, 0), stroke=8)
-        elif k == "splash": splash(ImageDraw.Draw(img), e[1], e[2], e[3])
+        elif k == "splash": splash(ImageDraw.Draw(img), e[1], e[2], e[3], *(e[4:5]))
         elif k == "big" and e[2] > 0:
             text_c(ImageDraw.Draw(img), (540, 560), e[1], font(190 * back_out(e[2] / 0.4)), fill=(255, 230, 0), stroke=14)
         elif k == "cta":

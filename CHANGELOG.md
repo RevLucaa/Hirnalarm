@@ -2,6 +2,13 @@
 
 Versionen des Renderers (`render/__init__.py` → `VERSION`). Jede Folge nennt im Release die Version, mit der sie gerendert wurde.
 
+## 1.8.0 – 24.11.2026
+- Neue Fußball-Aktion `elfer2` (A = Schütze und Punktgewinner) mit `art`: `eiern` (Ball eiert im Zickzack, Torwart springt ins Leere), `leer` (Torwart kullert vor Aufregung aus dem Tor, Ball rollt ins leere Tor; `weg`), `sahne` (Sahne-Ball platzt im Gesicht des Torwarts, Klecks bleibt, Ball kullert ins Netz; `platsch`)
+- Neue Ring-Aktion `schwindel` (A eiert immer schneller im Kreis um V, V wird schwindelig und kippt um; `los`, `hit`, `radius`, `mitte_x`)
+- `clash`: Zeitpunkt des Aufpralls einstellbar (`hit`, Standard 0.36 wie bisher), Spritzer-Farbe `splash_farbe`
+- Neues Extra `klecks` (Sahne im Gesicht)
+- Bestehende Aktionen und Folgen unverändert (Bild-Test bitgenau gleich)
+
 ## 1.7.0 – 23.11.2026
 - Neue Renn-Aktionen: `ueberholen` (Figur bleibt stehen und winkt in die Tribüne, die andere zieht vorbei; `word`, `word2`, `stopp`), `huepf` (Riesensprünge auf der Zielgeraden, Zielfoto „um ein Haar“; `foto`, `spruenge`, `haar_u`)
 - Neue Ring-Aktion `handtuch` (Gast/Sekundant wirft ein Handtuch ins Gesicht, Figur tappt blind, wird aus dem Ring gerammt; `von_x`, `kleb`, `hit`, `tuch_y`)
