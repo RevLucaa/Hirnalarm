@@ -400,7 +400,8 @@ def frame(t, collect_sfx=False):
             rnd_ = random.Random(5)
             for _ in range(9):
                 px_ = e[1] + rnd_.uniform(-e[2], e[2]); w_ = rnd_.uniform(50, 95)
-                d.ellipse([px_ - w_, FLOOR - 18, px_ + w_, FLOOR + 22], fill=(255, 255, 255), outline=(200, 200, 210), width=4)
+                py_ = e[3] if len(e) > 3 else FLOOR  # ab 1.9.0: eigene Höhe (Bahn)
+                d.ellipse([px_ - w_, py_ - 18, px_ + w_, py_ + 22], fill=(255, 255, 255), outline=(200, 200, 210), width=4)
     for e in ex:
         if e[0] == "peel":
             p_ = PEEL.rotate(e[3], expand=True); img.alpha_composite(p_, (int(e[1] - p_.size[0] / 2), int(e[2] - p_.size[1] + 40)))
@@ -491,6 +492,11 @@ def frame(t, collect_sfx=False):
                 ox, oy, rr = rnd_.uniform(-0.6, 0.6) * r_, rnd_.uniform(-0.4, 0.5) * r_, rnd_.uniform(0.35, 0.55) * r_
                 d.ellipse([x + ox - rr, y + oy - rr, x + ox + rr, y + oy + rr], fill=(255, 255, 255), outline=(195, 195, 205), width=4)
             d.ellipse([x - 0.5 * r_, y - 0.35 * r_, x + 0.5 * r_, y + 0.35 * r_], fill=(255, 255, 255))
+        elif e[0] == "haar":  # einzelnes Kiwi-Haar zum Kitzeln (ab 1.9.0): x, y (Mitte), Winkel
+            x, y, a_ = e[1], e[2], math.radians(e[3]); pts = []
+            for j in range(9):
+                q = j / 8 - 0.5; pts.append((x + math.cos(a_) * 220 * q - math.sin(a_) * 12 * math.sin(q * 12 + t * 20), y + math.sin(a_) * 220 * q + math.cos(a_) * 12 * math.sin(q * 12 + t * 20)))
+            d.line(pts, fill=OC, width=16, joint="curve"); d.line(pts, fill=(150, 105, 50), width=9, joint="curve")
         elif e[0] == "cherry":
             x, y = e[1], e[2]
             d.line([(x, y - 40), (x + 30, y - 95)], fill=(60, 120, 40), width=8)

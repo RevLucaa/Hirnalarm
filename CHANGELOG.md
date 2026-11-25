@@ -2,6 +2,15 @@
 
 Versionen des Renderers (`render/__init__.py` → `VERSION`). Jede Folge nennt im Release die Version, mit der sie gerendert wurde.
 
+## 1.9.0 – 25.11.2026
+- Neue Renn-Aktion `rutsch` (A = Gewinner): V wirft vor Schreck eine Sahnedose weg, sie landet vor den eigenen Füßen, V rutscht aus und dreht sich, A läuft als Erster ins Ziel (`wurf`, `hit`, `pfuetze_x`, `ziel_x`, `ziel_u`, `word`, `word2`)
+- Neue Ring-Aktion `kitzeln` (A = Punktgewinner): A kitzelt V mit einem Haar am Bauch, V lacht, wackelt und kippt um (`hit`, `word`, `word2`); neues Extra `haar`
+- `ueberholen`: Gesichtsausdruck der stehenden Figur einstellbar (`v_expr`, Standard `grin` wie bisher)
+- `race`: Start verzögerbar (`los`), davor optional ein Zuruf als Sprechblase (`ruf`); Position der PLUMPS-Blase einstellbar (`plumps_x`)
+- Bahn: die Figur auf der vorderen Bahn wird jetzt immer vor der hinteren gezeichnet (vorher lag der Schatten der hinteren Figur manchmal über dem Gesicht der vorderen; ändert das Aussehen von Renn-Aktionen in F12/F16 minimal)
+- Sahne-Pfütze (`puddle`) kann auf beliebiger Höhe liegen (Bahn)
+- Bestehende Aktionen und Folgen unverändert
+
 ## 1.8.0 – 24.11.2026
 - Neue Fußball-Aktion `elfer2` (A = Schütze und Punktgewinner) mit `art`: `eiern` (Ball eiert im Zickzack, Torwart springt ins Leere), `leer` (Torwart kullert vor Aufregung aus dem Tor, Ball rollt ins leere Tor; `weg`), `sahne` (Sahne-Ball platzt im Gesicht des Torwarts, Klecks bleibt, Ball kullert ins Netz; `platsch`)
 - Neue Ring-Aktion `schwindel` (A eiert immer schneller im Kreis um V, V wird schwindelig und kippt um; `los`, `hit`, `radius`, `mitte_x`)

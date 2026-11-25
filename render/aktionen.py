@@ -24,6 +24,10 @@ def base_state(i, t):
 
 def act_race(u, t, A, V, ai, p, ex):
     dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    los = p.get("los", 0)  # ab 1.9.0: Start verzögern; optional Zuruf (ruf) vorher
+    if los:
+        if p.get("ruf") and u < los + 0.1: ex.append(("burst", 540, 560, 200, p["ruf"], clamp(u / 0.3)))
+        u = clamp((u - los) / (1 - los))
     off = W + 260 if dr > 0 else -260; back = -260 if dr > 0 else W + 260
     A["x"] = lerp(hA, off, ease_in(u / 0.35)) if u < 0.35 else lerp(back, hA + dr * 120, ease_out((u - 0.35) / 0.3))
     A["rot"] = -12 * dr if u < 0.65 else 0; A["expr"] = "grin"
@@ -31,7 +35,7 @@ def act_race(u, t, A, V, ai, p, ex):
         if u < 0.55: V["x"] = lerp(hV, hV + dr * 90, u / 0.55); V["expr"] = "angry"
         else:
             q = clamp((u - 0.55) / 0.15); V["x"] = hV + dr * 90; V["rot"] = -dr * 85 * ease_out(q); V["y"] = FLOOR + 40 * q; V["expr"] = "dizzy"
-            ex.append(("burst", V["x"], 950, 140, "PLUMPS!", clamp((u - 0.55) / 0.4)))
+            ex.append(("burst", p.get("plumps_x", V["x"]), 950, 140, "PLUMPS!", clamp((u - 0.55) / 0.4)))
     else:
         V["x"] = lerp(hV, hV + dr * 140, u); V["rot"] = -dr * u * 200; V["expr"] = "shock" if u > 0.5 else "happy"
     if 0.15 < u < 0.65: ex.append(("speed",))
@@ -298,6 +302,7 @@ def lauf_pose(ch, i, t, x, rennt=True):
         ch["y"] = boden - abs(math.sin(t * 15 + i * 1.3)) * 45; ch["rot"] = -9; ch["sy"] = 1 + 0.04 * math.sin(t * 30 + i)
     else:
         ch["y"] = boden
+    ch["z"] = 10000 * i - ch["y"]  # ab 1.9.0: vordere Bahn immer vorn zeichnen (Schatten nicht mehr übers Gesicht)
 
 
 def act_dash(u, t, A, V, ai, p, ex):
@@ -368,7 +373,7 @@ def act_ueberholen(u, t, A, V, ai, p, ex):
     if u < stopp:
         lauf_pose(V, vi, t, lerp(520, 600, u / stopp)); V["expr"] = "grin"
     else:
-        lauf_pose(V, vi, t, 600, rennt=False); V["look"] = (0, -1); V["expr"] = "grin" if u < 0.62 else "shock"
+        lauf_pose(V, vi, t, 600, rennt=False); V["look"] = (0, -1); V["expr"] = p.get("v_expr", "grin") if u < 0.62 else "shock"
         V["rot"] = 14 * math.sin(t * 16) if u < 0.62 else 0
         ex.append(("burst", 640, 600, 130, p.get("word", "WINK WINK!"), clamp((u - stopp) / 0.35)))
         if u > 0.62: ex.append(("burst", 330, 820, 120, p.get("word2", "UPS!"), clamp((u - 0.62) / 0.3)))
@@ -632,4 +637,60 @@ def act_schwindel(u, t, A, V, ai, p, ex):
     return evs + [(fall, "boom"), (fall + 0.05, "boing")]
 
 
-ACTIONS = {"elfer2": act_elfer2, "schwindel": act_schwindel, "elfer": act_elfer, "ueberholen": act_ueberholen, "huepf": act_huepf, "handtuch": act_handtuch, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}
+def act_rutsch(u, t, A, V, ai, p, ex):
+    """Rennen, Zielgerade (ab 1.9.0): V führt, wirft vor Schreck eine Sahnedose weg, die vor den eigenen Füßen landet.
+    V rutscht aus und dreht sich, A läuft als Erster ins Ziel. A = Gewinner. Parameter: wurf, hit (Ausrutschen), ziel_x, word, word2"""
+    vi = 1 - ai; zx = p.get("ziel_x", 820); wurf = p.get("wurf", 0.16); slip = p.get("hit", 0.42); land = slip - 0.06
+    ex.append(("ziel", zx))
+    px = p.get("pfuetze_x", 600)  # hier landet die Sahne
+    if wurf <= u < land:  # Dose fliegt hoch und landet vor V
+        q = (u - wurf) / (land - wurf)
+        ex.append(("proj", lerp(560, px, q), lerp(BAHN[vi] - 330, BAHN[vi] - 20, q) - math.sin(q * math.pi) * 420, "cream"))
+    if u >= land: ex.append(("puddle", px, 110, BAHN[vi]))
+    if u < slip:
+        lauf_pose(V, vi, t, lerp(520, px - 20, u / slip)); V["expr"] = "shock" if u > wurf - 0.06 else "grin"
+    else:
+        q = clamp((u - slip) / 0.35)
+        lauf_pose(V, vi, t, px - 20 + 110 * ease_out(q), rennt=False)
+        V["rot"] = -(1 - (1 - q) ** 2) * 630 if q < 1 else -270; V["y"] = BAHN[vi] - math.sin(q * math.pi) * 200 + 30 * q
+        V["expr"] = "shock" if q < 0.5 else "dizzy"
+        if u < slip + 0.07: ex.append(("shake", 16))
+        ex.append(("burst", 560, 640, 150, p.get("word", "RUTSCH!"), clamp((u - slip) / 0.4)))
+    zt = p.get("ziel_u", 0.86)
+    lauf_pose(A, ai, t, lerp(300, zx + 90, ease_in(clamp(u / zt))) if u < zt else zx + 90, rennt=u < zt)
+    A["expr"] = "angry" if u < slip else "grin"
+    if u >= zt: A["y"] = BAHN[ai] - abs(math.sin(t * 9)) * 40
+    if slip < u < zt: ex.append(("speed",))
+    if u < zt: ex.append(("lauf",))
+    else: ex.append(("burst", 540, 1080, 150, p.get("word2", "ZIEL!"), clamp((u - zt) / 0.3)))
+    return [(wurf, "whoosh"), (land, "pop"), (slip, "boing"), (slip + 0.25, "thud"), (zt, "pop")]
+
+
+def act_kitzeln(u, t, A, V, ai, p, ex):
+    """Ring (ab 1.9.0): A zupft sich ein Haar aus und kitzelt V am Bauch, V lacht, wackelt und kippt um. A = Punktgewinner.
+    Parameter: hit (Umkippen), word, word2"""
+    dr = 1 if ai == 0 else -1; hA, hV = HOME[ai], HOME[1 - ai]
+    zupf, kitz, fall = 0.14, 0.28, p.get("hit", 0.72)
+    ax = lerp(hA, hV - dr * 390, ease_out(clamp(u / zupf)))
+    A["x"] = ax; A["expr"] = "grin"
+    if u < kitz:  # Haar hochhalten
+        q = clamp((u - zupf) / (kitz - zupf))
+        if u >= zupf: ex.append(("haar", ax + dr * 60, FLOOR - 420 - 60 * q, -dr * 60 * q))
+        V["expr"] = "angry"
+    elif u < fall:
+        wk = math.sin(t * 38)
+        ex.append(("haar", hV - dr * 230 + 25 * wk, FLOOR - 240, dr * (10 + 15 * wk)))
+        V["rot"] = 9 * math.sin(t * 30); V["sy"] = 1 + 0.06 * math.sin(t * 45); V["expr"] = "grin"
+        V["y"] = FLOOR - abs(math.sin(t * 20)) * 25
+        ex.append(("burst", hV, 560, 130, p.get("word", "HIHIHI!"), clamp((u - kitz) / 0.3)))
+    else:
+        q = clamp((u - fall) / 0.12)
+        V["rot"] = dr * 95 * ease_in(q); V["y"] = FLOOR + 45 * q; V["expr"] = "grin"
+        V["sx"] = 1 + 0.04 * math.sin(t * 40)
+        if u < fall + 0.08: ex.append(("shake", 22))
+        ex.append(("burst", 540, 760, 230, p.get("word2", "PLUMPS!"), clamp((u - fall) / 0.45)))
+    evs = [(0.03, "whoosh"), (zupf, "pop")] + [(kitz + k * 0.08, "pop") for k in range(int((fall - kitz) / 0.08))]
+    return evs + [(fall, "boom"), (fall + 0.05, "boing")]
+
+
+ACTIONS = {"rutsch": act_rutsch, "kitzeln": act_kitzeln, "elfer2": act_elfer2, "schwindel": act_schwindel, "elfer": act_elfer, "ueberholen": act_ueberholen, "huepf": act_huepf, "handtuch": act_handtuch, "bowl": act_bowl, "catapult": act_catapult, "roots": act_roots, "drop": act_drop, "kickback": act_kickback, "race": act_race, "slam": act_slam, "post": act_post, "spin": act_spin, "headbutt": act_headbutt, "clash": act_clash, "throw": act_throw, "miss": act_miss, "dash": act_dash, "propeller": act_propeller, "surf": act_surf}

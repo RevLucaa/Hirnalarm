@@ -1,0 +1,208 @@
+{
+ "episode": 21,
+ "seed": 211,
+ "bg_top": [
+  110,
+  20,
+  40
+ ],
+ "mat": [
+  230,
+  190,
+  60
+ ],
+ "belt": true,
+ "fighters": [
+  {
+   "kind": "kiwi",
+   "name": "Kiwi-Kevin",
+   "short": "Kevin",
+   "color": [
+    150,
+    215,
+    70
+   ]
+  },
+  {
+   "kind": "melon",
+   "name": "Melonen-Manni",
+   "short": "Manni",
+   "color": [
+    110,
+    200,
+    80
+   ]
+  }
+ ],
+ "nebenrollen": [
+  {
+   "short": "Gustav",
+   "color": [
+    90,
+    200,
+    150
+   ]
+  }
+ ],
+ "tail": 1.5,
+ "segments": [
+  {
+   "scene": "intro",
+   "belt_on": 1,
+   "text": "Kiwi-Kevin ist ungeschlagen! Heute will er Mannis Gürtel – im Titelkampf!"
+  },
+  {
+   "scene": "tag",
+   "side": 0,
+   "speaker": "Kevin",
+   "text": "Dein Gürtel passt mir bestimmt als Schal!",
+   "belt_on": 1
+  },
+  {
+   "scene": "tag",
+   "side": 1,
+   "speaker": "Manni",
+   "belt_on": 1,
+   "text": "Hol ihn dir, Kleiner. Wenn du dich traust."
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 1: MELONEN-RAMMBOCK",
+   "color": [
+    60,
+    170,
+    80
+   ],
+   "text": "Runde eins: Melonen-Rammbock!",
+   "belt_on": 1
+  },
+  {
+   "scene": "action",
+   "type": "headbutt",
+   "actor": 1,
+   "word": "BOING!",
+   "text": "Manni rammt Kevin in die Seile. Kevin federt zurück wie ein Flummi! Punkt für Manni!",
+   "belt_on": 1
+  },
+  {
+   "scene": "point",
+   "side": 1,
+   "speaker": "Kevin",
+   "loser_expr": "dizzy",
+   "text": "Boing! Mir ist schwindelig!",
+   "belt_on": 1
+  },
+  {
+   "scene": "banner",
+   "label": "RUNDE 2: KITZEL-ATTACKE",
+   "color": [
+    150,
+    215,
+    70
+   ],
+   "text": "Runde zwei: Kitzel-Attacke!",
+   "belt_on": 1
+  },
+  {
+   "scene": "action",
+   "type": "kitzeln",
+   "actor": 0,
+   "word": "HIHIHI!",
+   "word2": "UMGEKIPPT!",
+   "text": "Kevin kitzelt Manni mit einem Haar am Bauch! Manni lacht, bis er umkippt! Punkt für Kevin!",
+   "hit": 0.71,
+   "belt_on": 1
+  },
+  {
+   "scene": "point",
+   "side": 0,
+   "speaker": "Manni",
+   "loser_expr": "grin",
+   "show_score": true,
+   "text": "Hahaha! Nicht! Ich bin kitzlig!",
+   "belt_on": 1
+  },
+  {
+   "scene": "banner",
+   "label": "FINALE!",
+   "color": [
+    230,
+    30,
+    50
+   ],
+   "shake": true,
+   "text": "Eins zu eins! Finale!",
+   "belt_on": 1
+  },
+  {
+   "scene": "action",
+   "type": "race",
+   "actor": 0,
+   "trip": true,
+   "text": "Kevins Oma ruft von der Tribüne: Essen ist fertig! Kevin rast los, einmal um die Halle! Manni stolpert hinterher. Plumps!",
+   "los": 0.4,
+   "ruf": "ESSEN IST FERTIG!",
+   "belt_on": 1,
+   "plumps_x": 760
+  },
+  {
+   "scene": "win",
+   "side": 0,
+   "text": "KIWI-KEVIN IST NEUER CHAMPION!"
+  },
+  {
+   "scene": "tease",
+   "speaker": "Gustav",
+   "teaser": "cucumber",
+   "text": "Haarige Kartoffel mit Gürtel? Bernd, morgen beim Elfmeter gewinne ich!"
+  },
+  {
+   "scene": "cta",
+   "line1": "HAT OMA GEHOLFEN?",
+   "line2": "JA ODER NEIN?",
+   "text": "Hat Oma beim Titelkampf geholfen? Ja oder nein? Schreib's in die Kommentare!"
+  },
+  {
+   "scene": "cta",
+   "speaker": "Manni",
+   "line1": "HAT OMA GEHOLFEN?",
+   "line2": "JA ODER NEIN?",
+   "text": "Und wisst ihr, wer jetzt meinen Gürtel trägt?"
+  }
+ ],
+ "bounds": [
+  1.64,
+  4.37,
+  7.06,
+  8.49,
+  10.0,
+  11.01,
+  12.49,
+  14.28,
+  16.61,
+  17.64,
+  18.21,
+  20.42,
+  21.46,
+  22.57,
+  25.28,
+  27.0,
+  28.11,
+  30.07,
+  30.5,
+  31.34,
+  32.66,
+  33.95,
+  36.04,
+  37.37,
+  39.8,
+  41.77,
+  42.13,
+  44.36,
+  46.41,
+  49.16,
+  51.34,
+  52.49,
+  53.81
+ ]
+}
