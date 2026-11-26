@@ -247,7 +247,8 @@
    "youtube": null,
    "datum": "2026-11-26 13:00",
    "arena": "bahn",
-   "hinweis": "Instagram eingeplant 26.11. 13:00; YouTube NOCH NICHT hochgeladen: Veröffentlichen am 26.11. 09:06 wurde von der Freigabe-Prüfung der Sitzung blockiert – wartet auf Lucas Freigabe. Video: Release F20, Renderer 1.9.0, ElevenLabs 929 Credits. vidIQ postId 98ced3b3-7155-4429-a42f-ab497ddae401, YouTube-publicationId 5ac90bb5-a0c1-42cb-925c-9c73d36749dc, Instagram-publicationId 4718a75f-2e73-4fbb-bd35-35980507fdf9"
+   "hinweis": "Instagram veröffentlicht 26.11. 13:00. YouTube: Veröffentlichen am 26.11. 09:06 blockiert; am 26.11. abends auf publishAt 27.11. 13:00 umgestellt, Veröffentlichung per geplanter Nachricht am 27.11. 09:05. Video: Release F20, Renderer 1.9.0, ElevenLabs 929 Credits. vidIQ postId 98ced3b3-7155-4429-a42f-ab497ddae401, YouTube-publicationId 5ac90bb5-a0c1-42cb-925c-9c73d36749dc, Instagram-publicationId 4718a75f-2e73-4fbb-bd35-35980507fdf9",
+   "datum_youtube": "2026-11-27 13:00"
   },
   {
    "nr": 21,
@@ -270,7 +271,7 @@
    "neu": [
     "Ab F22 Tabelle (Top 4) am Ende einblenden"
    ],
-   "slot": "Fr 27.11. 13:00"
+   "slot": "Sa 28.11. 13:00"
   },
   {
    "duell": "Ring: Rudi vs. Emma – der ungeschlagene Baum gegen die Sahne-Spezialistin (Emma will nach der Sahnedosen-Pleite aus F20 zurückschlagen)",
@@ -282,7 +283,7 @@
    "neu": [
     "Kevin erstmals mit Gürtel als Gast/Kommentator möglich"
    ],
-   "slot": "Fr 27.11. 17:30"
+   "slot": "So 29.11. 13:00"
   },
   {
    "duell": "Rennen: Rudi vs. Zora – der langsamste Baum gegen die eiernde Zitrone (Rudi will ungeschlagen bleiben, Zora rollt einfach)",
