@@ -187,7 +187,8 @@
    "sieger": "Emma",
    "youtube": null,
    "datum": "2026-11-22 17:30",
-   "hinweis": "YouTube noch NICHT hochgeladen: vidIQ-Tageslimit (3 YouTube-Uploads/Tag für alle Kanäle) am 21.11. und 22.11. ausgeschöpft. Instagram eingeplant 22.11. 17:30. Video: Release F13"
+   "hinweis": "Instagram veröffentlicht 22.11. 17:30. YouTube noch offen: am 28.11. abends auf publishAt 29.11. 13:00 umgestellt, Veröffentlichung per send_later am 29.11. 09:05 geplant. vidIQ postId fe26b045-3e76-4f6b-9817-e7a0669e0e41, YouTube-publicationId 6db3cba8-d8c2-4f80-b0f8-81515af7da24, Instagram-publicationId 61883e37-470a-45a7-9bda-bb5af5cc6fb4. Video: Release F13",
+   "datum_youtube": "2026-11-29 13:00"
   },
   {
    "nr": 14,
@@ -204,7 +205,7 @@
    "sieger": "Bernd",
    "youtube": null,
    "datum": "2026-11-23 17:30",
-   "hinweis": "Instagram eingeplant 23.11. 17:30. YouTube NICHT eingeplant: vidIQ-Tageslimit (3/Tag) auch am 23.11. schon ausgeschöpft (nächster Reset 24.11. 09:00). vidIQ postId 442a4520-551a-4492-9f84-c89daa2a5a41, YouTube-publicationId de19b0d0-460a-4b73-9a95-29e01627ae57. Video: Release F15"
+   "hinweis": "Instagram eingeplant 23.11. 17:30. YouTube NICHT eingeplant: vidIQ-Tageslimit (3/Tag) auch am 23.11. schon ausgeschöpft (nächster Reset 24.11. 09:00). vidIQ postId 442a4520-551a-4492-9f84-c89daa2a5a41, YouTube-publicationId de19b0d0-460a-4b73-9a95-29e01627ae57. Video: Release F15 Stand 28.11.: YouTube weiterhin offen (Entwurf ohne Termin) – kommt nach F13 dran."
   },
   {
    "nr": 16,
@@ -219,9 +220,9 @@
    "nr": 17,
    "duell": "Gustav vs. Kevin – Ring-Revanche (Sekundant Herbert Kiwi, Idee @SvenZapke)",
    "sieger": "Kevin",
-   "youtube": null,
+   "youtube": "nxDqoOz1Cg4",
    "datum": "2026-11-24 17:30",
-   "hinweis": "Instagram veröffentlicht 24.11. 17:30. YouTube: am 24.11. vidIQ-Tageslimit; am 27.11. abends auf publishAt 28.11. 13:00 umgestellt, Veröffentlichen am 28.11. 09:06 von der Freigabe-Prüfung der Sitzung blockiert – YouTube noch offen, wartet auf Lucas Freigabe (Entwurf steht auf 28.11. 13:00). vidIQ postId bd9e652b-936e-4425-aa02-6681551f93f5, YouTube-publicationId add4f3d5-9e36-4648-9877-1de815cc246f, Instagram-publicationId 42a8082b-01b8-49b2-8cae-f491d5de5be4. Video: Release F17, Renderer 1.7.0, ElevenLabs 979 Credits",
+   "hinweis": "Instagram veröffentlicht 24.11. 17:30. YouTube am 28.11. 10:23 UTC über vidIQ hochgeladen (Veröffentlichung 28.11. 13:00). vidIQ postId bd9e652b-936e-4425-aa02-6681551f93f5, YouTube-publicationId add4f3d5-9e36-4648-9877-1de815cc246f, Instagram-publicationId 42a8082b-01b8-49b2-8cae-f491d5de5be4. Video: Release F17, Renderer 1.7.0, ElevenLabs 979 Credits",
    "datum_youtube": "2026-11-28 13:00"
   },
   {
@@ -272,7 +273,7 @@
    "neu": [
     "Ab F22 Tabelle (Top 4) am Ende einblenden"
    ],
-   "slot": "So 29.11. 13:00"
+   "slot": "Di 01.12. 13:00 (nach Nachholen F13 29.11., F15 30.11.)"
   },
   {
    "duell": "Ring: Rudi vs. Emma – der ungeschlagene Baum gegen die Sahne-Spezialistin (Emma will nach der Sahnedosen-Pleite aus F20 zurückschlagen)",
@@ -284,7 +285,7 @@
    "neu": [
     "Kevin erstmals mit Gürtel als Gast/Kommentator möglich"
    ],
-   "slot": "Mo 30.11. 13:00"
+   "slot": "Mi 02.12. 13:00"
   },
   {
    "duell": "Rennen: Rudi vs. Zora – der langsamste Baum gegen die eiernde Zitrone (Rudi will ungeschlagen bleiben, Zora rollt einfach)",
